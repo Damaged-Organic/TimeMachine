@@ -1,0 +1,92 @@
+# app/config/common/config_sonata_admin.yml
+doctrine:
+    dbal:
+        types:
+            json: Sonata\Doctrine\Types\JsonType
+
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    SonataUserBundle: ~
+                    FOSUserBundle: ~
+                    ApplicationSonataUserBundle: ~
+
+twig:
+    form:
+        resources:
+            - 'SonataCoreBundle:Form:datepicker.html.twig'
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+        sonata.admin.block.search_result:
+            contexts: [admin]
+        sonata.user.block.menu:
+        sonata.user.block.account:
+        sonata.block.service.text:
+
+parameters:
+    sonata.user.admin.user.class: AppBundle\Admin\UserAdmin
+
+sonata_user:
+    manager_type: orm
+    class:
+        user:  Application\Sonata\UserBundle\Entity\User
+        group: Application\Sonata\UserBundle\Entity\Group
+
+fos_user:
+    db_driver:     orm
+    firewall_name: main
+    user_class:    Application\Sonata\UserBundle\Entity\User
+
+    group:
+        group_class:   Application\Sonata\UserBundle\Entity\Group
+        group_manager: sonata.user.orm.group_manager
+
+    service:
+        user_manager: sonata.user.orm.user_manager
+
+sonata_admin:
+    title:      "Dashboard"
+    dashboard:
+        blocks:
+            -
+                position: left
+                type:     sonata.admin.block.admin_list
+            -
+                position: right
+                type:     sonata.block.service.text
+                settings:
+                    content: >
+                        <h2>Система управления содержимым</h2>
+                        <p>
+                            На вашем сайте для модерирования доступны следующие разделы:
+                            <br><br>
+                            <h4>SEO (Поисковая оптимизация)</h4>
+                            В основном это служебная информация для поисковых роботов.
+                            <br><br>
+                            <h4>Пользователи</h4>
+                            Контроль пользователей системы управления.
+                        </p>
+    templates:
+        layout:     ApplicationSonataUserBundle:Admin:standard_layout.html.twig
+        user_block: ApplicationSonataUserBundle:Admin\Core:user_block.html.twig
+
+services:
+    sonata.user.admin.group:
+        abstract: true
+        public:   false
+
+    sonata.admin.metadata:
+            class: AppBundle\Admin\MetadataAdmin
+            tags:
+                - { name: sonata.admin, manager_type: orm, group: "SEO", label: "Метаданные" }
+            arguments:
+                - ~
+                - AppBundle\Entity\Metadata
+                - ~
+            calls:
+                - [ setTranslationDomain, [AppBundle] ]

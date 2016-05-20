@@ -1,0 +1,28 @@
+{# src/AppBundle/Resources/views/State/index.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ 'common.title'|trans }} - {{ metadata.title|default("") }}
+{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="{{ metadata.description|default("") }}" >
+    <meta name="robots" content="{{ metadata.robots }}">
+    <meta property="og:image" content="{{ asset('bundles/app/images/portrait-photo.jpg', absolute=true) }}">
+    <meta property="og:image:type" content="image/jpg">
+    {# Locale reference #}
+    <link rel="canonical" href="{{ url('index_default') }}" />
+    <link rel="alternate" href="{{ url('index', { '_locale': "en" }) }}" hreflang="en-us" />
+    <link rel="alternate" href="{{ url('index', { '_locale': "ru" }) }}" hreflang="ru-ru" />
+    <link rel="alternate" href="{{ url('index', { '_locale': "ru" }) }}" hreflang="x-default" />
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+    Time Machine
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}

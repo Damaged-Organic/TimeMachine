@@ -1,0 +1,19 @@
+{# src/AppBundle/Resources/views/layout.html.twig #}
+{% extends '::base.html.twig' %}
+
+{% block metadata %}
+    {{ parent() }}
+{% endblock %}
+
+{% block favicons %}
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block google_analytics %}{% endblock %}
+
+{% block body %}
+    {% block content %}{% endblock %}
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

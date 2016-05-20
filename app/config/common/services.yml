@@ -1,0 +1,18 @@
+# app/config/common/services.yml
+services:
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+
+    app.page_init_listener:
+        class:     AppBundle\EventListener\PageInitListener
+        scope:     request
+        arguments: [ "@request", "@app.metadata" ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+    app.metadata:
+        class: AppBundle\Service\Metadata
+        arguments:
+            - "@doctrine.orm.entity_manager"

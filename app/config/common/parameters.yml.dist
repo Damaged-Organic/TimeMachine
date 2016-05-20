@@ -1,0 +1,23 @@
+# This file is a "template" of what your parameters.yml file should look like
+parameters:
+    # Database
+    database_driver:   pdo_mysql
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     time_machine
+    database_user:     root
+    database_password: ~
+    # Mailer
+    mailer_transport: smtp
+    mailer_host:      127.0.0.1
+    mailer_user:      ~
+    mailer_password:  ~
+    # Specific
+    domain: time-machine.ru
+    locale: ru
+    # Developers
+    developers_agency:
+        name: CHEERS! Unlimited
+        link: http://cheersunlimited.com.ua
+    # Token
+    secret: ThisTokenIsNotSoSecretChangeIt
