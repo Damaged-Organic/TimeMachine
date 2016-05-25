@@ -5,13 +5,15 @@ namespace AppBundle\Entity\Repository;
 use Doctrine\ORM\EntityRepository,
     Doctrine\ORM\Query;
 
-class MetadataRepository extends EntityRepository
+use AppBundle\Entity\Utility\Extended\ExtendedEntityRepository;
+
+class MetadataRepository extends ExtendedEntityRepository
 {
     public function findOneByRoute($route)
     {
-        $query = $this->createQueryBuilder('metadata')
-            ->select('metadata')
-            ->where('metadata.route = :route')
+        $query = $this->createQueryBuilder('m')
+            ->select('m')
+            ->where('m.route = :route')
             ->setParameter(':route', $route)
             ->getQuery()
         ;

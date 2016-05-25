@@ -22,6 +22,9 @@ class UserAdmin extends SonataUserAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->add('id', 'number', [
+                'label' => "ID",
+            ])
             ->addIdentifier('username')
             ->add('email')
             ->add('enabled', NULL, [
@@ -46,11 +49,15 @@ class UserAdmin extends SonataUserAdmin
     {
         $formMapper
             ->with('General')
-            ->add('username')
-            ->add('email')
-            ->add('plainPassword', 'text', [
-                'required' => ( !$this->getSubject() || is_null($this->getSubject()->getId()) ),
-            ])
+                ->add('username')
+                ->add('email', NULL, [
+                    'label' => "Электронный адрес",
+                ])
+                ->add('plainPassword', 'text', [
+                    'required' => ( !$this->getSubject() || is_null($this->getSubject()->getId()) ),
+                    'label'    => "Открытый пароль (введите для изменения)",
+                ])
+            ->end()
         ;
     }
 }

@@ -8,8 +8,8 @@ use Doctrine\ORM\Mapping as ORM,
 use Gedmo\Mapping\Annotation as Gedmo,
     Gedmo\Translatable\Translatable;
 
-use AppBundle\Entity\Utility\DoctrineMapping\IdMapper,
-    AppBundle\Entity\MetadataTranslation;
+use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
+    AppBundle\Entity\Utility\Traits\DoctrineMapping\TranslationMapper;
 
 /**
  * @ORM\Table(name="metadata")
@@ -19,12 +19,7 @@ use AppBundle\Entity\Utility\DoctrineMapping\IdMapper,
  */
 class Metadata implements Translatable
 {
-    use IdMapper;
-
-    /**
-     * @Gedmo\Locale
-     */
-    protected $locale;
+    use IdMapper, TranslationMapper;
 
     /**
      * @ORM\OneToMany(targetEntity="MetadataTranslation", mappedBy="object", cascade={"persist", "remove"})
@@ -68,38 +63,7 @@ class Metadata implements Translatable
      */
     public function __toString()
     {
-        return ( $this->title ) ? $this->title : "";
-    }
-
-    /**
-     * Set Gedmo locale
-     *
-     * @param string $locale
-     */
-    public function setTranslatableLocale($locale)
-    {
-        $this->locale = $locale;
-    }
-
-    public function getTranslations()
-    {
-        return $this->translations;
-    }
-
-    public function addTranslation(MetadataTranslation $t)
-    {
-        $this->translations->add($t);
-        $t->setObject($this);
-    }
-
-    public function removeTranslation(MetadataTranslation $t)
-    {
-        $this->translations->removeElement($t);
-    }
-
-    public function setTranslations($translations)
-    {
-        $this->translations = $translations;
+        return ( $this->title ) ?: "";
     }
 
     /**
@@ -118,7 +82,7 @@ class Metadata implements Translatable
     /**
      * Get route
      *
-     * @return string 
+     * @return string
      */
     public function getRoute()
     {
@@ -141,7 +105,7 @@ class Metadata implements Translatable
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -164,7 +128,7 @@ class Metadata implements Translatable
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {

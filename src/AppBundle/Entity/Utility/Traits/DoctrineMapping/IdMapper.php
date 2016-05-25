@@ -1,6 +1,6 @@
 <?php
-// src/AppBundle/Entity/Utility/DoctrineMapping/IdMapper.php
-namespace AppBundle\Entity\Utility\DoctrineMapping;
+// src/AppBundle/Entity/Utility/Traits/DoctrineMapping/IdMapper.php
+namespace AppBundle\Entity\Utility\Traits\DoctrineMapping;
 
 use Doctrine\ORM\Mapping as ORM;
 

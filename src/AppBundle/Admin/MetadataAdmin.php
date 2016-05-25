@@ -21,11 +21,14 @@ class MetadataAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->add('id', 'number', [
+                'label' => "ID",
+            ])
             ->addIdentifier('title', 'text', [
                 'label' => "Заголовок страницы",
             ])
             ->add('route', 'text', [
-                'label' => "Роутер (Системная настройка)",
+                'label' => "Роут (Системная настройка)",
             ])
         ;
     }
@@ -33,23 +36,7 @@ class MetadataAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('title', 'text', [
-                'label' => "Заголовок страницы",
-            ])
-            ->add('route', 'text', [
-                'label'    => "Роутер (Системная настройка)",
-                'disabled' => TRUE,
-            ])
-            ->add('description', 'textarea', [
-                'label'    => "Описание страницы",
-                'required' => FALSE,
-            ])
-            ->add('robots', 'text', [
-                'label'    => "Метаданные для поисковых ботов",
-                'required' => FALSE,
-            ])
-            ->end()
-            ->with('Локализации')
+            ->with('Метаданные - Локализованные данные')
                 ->add('translations', 'a2lix_translations_gedmo', [
                     'label'              => "Управление локализациями",
                     'translatable_class' => 'AppBundle\Entity\Metadata',
@@ -57,21 +44,30 @@ class MetadataAdmin extends Admin
                     'fields' => [
                         'title' => [
                             'locale_options' => [
-                                'en' => [
-                                    'label' => "Page title",
-                                ]
+                                'ru' => ['label' => "Заголовок страницы"],
+                                'en' => ['label' => "Page title"],
                             ],
                         ],
                         'description' => [
                             'locale_options' => [
-                                'en' => [
-                                    'label' => "Page description",
-                                ],
+                                'ru' => ['label' => "Описание страницы"],
+                                'en' => ['label' => "Page description"],
                             ],
                             'required' => FALSE,
                         ],
-                    ]
+                    ],
                 ])
+            ->end()
+            ->with('Метаданные - Общие данные')
+                ->add('route', 'text', [
+                    'label'    => "Роут (Системная настройка)",
+                    'disabled' => TRUE,
+                ])
+                ->add('robots', 'text', [
+                    'label'    => "Метаданные для поисковых ботов",
+                    'required' => FALSE,
+                ])
+            ->end()
         ;
     }
 }

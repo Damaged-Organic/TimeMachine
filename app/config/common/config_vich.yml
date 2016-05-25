@@ -6,9 +6,9 @@ twig:
 vich_uploader:
     db_driver: orm
     mappings:
-        some_images:
-            uri_prefix:         /images/some
-            upload_destination: %kernel.root_dir%/../www/images/some
+        musician_photo:
+            uri_prefix:         /uploads/musician/photo
+            upload_destination: %kernel.root_dir%/../www/uploads/musician/photo
             namer:              vich_uploader.namer_uniqid
             delete_on_remove:   true
             delete_on_update:   true

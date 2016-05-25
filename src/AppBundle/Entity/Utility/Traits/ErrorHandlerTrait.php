@@ -1,6 +1,6 @@
 <?php
-// src/AppBundle/Entity/Utility/ErrorHandlerTrait.php
-namespace AppBundle\Entity\Utility;
+// src/AppBundle/Entity/Utility/Traits/ErrorHandlerTrait.php
+namespace AppBundle\Entity\Utility\Traits;
 
 trait ErrorHandlerTrait
 {
