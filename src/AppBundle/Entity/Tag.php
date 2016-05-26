@@ -9,8 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo,
     Gedmo\Translatable\Translatable;
 
 use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
-    AppBundle\Entity\Utility\Traits\DoctrineMapping\TranslationMapper,
-    AppBundle\Entity\MusicianTranslation;
+    AppBundle\Entity\Utility\Traits\DoctrineMapping\TranslationMapper;
 
 /**
  * @ORM\Table(name="tags")

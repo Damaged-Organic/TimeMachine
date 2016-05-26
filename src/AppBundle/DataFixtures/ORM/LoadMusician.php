@@ -23,7 +23,7 @@ class LoadMusician extends AbstractFixture implements OrderedFixtureInterface
             ->setYearOfEntry('1969')
             ->setYearOfExit(NULL)
             ->setIsMainCast(TRUE)
-            ->setVichObjectName("")
+            ->setPhotoName("")
         ;
         $manager->persist($musician_1);
         $manager->flush();
@@ -48,7 +48,7 @@ class LoadMusician extends AbstractFixture implements OrderedFixtureInterface
             ->setYearOfEntry('1979')
             ->setYearOfExit(NULL)
             ->setIsMainCast(TRUE)
-            ->setVichObjectName("")
+            ->setPhotoName("")
         ;
         $manager->persist($musician_2);
         $manager->flush();
@@ -73,7 +73,7 @@ class LoadMusician extends AbstractFixture implements OrderedFixtureInterface
             ->setYearOfEntry('1980')
             ->setYearOfExit(NULL)
             ->setIsMainCast(TRUE)
-            ->setVichObjectName("")
+            ->setPhotoName("")
         ;
         $manager->persist($musician_3);
         $manager->flush();
@@ -98,7 +98,7 @@ class LoadMusician extends AbstractFixture implements OrderedFixtureInterface
             ->setYearOfEntry('2000')
             ->setYearOfExit(NULL)
             ->setIsMainCast(TRUE)
-            ->setVichObjectName("")
+            ->setPhotoName("")
         ;
         $manager->persist($musician_4);
         $manager->flush();
@@ -123,7 +123,7 @@ class LoadMusician extends AbstractFixture implements OrderedFixtureInterface
             ->setYearOfEntry('2015')
             ->setYearOfExit('2015')
             ->setIsMainCast(FALSE)
-            ->setVichObjectName("")
+            ->setPhotoName("")
         ;
         $manager->persist($musician_t);
         $manager->flush();

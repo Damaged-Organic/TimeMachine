@@ -11,6 +11,7 @@ stof_doctrine_extensions:
             translatable: true
             sluggable:    true
             uploadable:   true
+            sortable:     true
 
 doctrine:
     orm:
@@ -23,3 +24,11 @@ doctrine:
                         dir:       "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity/MappedSuperclass"
                         alias:     GedmoTranslatable
                         is_bundle: false
+
+services:
+    gedmo.listener.sortable:
+        class: Gedmo\Sortable\SortableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]

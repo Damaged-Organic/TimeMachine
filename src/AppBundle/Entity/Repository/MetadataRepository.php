@@ -2,8 +2,7 @@
 // src/AppBundle/Entity/Repository/MetadataRepository.php
 namespace AppBundle\Entity\Repository;
 
-use Doctrine\ORM\EntityRepository,
-    Doctrine\ORM\Query;
+use Doctrine\ORM\Query;
 
 use AppBundle\Entity\Utility\Extended\ExtendedEntityRepository;
 

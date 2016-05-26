@@ -2,15 +2,14 @@
 // src/AppBundle/Admin/MusicianAdmin.php
 namespace AppBundle\Admin;
 
-use IntlDateFormatter;
+use DateTime, IntlDateFormatter;
 
 use Sonata\AdminBundle\Admin\Admin,
     Sonata\AdminBundle\Datagrid\ListMapper,
     Sonata\AdminBundle\Datagrid\DatagridMapper,
     Sonata\AdminBundle\Form\FormMapper;
 
-use AppBundle\Entity\Musician,
-    AppBundle\Entity\Tag;
+use AppBundle\Entity\Tag;
 
 class MusicianAdmin extends Admin
 {
@@ -44,19 +43,20 @@ class MusicianAdmin extends Admin
 
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $yearsRange = array_reverse(array_combine(
-            Musician::getYearsActiveRange(),
-            Musician::getYearsActiveRange()
-        ), TRUE);
+        $years = range('1969', (new DateTime())->format('Y'));
+
+        $yearsRange = array_reverse(
+            array_combine($years, $years), TRUE
+        );
 
         if( $musician = $this->getSubject() ) {
-            $vichObjectRequired   = ( $musician->getVichObjectName() ) ? FALSE : TRUE;
-            $vichObjectHelpOption = ( $vichObjectPath = $musician->getVichObjectPath() )
-                ? '<img src="'.$vichObjectPath.'" class="admin-preview" />'
+            $photoRequired   = ( $musician->getPhotoName() ) ? FALSE : TRUE;
+            $photoHelpOption = ( $photoPath = $musician->getPhotoPath() )
+                ? '<img src="' . $photoPath . '" class="admin-preview" />'
                 : FALSE;
         } else {
-            $vichObjectRequired   = TRUE;
-            $vichObjectHelpOption = FALSE;
+            $photoRequired   = TRUE;
+            $photoHelpOption = FALSE;
         }
 
         $formMapper
@@ -83,7 +83,7 @@ class MusicianAdmin extends Admin
                                 'ru' => ['label' => "История от музыканта"],
                                 'en' => ['label' => "Musicians story"],
                             ],
-                            'attr'  => [
+                            'attr' => [
                                 'rows' => '5',
                             ],
                         ],
@@ -91,12 +91,12 @@ class MusicianAdmin extends Admin
                 ])
             ->end()
             ->with('Музыкант - Общие данные')
-                ->add('vichObjectFile', 'vich_file', [
+                ->add('photoFile', 'vich_file', [
                     'label'         => "Фотография",
-                    'required'      => $vichObjectRequired,
+                    'required'      => $photoRequired,
                     'allow_delete'  => FALSE,
                     'download_link' => FALSE,
-                    'help'          => $vichObjectHelpOption
+                    'help'          => $photoHelpOption,
                 ])
                 ->add('dateOfBirth', 'sonata_type_date_picker', [
                     'label'  => "Дата рождения",

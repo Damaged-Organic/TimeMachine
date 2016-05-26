@@ -106,7 +106,7 @@ services:
         class: AppBundle\Admin\Utility\Controller\MusicianAdminController
 
     sonata.admin.musician:
-        class:      AppBundle\Admin\MusicianAdmin
+        class: AppBundle\Admin\MusicianAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: "Группа", label: "Музыканты" }
         arguments:
@@ -115,3 +115,37 @@ services:
             - AppBundle:Admin\MusicianAdmin
         calls:
             - [ setTranslationDomain, [AppBundle] ]
+
+    sonata.admin.concert:
+        class: AppBundle\Admin\ConcertAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Группа", label: "Афиша" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Concert
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]
+
+    sonata.admin.album:
+        class: AppBundle\Admin\AlbumAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Творчество", label: "Альбомы" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Album
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]
+
+    sonata.admin.song:
+        class: AppBundle\Admin\SongAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "", label: "", show_in_dashboard: false }
+        arguments:
+            - ~
+            - AppBundle\Entity\Song
+            - 'PixSortableBehaviorBundle:SortableAdmin'
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]
+            - [ setPositionService, [ "@pix_sortable_behavior.position" ]]

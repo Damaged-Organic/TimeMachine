@@ -17,8 +17,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
     AppBundle\Entity\Utility\Traits\DoctrineMapping\TranslationMapper,
-    AppBundle\Entity\Utility\Traits\DoctrineMapping\VichMapper,
-    AppBundle\Entity\MusicianTranslation;
+    AppBundle\Entity\Utility\Interfaces\MusicianConstantsInterface,
+    AppBundle\Entity\Utility\Traits\FileObjects\MusicianFileObjectsTrait;
 
 /**
  * @ORM\Table(name="musicians")
@@ -28,11 +28,9 @@ use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
  *
  * @Vich\Uploadable
  */
-class Musician implements Translatable
+class Musician implements Translatable, MusicianConstantsInterface
 {
-    use IdMapper, TranslationMapper, VichMapper;
-
-    const WEB_PATH = "/uploads/musician/photo/";
+    use IdMapper, TranslationMapper, MusicianFileObjectsTrait;
 
     /**
      * @ORM\OneToMany(targetEntity="MusicianTranslation", mappedBy="object", cascade={"persist", "remove"})
@@ -85,21 +83,6 @@ class Musician implements Translatable
      * @ORM\Column(type="boolean")
      */
     protected $isMainCast = FALSE;
-
-    /**
-     * @Assert\File(
-     *     maxSize="10M",
-     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg", "image/gif"}
-     * )
-     *
-     * @Vich\UploadableField(mapping="musician_photo", fileNameProperty="vichObjectName")
-     */
-    protected $vichObjectFile;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    protected $vichObjectName;
 
     /**
      * Constructor
@@ -315,13 +298,6 @@ class Musician implements Translatable
         $activeYears = $yearRelevant - $this->yearOfEntry;
 
         return $activeYears;
-    }
-
-    static public function getYearsActiveRange()
-    {
-        $currentYear = (new DateTime())->format('Y');
-
-        return range('1969', $currentYear);
     }
 
     /** END Custom methods */
