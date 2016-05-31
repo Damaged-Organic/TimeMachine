@@ -2,11 +2,15 @@
 // src/AppBundle/Entity/Utility/Traits/FileObjects/AlbumFileObjectsTrait.php
 namespace AppBundle\Entity\Utility\Traits\FileObjects;
 
+use DateTime;
+
+use Symfony\Component\HttpFoundation\File\File;
+
 trait AlbumFileObjectsTrait
 {
     /**
      * @Assert\File(
-     *     maxSize="2M",
+     *     maxSize="3M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg", "image/gif"}
      * )
      *

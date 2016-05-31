@@ -9,8 +9,6 @@ use Sonata\AdminBundle\Admin\Admin,
     Sonata\AdminBundle\Datagrid\DatagridMapper,
     Sonata\AdminBundle\Form\FormMapper;
 
-use AppBundle\Entity\Album;
-
 class AlbumAdmin extends Admin
 {
     protected function configureListFields(ListMapper $listMapper)
@@ -29,7 +27,8 @@ class AlbumAdmin extends Admin
                 'label' => "Количество песен",
             ])
             ->add('isActive', 'boolean', [
-                'label' => "Отображается",
+                'label'    => "Отображается",
+                'editable' => TRUE,
             ])
         ;
     }
@@ -93,6 +92,9 @@ class AlbumAdmin extends Admin
                         'allow_delete'  => FALSE,
                         'download_link' => FALSE,
                         'help'          => $coverHelpOption,
+                        'attr'          => [
+                            'style' => 'width: 400px; padding: 5px 0 0 5px;',
+                        ],
                     ])
                     ->add('trackFile', 'vich_file', [
                         'label'         => "Заглавная песня",
@@ -100,6 +102,9 @@ class AlbumAdmin extends Admin
                         'allow_delete'  => FALSE,
                         'download_link' => FALSE,
                         'help'          => $trackHelpOption,
+                        'attr'          => [
+                            'style' => 'width: 400px; padding: 5px 0 0 5px;',
+                        ],
                     ])
                     ->add('yearOfRelease', 'choice', [
                         'label'   => "Год выпуска",

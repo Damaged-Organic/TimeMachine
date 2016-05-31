@@ -17,7 +17,7 @@
 /vendor/
 
 /www/bundles/
-/www/images/
+/www/uploads/
 /www/media/
 
 /composer.lock

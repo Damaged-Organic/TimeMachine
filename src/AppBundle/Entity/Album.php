@@ -91,7 +91,7 @@ class Album implements Translatable, AlbumConstantsInterface
      */
     public function __toString()
     {
-        return ( $this->title ) ?: "";
+        return ( $this->title ) ?: "Альбом";
     }
 
     /**

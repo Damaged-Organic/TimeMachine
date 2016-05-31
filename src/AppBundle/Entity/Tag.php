@@ -34,6 +34,16 @@ class Tag implements Translatable
     protected $musician;
 
     /**
+     * @ORM\OneToMany(targetEntity="PhotoAlbum", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $photoAlbums;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Photo", mappedBy="object", cascade={"persist", "remove"})
+     */
+    protected $photos;
+
+    /**
      * @ORM\Column(type="string", length=200)
      *
      * @Gedmo\Translatable
@@ -63,7 +73,7 @@ class Tag implements Translatable
      */
     public function __toString()
     {
-        return ( $this->name ) ? "#{$this->name}" : "";
+        return ( $this->name ) ? "#{$this->name}" : "Тэг";
     }
 
     /**
@@ -156,6 +166,74 @@ class Tag implements Translatable
     public function getMusician()
     {
         return $this->musician;
+    }
+
+    /**
+     * Add photoAlbum
+     *
+     * @param \AppBundle\Entity\PhotoAlbum $photoAlbum
+     * @return Tag
+     */
+    public function addPhotoAlbum(\AppBundle\Entity\PhotoAlbum $photoAlbum)
+    {
+        $photoAlbum->setTag($this);
+        $this->photoAlbums[] = $photoAlbum;
+
+        return $this;
+    }
+
+    /**
+     * Remove photoAlbums
+     *
+     * @param \AppBundle\Entity\PhotoAlbum $photoAlbums
+     */
+    public function removePhotoAlbum(\AppBundle\Entity\PhotoAlbum $photoAlbums)
+    {
+        $this->photoAlbums->removeElement($photoAlbums);
+    }
+
+    /**
+     * Get photoAlbums
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhotoAlbums()
+    {
+        return $this->photoAlbums;
+    }
+
+    /**
+     * Add photo
+     *
+     * @param \AppBundle\Entity\Photo $photo
+     * @return Tag
+     */
+    public function addPhoto(\AppBundle\Entity\Photo $photo)
+    {
+        $photo->setTag($this);
+        $this->photos[] = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param \AppBundle\Entity\Photo $photos
+     */
+    public function removePhoto(\AppBundle\Entity\Photo $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
     }
 
     /** Custom methods */

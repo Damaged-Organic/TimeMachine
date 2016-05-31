@@ -63,7 +63,7 @@ class Metadata implements Translatable
      */
     public function __toString()
     {
-        return ( $this->title ) ?: "";
+        return ( $this->title ) ?: "Метаданные";
     }
 
     /**

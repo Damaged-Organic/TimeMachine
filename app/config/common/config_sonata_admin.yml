@@ -50,7 +50,7 @@ fos_user:
         user_manager: sonata.user.orm.user_manager
 
 sonata_admin:
-    title:      "Dashboard"
+    title:      "Управление"
     dashboard:
         blocks:
             -
@@ -61,9 +61,21 @@ sonata_admin:
                 type:     sonata.block.service.text
                 settings:
                     content: >
-                        <h2>Система управления содержимым</h2>
+                        <h2>Система управления контентом</h2>
                         <p>
-                            На вашем сайте для модерирования доступны следующие разделы:
+                            На вашем сайте для администрирования доступны следующие разделы:
+                            <br><br>
+                            <h4>Новости</h4>
+                            Афиша концертов и блог группы.
+                            <br><br>
+                            <h4>Группа</h4>
+                            Биографии музыкантов и фотоальбомы.
+                            <br><br>
+                            <h4>Творчество</h4>
+                            Альбомы и песни группы.
+                            <br><br>
+                            <h4>Тэги</h4>
+                            Персональные тэги для контента.
                             <br><br>
                             <h4>SEO (Поисковая оптимизация)</h4>
                             В основном это служебная информация для поисковых роботов.
@@ -80,24 +92,35 @@ services:
         abstract: true
         public:   false
 
-    sonata.admin.metadata:
-        class: AppBundle\Admin\MetadataAdmin
+    sonata.admin.concert:
+        class: AppBundle\Admin\ConcertAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "SEO", label: "Метаданные" }
+            - { name: sonata.admin, manager_type: orm, group: "Новости", label: "Афиша" }
         arguments:
             - ~
-            - AppBundle\Entity\Metadata
+            - AppBundle\Entity\Concert
             - ~
         calls:
             - [ setTranslationDomain, [AppBundle] ]
 
-    sonata.admin.tag:
-        class:      AppBundle\Admin\TagAdmin
+    sonata.admin.article:
+        class: AppBundle\Admin\ArticleAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Группа", label: "Тэги" }
+            - { name: sonata.admin, manager_type: orm, group: "Новости", label: "Блог" }
         arguments:
             - ~
-            - AppBundle\Entity\Tag
+            - AppBundle\Entity\Article
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]
+
+    sonata.admin.article_block:
+        class: AppBundle\Admin\ArticleBlockAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "", label: "", show_in_dashboard: false }
+        arguments:
+            - ~
+            - AppBundle\Entity\ArticleBlock
             - ~
         calls:
             - [ setTranslationDomain, [AppBundle] ]
@@ -116,16 +139,28 @@ services:
         calls:
             - [ setTranslationDomain, [AppBundle] ]
 
-    sonata.admin.concert:
-        class: AppBundle\Admin\ConcertAdmin
+    sonata.admin.photo_album:
+        class: AppBundle\Admin\PhotoAlbumAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Группа", label: "Афиша" }
+            - { name: sonata.admin, manager_type: orm, group: "Группа", label: "Фотоальбомы" }
         arguments:
             - ~
-            - AppBundle\Entity\Concert
+            - AppBundle\Entity\PhotoAlbum
             - ~
         calls:
             - [ setTranslationDomain, [AppBundle] ]
+
+    sonata.admin.photo:
+        class: AppBundle\Admin\PhotoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "", label: "", show_in_dashboard: false }
+        arguments:
+            - ~
+            - AppBundle\Entity\Photo
+            - 'PixSortableBehaviorBundle:SortableAdmin'
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]
+            - [ setPositionService, [ "@pix_sortable_behavior.position" ]]
 
     sonata.admin.album:
         class: AppBundle\Admin\AlbumAdmin
@@ -149,3 +184,25 @@ services:
         calls:
             - [ setTranslationDomain, [AppBundle] ]
             - [ setPositionService, [ "@pix_sortable_behavior.position" ]]
+
+    sonata.admin.tag:
+        class:      AppBundle\Admin\TagAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Тэги", label: "Тэги" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Tag
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]
+
+    sonata.admin.metadata:
+        class: AppBundle\Admin\MetadataAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "SEO", label: "Метаданные" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Metadata
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]

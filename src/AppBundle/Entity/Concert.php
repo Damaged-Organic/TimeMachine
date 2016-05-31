@@ -93,6 +93,8 @@ class Concert implements Translatable, ConcertConstantsInterface
     public function __construct()
     {
         $this->translations = new ArrayCollection;
+
+        $this->doorsOpenAt = new DateTime;
     }
 
     /**
@@ -100,7 +102,7 @@ class Concert implements Translatable, ConcertConstantsInterface
      */
     public function __toString()
     {
-        return ( $this->title ) ?: "";
+        return ( $this->title ) ?: "Событие";
     }
 
     /**

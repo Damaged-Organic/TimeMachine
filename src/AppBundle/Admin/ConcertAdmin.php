@@ -58,7 +58,7 @@ class ConcertAdmin extends Admin
         }
 
         $formMapper
-            ->with('Концерт - Локализованные данные')
+            ->with('Событие - Локализованные данные')
                 ->add('translations', 'a2lix_translations_gedmo', [
                     'label'              => FALSE,
                     'translatable_class' => 'AppBundle\Entity\Concert',
@@ -101,13 +101,16 @@ class ConcertAdmin extends Admin
                     ],
                 ])
             ->end()
-            ->with('Концерт - Общие данные')
+            ->with('Событие - Общие данные')
                 ->add('posterFile', 'vich_file', [
                     'label'         => "Постер",
                     'required'      => $posterRequired,
                     'allow_delete'  => FALSE,
                     'download_link' => FALSE,
                     'help'          => $posterHelpOption,
+                    'attr'          => [
+                        'style' => 'width: 400px; padding: 5px 0 0 5px;',
+                    ],
                 ])
                 ->add('doorsOpenAt', 'sonata_type_datetime_picker', [
                     'label'  => "Дата и время проведения",

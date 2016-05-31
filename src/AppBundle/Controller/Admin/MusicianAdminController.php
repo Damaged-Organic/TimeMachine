@@ -44,7 +44,7 @@ class MusicianAdminController extends Controller
         if( count($result) )
         {
             try {
-                foreach ($result as $musician)
+                foreach( $result as $musician )
                 {
                     // Restrict deletion of main cast musicians
                     if( $musician->getIsMainCast() )

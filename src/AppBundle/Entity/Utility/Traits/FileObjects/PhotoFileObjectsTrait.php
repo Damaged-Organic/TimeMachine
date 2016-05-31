@@ -1,27 +1,27 @@
 <?php
-// src/AppBundle/Entity/Utility/Traits/FileObjects/ConcertFileObjectsTrait.php
+// src/AppBundle/Entity/Utility/Traits/FileObjects/PhotoFileObjectsTrait.php
 namespace AppBundle\Entity\Utility\Traits\FileObjects;
 
 use DateTime;
 
 use Symfony\Component\HttpFoundation\File\File;
 
-trait ConcertFileObjectsTrait
+trait PhotoFileObjectsTrait
 {
     /**
      * @Assert\File(
-     *     maxSize="3M",
+     *     maxSize="10M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg", "image/gif"}
      * )
      *
-     * @Vich\UploadableField(mapping="concert_poster", fileNameProperty="posterName")
+     * @Vich\UploadableField(mapping="photo_album_photo", fileNameProperty="photoName")
      */
-    protected $posterFile;
+    protected $photoFile;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    protected $posterName;
+    protected $photoName;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -30,35 +30,35 @@ trait ConcertFileObjectsTrait
 
     /* Vich uploadable methods */
 
-    public function setPosterFile($posterFile = NULL)
+    public function setPhotoFile($photoFile = NULL)
     {
-        $this->posterFile = $posterFile;
+        $this->photoFile = $photoFile;
 
-        if( $posterFile instanceof File )
+        if( $photoFile instanceof File )
             $this->updatedAt = new DateTime;
     }
 
-    public function getPosterFile()
+    public function getPhotoFile()
     {
-        return $this->posterFile;
+        return $this->photoFile;
     }
 
-    public function setPosterName($posterName)
+    public function setPhotoName($photoName)
     {
-        $this->posterName = $posterName;
+        $this->photoName = $photoName;
 
         return $this;
     }
 
-    public function getPosterName()
+    public function getPhotoName()
     {
-        return $this->posterName;
+        return $this->photoName;
     }
 
-    public function getPosterPath()
+    public function getPhotoPath()
     {
-        return ( $this->posterName )
-            ? self::WEB_PATH_POSTER . $this->posterName
+        return ( $this->photoName )
+            ? self::WEB_PATH_PHOTO . $this->photoName
             : FALSE;
     }
 

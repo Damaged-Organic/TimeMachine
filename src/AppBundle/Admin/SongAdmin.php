@@ -2,9 +2,8 @@
 // src/AppBundle/Admin/SongAdmin.php
 namespace AppBundle\Admin;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\DependencyInjection\ContainerInterface,
+    Symfony\Component\Validator\Constraints as Assert;
 
 use Sonata\AdminBundle\Admin\Admin,
     Sonata\AdminBundle\Datagrid\ListMapper,
@@ -27,11 +26,11 @@ class SongAdmin extends Admin
         $this->positionService = $positionHandler;
     }
 
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_page'       => 1,
         '_sort_order' => 'ASC',
         '_sort_by'    => 'position',
-    );
+    ];
 
     protected function configureRoutes(RouteCollection $collection)
     {
@@ -59,9 +58,9 @@ class SongAdmin extends Admin
             ->add('_action', 'actions', [
                 'actions' => [
                     'move' => [
-                        'template' => 'PixSortableBehaviorBundle:Default:_sort.html.twig'
-                    ]
-                ]
+                        'template' => 'PixSortableBehaviorBundle:Default:_sort.html.twig',
+                    ],
+                ],
             ])
         ;
     }

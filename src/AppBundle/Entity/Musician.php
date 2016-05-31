@@ -17,6 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
     AppBundle\Entity\Utility\Traits\DoctrineMapping\TranslationMapper,
+    AppBundle\Entity\Utility\Traits\TagTrait,
     AppBundle\Entity\Utility\Interfaces\MusicianConstantsInterface,
     AppBundle\Entity\Utility\Traits\FileObjects\MusicianFileObjectsTrait;
 
@@ -30,7 +31,7 @@ use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
  */
 class Musician implements Translatable, MusicianConstantsInterface
 {
-    use IdMapper, TranslationMapper, MusicianFileObjectsTrait;
+    use IdMapper, TranslationMapper, TagTrait, MusicianFileObjectsTrait;
 
     /**
      * @ORM\OneToMany(targetEntity="MusicianTranslation", mappedBy="object", cascade={"persist", "remove"})
@@ -97,7 +98,7 @@ class Musician implements Translatable, MusicianConstantsInterface
      */
     public function __toString()
     {
-        return ( $this->fullName ) ?: "";
+        return ( $this->fullName ) ?: "Музыкант";
     }
 
     /**

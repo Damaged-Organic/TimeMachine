@@ -33,3 +33,17 @@ vich_uploader:
             namer:              vich_uploader.namer_uniqid
             delete_on_remove:   true
             delete_on_update:   true
+
+        photo_album_photo:
+            uri_prefix:         /uploads/photo_album/photo
+            upload_destination: %kernel.root_dir%/../www/uploads/photo_album/photo
+            namer:              vich_uploader.namer_uniqid
+            delete_on_remove:   true
+            delete_on_update:   true
+
+        article_block_image:
+            uri_prefix:         /uploads/article_block/image
+            upload_destination: %kernel.root_dir%/../www/uploads/article_block/image
+            namer:              vich_uploader.namer_uniqid
+            delete_on_remove:   true
+            delete_on_update:   true

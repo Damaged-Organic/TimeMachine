@@ -9,10 +9,13 @@ use Sonata\AdminBundle\Admin\Admin,
     Sonata\AdminBundle\Datagrid\DatagridMapper,
     Sonata\AdminBundle\Form\FormMapper;
 
-use AppBundle\Entity\Tag;
+use AppBundle\Entity\Tag,
+    AppBundle\Admin\Utility\Traits\BandYearsRangeTrait;
 
 class MusicianAdmin extends Admin
 {
+    use BandYearsRangeTrait;
+
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
@@ -32,6 +35,9 @@ class MusicianAdmin extends Admin
             ->add('yearOfEntry', 'number', [
                 'label' => "Год вступления в группу",
             ])
+            ->add('getTagOrDefault', NULL, [
+                'label' => "Тэг",
+            ])
             ->add('isMainCast', 'boolean', [
                 'label' => "В основном составе",
             ])
@@ -43,11 +49,7 @@ class MusicianAdmin extends Admin
 
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $years = range('1969', (new DateTime())->format('Y'));
-
-        $yearsRange = array_reverse(
-            array_combine($years, $years), TRUE
-        );
+        $yearsRange = $this->getYearsRangeChoice();
 
         if( $musician = $this->getSubject() ) {
             $photoRequired   = ( $musician->getPhotoName() ) ? FALSE : TRUE;
@@ -97,6 +99,9 @@ class MusicianAdmin extends Admin
                     'allow_delete'  => FALSE,
                     'download_link' => FALSE,
                     'help'          => $photoHelpOption,
+                    'attr'          => [
+                        'style' => 'width: 400px; padding: 5px 0 0 5px;',
+                    ],
                 ])
                 ->add('dateOfBirth', 'sonata_type_date_picker', [
                     'label'  => "Дата рождения",
