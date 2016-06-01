@@ -13,8 +13,6 @@ use Sonata\AdminBundle\Admin\Admin,
 
 use Pix\SortableBehaviorBundle\Services\PositionHandler;
 
-use AppBundle\Entity\Song;
-
 class SongAdmin extends Admin
 {
     public $last_position = 1;
