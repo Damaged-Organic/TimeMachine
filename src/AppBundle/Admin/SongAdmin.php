@@ -69,9 +69,10 @@ class SongAdmin extends Admin
     {
         $formMapper
             ->add('getPositionNumber', 'number', [
+                'required'  => FALSE,
                 'read_only' => TRUE,
-                'disabled' => TRUE,
-                'label'    => "№",
+                'disabled'  => TRUE,
+                'label'     => "№",
                 'attr' => [
                     'style' => 'width: 40px; text-align: center;',
                 ],
@@ -82,20 +83,32 @@ class SongAdmin extends Admin
                 ]
             ])
             ->add('translations', 'a2lix_translations_gedmo', [
-                'label'              => FALSE,
+                'label'              => "Тексты",
                 'translatable_class' => 'AppBundle\Entity\Song',
                 'required'           => TRUE,
                 'fields' => [
                     'title' => [
                         'locale_options' => [
-                            'ru' => ['label' => "Название"],
-                            'en' => ['label' => "Title"],
+                            'ru' => [
+                                'required' => TRUE,
+                                'label'    => "Название",
+                            ],
+                            'en' => [
+                                'required' => FALSE,
+                                'label'    => "Title",
+                            ],
                         ],
                     ],
                     'lyrics' => [
                         'locale_options' => [
-                            'ru' => ['label' => "Текст (паттерн для аккордов - [аккорд])"],
-                            'en' => ['label' => "Text"],
+                            'ru' => [
+                                'required' => TRUE,
+                                'label'    => "Текст (паттерн для аккордов - [аккорд])",
+                            ],
+                            'en' => [
+                                'required' => FALSE,
+                                'label'    => "Text",
+                            ],
                         ],
                         'field_type' => 'textarea',
                         'attr'       => [

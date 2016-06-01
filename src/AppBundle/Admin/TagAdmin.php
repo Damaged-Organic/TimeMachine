@@ -45,10 +45,12 @@ class TagAdmin extends Admin
                         'title' => [
                             'locale_options' => [
                                 'ru' => [
-                                    'label' => "Название тэга",
+                                    'required' => TRUE,
+                                    'label'    => "Название тэга",
                                 ],
                                 'en' => [
-                                    'label' => "Tag title",
+                                    'required' => TRUE,
+                                    'label'    => "Tag title",
                                 ]
                             ],
                         ],

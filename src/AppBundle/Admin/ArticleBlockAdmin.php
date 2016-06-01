@@ -45,8 +45,14 @@ class ArticleBlockAdmin extends Admin
                 'fields' => [
                     'text' => [
                         'locale_options' => [
-                            'ru' => ['label' => "Текст"],
-                            'en' => ['label' => "Text"],
+                            'ru' => [
+                                'required' => TRUE,
+                                'label'    => "Текст",
+                            ],
+                            'en' => [
+                                'required' => FALSE,
+                                'label'    => "Text",
+                            ],
                         ],
                         'field_type' => 'textarea',
                         'attr'       => [
@@ -56,10 +62,15 @@ class ArticleBlockAdmin extends Admin
                     ],
                     'quote' => [
                         'locale_options' => [
-                            'ru' => ['label' => "Цитата"],
-                            'en' => ['label' => "Quote"],
+                            'ru' => [
+                                'required' => FALSE,
+                                'label'    => "Цитата",
+                            ],
+                            'en' => [
+                                'required' => FALSE,
+                                'label'    => "Quote",
+                            ],
                         ],
-                        'required'   => FALSE,
                         'field_type' => 'textarea',
                         'attr'       => [
                             'rows' => '3',

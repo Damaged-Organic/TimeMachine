@@ -70,20 +70,38 @@ class MusicianAdmin extends Admin
                     'fields' => [
                         'fullName' => [
                             'locale_options' => [
-                                'ru' => ['label' => "Имя и фамилия"],
-                                'en' => ['label' => "Full name"],
+                                'ru' => [
+                                    'required' => TRUE,
+                                    'label'    => "Имя и фамилия",
+                                ],
+                                'en' => [
+                                    'required' => TRUE,
+                                    'label'    => "Full name",
+                                ],
                             ],
                         ],
                         'skill' => [
                             'locale_options' => [
-                                'ru' => ['label' => "Роль в группе"],
-                                'en' => ['label' => "Role in a band"],
+                                'ru' => [
+                                    'required' => TRUE,
+                                    'label'    => "Роль в группе",
+                                ],
+                                'en' => [
+                                    'required' => TRUE,
+                                    'label'    => "Role in a band",
+                                ],
                             ],
                         ],
                         'story' => [
                             'locale_options' => [
-                                'ru' => ['label' => "История от музыканта"],
-                                'en' => ['label' => "Musicians story"],
+                                'ru' => [
+                                    'required' => TRUE,
+                                    'label'    => "История от музыканта",
+                                ],
+                                'en' => [
+                                    'required' => TRUE,
+                                    'label'    => "Musicians story",
+                                ],
                             ],
                             'attr' => [
                                 'rows' => '5',

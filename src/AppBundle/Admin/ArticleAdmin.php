@@ -48,8 +48,14 @@ class ArticleAdmin extends Admin
                         'fields' => [
                             'title' => [
                                 'locale_options' => [
-                                    'ru' => ['label' => "Название"],
-                                    'en' => ['label' => "Title"],
+                                    'ru' => [
+                                        'required' => TRUE,
+                                        'label'    => "Название",
+                                    ],
+                                    'en' => [
+                                        'required' => FALSE,
+                                        'label'    => "Title",
+                                    ],
                                 ],
                             ],
                             'slug' => [

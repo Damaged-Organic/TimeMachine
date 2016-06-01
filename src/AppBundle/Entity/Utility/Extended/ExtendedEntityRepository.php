@@ -23,7 +23,7 @@ class ExtendedEntityRepository extends EntityRepository
             'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
         );
 
-        return $query->getSingleResult();
+        return $query->getOneOrNullResult();
     }
 
     public function findAll()

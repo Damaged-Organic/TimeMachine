@@ -66,14 +66,26 @@ class ConcertAdmin extends Admin
                     'fields' => [
                         'title' => [
                             'locale_options' => [
-                                'ru' => ['label' => "Название"],
-                                'en' => ['label' => "Title"],
+                                'ru' => [
+                                    'required' => TRUE,
+                                    'label'    => "Название",
+                                ],
+                                'en' => [
+                                    'required' => FALSE,
+                                    'label'    => "Title",
+                                ],
                             ],
                         ],
                         'description' => [
                             'locale_options' => [
-                                'ru' => ['label' => "Описание"],
-                                'en' => ['label' => "Description"],
+                                'ru' => [
+                                    'required' => TRUE,
+                                    'label'    => "Описание",
+                                ],
+                                'en' => [
+                                    'required' => FALSE,
+                                    'label'    => "Description",
+                                ],
                             ],
                             'field_type' => 'textarea',
                             'attr'       => [
@@ -82,20 +94,38 @@ class ConcertAdmin extends Admin
                         ],
                         'country' => [
                             'locale_options' => [
-                                'ru' => ['label' => "Страна"],
-                                'en' => ['label' => "Country"],
+                                'ru' => [
+                                    'required' => TRUE,
+                                    'label'    => "Страна",
+                                ],
+                                'en' => [
+                                    'required' => FALSE,
+                                    'label'    => "Country",
+                                ],
                             ],
                         ],
                         'city' => [
                             'locale_options' => [
-                                'ru' => ['label' => "Город"],
-                                'en' => ['label' => "City"],
+                                'ru' => [
+                                    'required' => TRUE,
+                                    'label'    => "Город",
+                                ],
+                                'en' => [
+                                    'required' => FALSE,
+                                    'label'    => "City",
+                                ],
                             ],
                         ],
                         'place' => [
                             'locale_options' => [
-                                'ru' => ['label' => "Место проведения"],
-                                'en' => ['label' => "Place"],
+                                'ru' => [
+                                    'required' => TRUE,
+                                    'label'    => "Место проведения",
+                                ],
+                                'en' => [
+                                    'required' => FALSE,
+                                    'label'    => "Place",
+                                ],
                             ],
                         ],
                     ],

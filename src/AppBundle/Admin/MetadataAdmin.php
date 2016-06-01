@@ -38,20 +38,32 @@ class MetadataAdmin extends Admin
         $formMapper
             ->with('Метаданные - Локализованные данные')
                 ->add('translations', 'a2lix_translations_gedmo', [
-                    'label'              => "Управление локализациями",
+                    'label'              => FALSE,
                     'translatable_class' => 'AppBundle\Entity\Metadata',
                     'required'           => TRUE,
                     'fields' => [
                         'title' => [
                             'locale_options' => [
-                                'ru' => ['label' => "Заголовок страницы"],
-                                'en' => ['label' => "Page title"],
+                                'ru' => [
+                                    'required' => TRUE,
+                                    'label'    => "Заголовок страницы",
+                                ],
+                                'en' => [
+                                    'required' => TRUE,
+                                    'label'    => "Page title",
+                                ],
                             ],
                         ],
                         'description' => [
                             'locale_options' => [
-                                'ru' => ['label' => "Описание страницы"],
-                                'en' => ['label' => "Page description"],
+                                'ru' => [
+                                    'required' => FALSE,
+                                    'label'    => "Описание страницы",
+                                ],
+                                'en' => [
+                                    'required' => FALSE,
+                                    'label'    => "Page description",
+                                ],
                             ],
                             'required' => FALSE,
                         ],

@@ -49,12 +49,12 @@ class Song implements Translatable
     protected $lyrics;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $durationMinutes;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $durationSeconds;
 

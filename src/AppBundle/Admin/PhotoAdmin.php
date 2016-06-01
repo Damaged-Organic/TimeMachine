@@ -120,8 +120,10 @@ class PhotoAdmin extends Admin
             }
         }
 
-        // Entity from session becomes detached, so merging it back to avoid exception
-        $tag = $this->getConfigurationPool()->getContainer()->get('doctrine.orm.entity_manager')->merge($tag);
+        if( $tag ) {
+            // Entity from session becomes detached, so merging it back to avoid exception
+            $tag = $this->getConfigurationPool()->getContainer()->get('doctrine.orm.entity_manager')->merge($tag);
+        }
 
         $formMapper
             ->add('getPositionNumber', 'number', [
@@ -143,14 +145,20 @@ class PhotoAdmin extends Admin
                 ]
             ])
             ->add('translations', 'a2lix_translations_gedmo', [
-                'label'              => FALSE,
+                'label'              => "Тексты",
                 'translatable_class' => 'AppBundle\Entity\Photo',
                 'required'           => FALSE,
                 'fields' => [
                     'title' => [
                         'locale_options' => [
-                            'ru' => ['label' => "Название"],
-                            'en' => ['label' => "Title"],
+                            'ru' => [
+                                'required' => FALSE,
+                                'label'    => "Название",
+                            ],
+                            'en' => [
+                                'required' => FALSE,
+                                'label'    => "Title",
+                            ],
                         ],
                         'attr' => [
                             'style' => 'min-width: 200px;',

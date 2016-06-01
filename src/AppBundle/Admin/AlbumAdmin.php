@@ -68,14 +68,26 @@ class AlbumAdmin extends Admin
                         'fields' => [
                             'title' => [
                                 'locale_options' => [
-                                    'ru' => ['label' => "Название"],
-                                    'en' => ['label' => "Title"],
+                                    'ru' => [
+                                        'required' => TRUE,
+                                        'label'    => "Название",
+                                    ],
+                                    'en' => [
+                                        'required' => FALSE,
+                                        'label'    => "Title",
+                                    ],
                                 ],
                             ],
                             'description' => [
                                 'locale_options' => [
-                                    'ru' => ['label' => "Описание"],
-                                    'en' => ['label' => "Description"],
+                                    'ru' => [
+                                        'required' => TRUE,
+                                        'label'    => "Описание",
+                                    ],
+                                    'en' => [
+                                        'required' => FALSE,
+                                        'label'    => "Description",
+                                    ],
                                 ],
                                 'field_type' => 'textarea',
                                 'attr'       => [
@@ -129,7 +141,7 @@ class AlbumAdmin extends Admin
                     ->add('songs', 'sonata_type_collection', [
                         'label'        => FALSE,
                         'by_reference' => FALSE,
-                        'required'     => FALSE,
+                        'required'     => TRUE,
                         'btn_add'      => 'Добавить песню'
                     ], [
                         'edit'     => 'inline',
