@@ -11,6 +11,8 @@ use Sonata\AdminBundle\Admin\Admin,
     Sonata\AdminBundle\Datagrid\DatagridMapper,
     Sonata\AdminBundle\Form\FormMapper;
 
+use AppBundle\Entity\Article;
+
 class ArticleAdmin extends Admin
 {
     protected function configureListFields(ListMapper $listMapper)
@@ -32,6 +34,9 @@ class ArticleAdmin extends Admin
             ->add('isActive', 'boolean', [
                 'label'    => "Отображается",
                 'editable' => TRUE,
+            ])
+            ->add('isSubscriptionSent', 'boolean', [
+                'label' => "Письма отправлены",
             ])
         ;
     }
@@ -98,6 +103,24 @@ class ArticleAdmin extends Admin
                 ->end()
             ->end()
         ;
+
+        if( $article = $this->getSubject() )
+        {
+            if( $article->getId() && !$article->getIsSubscriptionSent() )
+            {
+                $formMapper
+                    ->tab('Статья')
+                        ->with('Подписка - Отправка писем подписчикам')
+                            ->add('sendSubscription', 'checkbox', [
+                                'mapped'   => FALSE,
+                                'required' => FALSE,
+                                'label'    => "Отправить письма подписчикам",
+                            ])
+                        ->end()
+                    ->end()
+                ;
+            }
+        }
     }
 
     public function getFormTheme()
@@ -106,5 +129,66 @@ class ArticleAdmin extends Admin
             parent::getFormTheme(),
             array('ApplicationSonataUserBundle:Admin/Form:form_admin_fields.html.twig')
         );
+    }
+
+    public function postPersist($article)
+    {
+        if( !($article instanceof Article) )
+            return;
+
+        if( !$this->getForm()->has('sendSubscription') )
+            return;
+
+        if( $this->getForm()->get('sendSubscription')->getData() &&
+            !$article->getIsSubscriptionSent() ) {
+            $this->sendSubscriptionMessage($article);
+        }
+    }
+
+    public function postUpdate($article)
+    {
+        if( !($article instanceof Article) )
+            return;
+
+        if( !$this->getForm()->has('sendSubscription') )
+            return;
+
+        if( $this->getForm()->get('sendSubscription')->getData() &&
+            !$article->getIsSubscriptionSent() ) {
+            $this->sendSubscriptionMessage($article);
+        }
+    }
+
+    public function sendSubscriptionMessage(Article $article)
+    {
+        $_router = $this->getConfigurationPool()->getContainer()
+            ->get('router')
+        ;
+
+        $message = [
+            'title' => $article->getTitle(),
+            'text'  => $article->getSubscriptionMessage(),
+            'link'  => $_router->generate('articles', [
+                'id'   => $article->getId(),
+                'slug' => $article->getSlug(),
+            ], TRUE),
+        ];
+
+        $_subscriptionSender = $this->getConfigurationPool()->getContainer()
+            ->get('app.subscription_sender')
+        ;
+
+        $_subscriptionSender->sendSubscriptionMessages(
+            $message['title'], $message['text'], $message['link']
+        );
+
+        $_manager = $this->getConfigurationPool()->getContainer()
+            ->get('Doctrine')->getManager()
+        ;
+
+        $_manager->persist(
+            $article->setIsSubscriptionSent(TRUE)
+        );
+        $_manager->flush();
     }
 }

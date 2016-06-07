@@ -1,0 +1,23 @@
+{# src/AppBundle/Resources/views/Subscription/unsubscribe_checkout.html.twig #}
+<p>
+    {% if subscriber.isActive %}
+        Unsubscribe?
+    {% else %}
+        User "{{ subscriber.email }}" is unsubscribed.
+    {% endif %}
+</p>
+<p>
+    {% if subscriber.isActive %}
+
+        {% set link = path('unsubscribe_checkout', {
+            '_locale':      _locale,
+            'email':        subscriber.email,
+            'checkoutHash': subscriber.outCheckoutHash,
+            'confirm':      true
+        }) %}
+
+        <a href="{{ link }}">unsubscribe</a>
+    {% endif %}
+
+    <a href="{{ path('index', { '_locale': _locale }) }}">main</a>
+</p>

@@ -1,0 +1,6 @@
+# src/AppBundle/Resources/translations/responses.en.yml
+subscribe:
+    success:  "Thank you for your attention! We've sent a letter with confirmation link on specified e-mail."
+    failure:  Unfortunately, something went wrong. Please, make another attempt later.
+    existing: You're already subscribed!
+    pending:  This e-mail awaits for confirmation.

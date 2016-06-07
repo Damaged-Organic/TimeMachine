@@ -38,8 +38,8 @@ twig:
     strict_variables: "%kernel.debug%"
     # Twig globals
     globals:
-        default_locale:    "%locale%"
-        developers_agency: "%developers_agency%"
+        default_locale: "%locale%"
+        developers:     "%developers%"
 
 # Assetic Configuration
 assetic:

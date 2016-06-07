@@ -15,6 +15,9 @@ parameters:
     # Specific
     domain: time-machine.ru
     locale: ru
+    # Emails
+    emails:
+        no_reply: no-reply@time-machine.ru
     # Developers
     developers_agency:
         name: CHEERS! Unlimited

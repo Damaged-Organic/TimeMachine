@@ -1,0 +1,13 @@
+{# src/AppBundle/Resources/views/Email/subscribe.html.twig #}
+{% set subscribe = absolute_url(path('subscribe_checkout', {
+    '_locale':      _locale,
+    'email':        subscriber.email,
+    'checkoutHash': subscriber.inCheckoutHash,
+})) %}
+
+<p>{{ 'subscribe.body.headline'|trans({}, "emails", _locale) }}</p>
+<p>{{ 'subscribe.body.follow'|trans({}, "emails", _locale) }}</p>
+<p>
+    <a href="{{ subscribe }}">{{ 'subscribe.body.link'|trans({}, "emails", _locale) }}</a>
+</p>
+<p>{{ 'common.body.date'|trans({}, "emails", _locale) }} {{ "now"|date("H:i, d-m-Y") }}.</p>

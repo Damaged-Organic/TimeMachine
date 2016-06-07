@@ -1,0 +1,14 @@
+{# src/AppBundle/Resources/views/Email/subscription.html.twig #}
+{% set unsubscribe = absolute_url(path('unsubscribe_checkout', {
+    'email':        subscriber.email,
+    'checkoutHash': subscriber.outCheckoutHash,
+})) %}
+
+<p>{{ text }}</p>
+<p>
+    <a href="{{ link }}">{{ title }}</a>
+</p>
+<p>{{ 'common.body.date'|trans({}, "emails") }} {{ "now"|date("H:i, d-m-Y") }}.</p>
+<p>
+    <a href="{{ unsubscribe }}">unsubscribe</a>
+</p>

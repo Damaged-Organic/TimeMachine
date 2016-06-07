@@ -36,4 +36,48 @@ class StateController extends Controller implements PageInitInterface
             'metadata' => $this->get('app.metadata')->getCurrentMetadata()
         ]);
     }
+
+    /**
+     * @Method({"GET"})
+     * @Route(
+     *      "/articles/{id}/{slug}",
+     *      name="articles",
+     *      host="{_locale}.{domain}",
+     *      defaults={"_locale" = "%locale%", "domain" = "%domain%", "id" = null, "slug" = null},
+     *      requirements={"_locale" = "%locale%|en", "domain" = "%domain%", "id" = "\d+", "slug" = "[a-z0-9_]+"}
+     * )
+     * @Route(
+     *      "/articles/{id}/{slug}",
+     *      name="articles_default",
+     *      host="{domain}",
+     *      defaults={"_locale" = "%locale%", "domain" = "%domain%", "id" = null, "slug" = null},
+     *      requirements={"domain" = "%domain%", "id" = "\d+", "slug" = "[a-z0-9_]+"}
+     * )
+     */
+    public function articlesAction(Request $request)
+    {
+        return \Symfony\Component\HttpFoundation\Response('0k');
+    }
+
+    /**
+     * @Method({"GET"})
+     * @Route(
+     *      "/concerts",
+     *      name="concerts",
+     *      host="{_locale}.{domain}",
+     *      defaults={"_locale" = "%locale%", "domain" = "%domain%"},
+     *      requirements={"_locale" = "%locale%|en", "domain" = "%domain%"}
+     * )
+     * @Route(
+     *      "/concerts",
+     *      name="concerts_default",
+     *      host="{domain}",
+     *      defaults={"_locale" = "%locale%", "domain" = "%domain%"},
+     *      requirements={"domain" = "%domain%"}
+     * )
+     */
+    public function concertsAction(Request $request)
+    {
+        return \Symfony\Component\HttpFoundation\Response('0k');
+    }
 }

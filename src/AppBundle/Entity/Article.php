@@ -57,6 +57,11 @@ class Article implements Translatable
     protected $isActive = TRUE;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $isSubscriptionSent = FALSE;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -168,6 +173,29 @@ class Article implements Translatable
     }
 
     /**
+     * Set isSubscriptionSent
+     *
+     * @param boolean $isSubscriptionSent
+     * @return Article
+     */
+    public function setIsSubscriptionSent($isSubscriptionSent)
+    {
+        $this->isSubscriptionSent = $isSubscriptionSent;
+
+        return $this;
+    }
+
+    /**
+     * Get isSubscriptionSent
+     *
+     * @return boolean
+     */
+    public function getIsSubscriptionSent()
+    {
+        return $this->isSubscriptionSent;
+    }
+
+    /**
      * Add articleBlock
      *
      * @param \AppBundle\Entity\ArticleBlock $articleBlock
@@ -208,6 +236,11 @@ class Article implements Translatable
         $this->views++;
 
         return $this;
+    }
+
+    public function getSubscriptionMessage()
+    {
+        return 'subscription.message.article';
     }
 
     /** END Custom methods */

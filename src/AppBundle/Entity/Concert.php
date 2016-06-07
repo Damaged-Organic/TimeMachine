@@ -17,6 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
     AppBundle\Entity\Utility\Traits\DoctrineMapping\TranslationMapper,
+    AppBundle\Entity\Utility\Traits\DoctrineMapping\SlugMapper,
     AppBundle\Entity\Utility\Interfaces\ConcertConstantsInterface,
     AppBundle\Entity\Utility\Traits\FileObjects\ConcertFileObjectsTrait;
 
@@ -30,7 +31,7 @@ use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
  */
 class Concert implements Translatable, ConcertConstantsInterface
 {
-    use IdMapper, TranslationMapper, ConcertFileObjectsTrait;
+    use IdMapper, TranslationMapper, SlugMapper, ConcertFileObjectsTrait;
 
     /**
      * @ORM\OneToMany(targetEntity="ConcertTranslation", mappedBy="object", cascade={"persist", "remove"})
@@ -86,6 +87,11 @@ class Concert implements Translatable, ConcertConstantsInterface
      * @ORM\Column(type="boolean")
      */
     protected $isActive = TRUE;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $isSubscriptionSent = FALSE;
 
     /**
      * Constructor
@@ -289,11 +295,39 @@ class Concert implements Translatable, ConcertConstantsInterface
         return $this->isActive;
     }
 
+    /**
+     * Set isSubscriptionSent
+     *
+     * @param boolean $isSubscriptionSent
+     * @return Concert
+     */
+    public function setIsSubscriptionSent($isSubscriptionSent)
+    {
+        $this->isSubscriptionSent = $isSubscriptionSent;
+
+        return $this;
+    }
+
+    /**
+     * Get isSubscriptionSent
+     *
+     * @return boolean
+     */
+    public function getIsSubscriptionSent()
+    {
+        return $this->isSubscriptionSent;
+    }
+
     /** Custom methods */
 
     public function areTicketsAvailable()
     {
         return ( $this->ticketsLink ) ? TRUE : FALSE;
+    }
+
+    public function getSubscriptionMessage()
+    {
+        return 'subscription.message.concert';
     }
 
     /** END Custom methods */

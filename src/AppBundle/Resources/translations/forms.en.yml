@@ -1,8 +1,8 @@
 # src/AppBundle/Resources/translations/forms.en.yml
-feedback:
-    label:
-        name:    How can I address you?
-        email:   Which email should I reply to?
-        subject: What would you like to ask?
-        message: Got an interesting story?
-        submit:  Tell
+subscriber:
+    email:
+        label:       Ваш e-mail
+        placeholder: Provide an e-mail for subscription
+
+    submit:
+        label: Subscribe

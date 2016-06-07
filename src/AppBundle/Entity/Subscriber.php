@@ -38,12 +38,17 @@ class Subscriber
     /**
      * @ORM\Column(type="string", length=40, nullable=true)
      */
-    protected $checkoutHash;
+    protected $inCheckoutHash;
+
+    /**
+     * @ORM\Column(type="string", length=40, nullable=true)
+     */
+    protected $outCheckoutHash;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    protected $isActive = TRUE;
+    protected $isActive = FALSE;
 
     /**
      * Constructor
@@ -108,26 +113,49 @@ class Subscriber
     }
 
     /**
-     * Set checkoutHash
+     * Set inCheckoutHash
      *
-     * @param string $checkoutHash
+     * @param string $inCheckoutHash
      * @return Subscriber
      */
-    public function setCheckoutHash($checkoutHash)
+    public function setInCheckoutHash($inCheckoutHash)
     {
-        $this->checkoutHash = $checkoutHash;
+        $this->inCheckoutHash = $inCheckoutHash;
 
         return $this;
     }
 
     /**
-     * Get checkoutHash
+     * Get inCheckoutHash
      *
      * @return string
      */
-    public function getCheckoutHash()
+    public function getInCheckoutHash()
     {
-        return $this->checkoutHash;
+        return $this->inCheckoutHash;
+    }
+
+    /**
+     * Set outCheckoutHash
+     *
+     * @param string $outCheckoutHash
+     * @return Subscriber
+     */
+    public function setOutCheckoutHash($outCheckoutHash)
+    {
+        $this->outCheckoutHash = $outCheckoutHash;
+
+        return $this;
+    }
+
+    /**
+     * Get outCheckoutHash
+     *
+     * @return string
+     */
+    public function getOutCheckoutHash()
+    {
+        return $this->outCheckoutHash;
     }
 
     /**

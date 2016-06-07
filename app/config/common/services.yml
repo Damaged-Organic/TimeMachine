@@ -12,7 +12,31 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
 
+    # Common
+
     app.metadata:
         class: AppBundle\Service\Metadata
         arguments:
             - "@doctrine.orm.entity_manager"
+
+    app.mailer_shortcut:
+        class: AppBundle\Service\MailerShortcut
+        arguments:
+            - "@mailer"
+
+    # Specific
+
+    app.subscription:
+        class: AppBundle\Service\Subscription
+        calls:
+            - [setManager, ["@doctrine.orm.entity_manager"]]
+
+    app.subscription_sender:
+        class: AppBundle\Service\SubscriptionSender
+        arguments:
+            - "%emails%"
+        calls:
+            - [setManager, ["@doctrine.orm.entity_manager"]]
+            - [setTranslator, ["@translator"]]
+            - [setTemplating, ["@templating"]]
+            - [setMailerShortcut, ["@app.mailer_shortcut"]]

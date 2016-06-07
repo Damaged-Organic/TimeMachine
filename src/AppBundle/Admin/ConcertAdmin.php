@@ -42,6 +42,9 @@ class ConcertAdmin extends Admin
                 'label'    => "Отображается",
                 'editable' => TRUE,
             ])
+            ->add('isSubscriptionSent', 'boolean', [
+                'label' => "Письма отправлены",
+            ])
         ;
     }
 
@@ -128,6 +131,9 @@ class ConcertAdmin extends Admin
                                 ],
                             ],
                         ],
+                        'slug' => [
+                            'display' => FALSE,
+                        ],
                     ],
                 ])
             ->end()
@@ -159,5 +165,79 @@ class ConcertAdmin extends Admin
                 ])
             ->end()
         ;
+
+        if( $concert = $this->getSubject() )
+        {
+            if( $concert->getId() && !$concert->getIsSubscriptionSent() )
+            {
+                $formMapper
+                    ->with('Подписка - Отправка писем подписчикам')
+                        ->add('sendSubscription', 'checkbox', [
+                            'mapped'   => FALSE,
+                            'required' => FALSE,
+                            'label'    => "Отправить письма подписчикам",
+                        ])
+                    ->end()
+                ;
+            }
+        }
+    }
+
+    public function postPersist($concert)
+    {
+        if( !($concert instanceof Concert) )
+            return;
+
+        if( !$this->getForm()->has('sendSubscription') )
+            return;
+
+        if( $this->getForm()->get('sendSubscription')->getData() &&
+            !$concert->getIsSubscriptionSent() ) {
+            $this->sendSubscriptionMessage($concert);
+        }
+    }
+
+    public function postUpdate($concert)
+    {
+        if( !($concert instanceof Concert) )
+            return;
+
+        if( !$this->getForm()->has('sendSubscription') )
+            return;
+
+        if( $this->getForm()->get('sendSubscription')->getData() &&
+            !$concert->getIsSubscriptionSent() ) {
+            $this->sendSubscriptionMessage($concert);
+        }
+    }
+
+    public function sendSubscriptionMessage(Concert $concert)
+    {
+        $_router = $this->getConfigurationPool()->getContainer()
+            ->get('router')
+        ;
+
+        $message = [
+            'title' => $concert->getTitle(),
+            'text'  => $concert->getSubscriptionMessage(),
+            'link'  => $_router->generate('concerts', [], TRUE),
+        ];
+
+        $_subscriptionSender = $this->getConfigurationPool()->getContainer()
+            ->get('app.subscription_sender')
+        ;
+
+        $_subscriptionSender->sendSubscriptionMessages(
+            $message['title'], $message['text'], $message['link']
+        );
+
+        $_manager = $this->getConfigurationPool()->getContainer()
+            ->get('Doctrine')->getManager()
+        ;
+
+        $_manager->persist(
+            $concert->setIsSubscriptionSent(TRUE)
+        );
+        $_manager->flush();
     }
 }

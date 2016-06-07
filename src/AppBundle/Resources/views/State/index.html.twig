@@ -22,6 +22,10 @@
 
 {% block content %}
     Time Machine
+
+    {{ render(controller(
+        'AppBundle:Form:subscriberForm'
+    )) }}
 {% endblock %}
 
 {% block javascripts %}

@@ -14,7 +14,7 @@ trait SlugMapper
      * @Gedmo\Slug(
      *      fields={"title"},
      *      separator="_",
-     *      style="camel"
+     *      style="lower"
      * )
      * @Gedmo\Translatable
      */
