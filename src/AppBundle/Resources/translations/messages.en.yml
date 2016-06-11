@@ -1,3 +1,45 @@
 # src/AppBundle/Resources/translations/messages.en.yml
 common:
-    title: Mashina Vremeni
+    title:  Mashina Vremeni
+    footer: © Mashina Vremeni, %timeline%. Web Production by %link%.
+
+index:
+    topline:  Rock Band
+    headline: Mashina Vremeni
+    slogan: >
+        -empty-
+    affiche: Affiche
+
+    musician:
+        read_more: read more
+        back_band: back to band
+
+affiche:
+    headline: Affiche
+
+    tickets:
+        available:     tickets
+        not_available: no tickets available
+
+blog:
+    headline: Blog
+
+    article:
+        views:     '{0} no views | {1} 1 view | [2,Inf] %count% views'
+        read_more: read more
+        prev:      previous
+        next:      next
+
+music:
+    headline: Music
+
+    album:
+        songs:         '{0} no songs | {1} 1 song | [2,Inf] %count% songs'
+        songs_details: '{0} no songs in album | {1} 1 song in alnum | [2,Inf] %count% songs in album'
+        details:       details
+
+    song:
+        text: текст песни
+
+header:
+    menu: menu

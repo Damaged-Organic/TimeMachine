@@ -1,0 +1,29 @@
+{# src/AppBundle/Resources/views/Component/header.html.twig #}
+<div id="logo-holder">
+    <a href="{{ path('index') }}" class="logo">
+        <img src="{{ asset('bundles/app/images/logo.png') }}" alt="{{ 'common.title'|trans }}" title="{{ 'common.title'|trans }}">
+    </a>
+</div>
+<div id="toggle-menu">
+    <span class="line"></span>
+    <span class="line"></span>
+    <span class="line"></span>
+</div>
+<div id="menu-holder">
+
+    {{ render(controller(
+        'AppBundle:Component:locale'
+    )) }}
+
+    {{ render(controller(
+        'AppBundle:Component:menu'
+    )) }}
+
+    {{ render(controller(
+        'AppBundle:Component:social'
+    )) }}
+
+    {{ render(controller(
+        'AppBundle:Component:band'
+    )) }}
+</div>

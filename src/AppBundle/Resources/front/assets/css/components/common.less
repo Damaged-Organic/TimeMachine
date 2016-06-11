@@ -1,0 +1,490 @@
+@import "reset.less";
+@import "settings.less";
+@import "icons.less";
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  Fonts start                               */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+h1, h2, h3, p, a, time, span, small{
+    font-weight: normal;
+    color: @black;
+}
+h1, h2, h3{ font-family: @djsc; }
+p, a, span, time, small{ font-family: @djs; }
+
+h1{ font-size: 6em; }
+h2{ font-size: 4.5em; }
+h3{ font-size: 1.5em; }
+h4{ font-size: 1.25em; }
+
+p, a, time{ font-size: 1em; }
+small{ font-size: .875em; }
+a{ text-decoration: none; }
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  Fonts end                                 */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  layout start                              */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+body, html{
+    height: 100%;
+    min-height: 100%;
+}
+#page{ position: relative; }
+#page,
+#content{
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+}
+.outer,
+.inner{
+    width: 100%;
+    height: auto;
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  layout end                                */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  header start                              */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#logo-holder{
+    width: 80px;
+    height: 80px;
+    position: fixed;
+    top: 80px;
+    left: 80px;
+    z-index: 15;
+    opacity: 1;
+    visibility: visible;
+    transition: all .75s @easing 1s;
+    & > a{
+        display: block;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  header end                                */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  background circle start                   */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#bg-circle-holder,
+.bg-circle-holder-inside{
+    width: 33.33333333333333%;
+    height: 0;
+    padding-top: 33.33333333333333%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+    transform: translateX(-50%) translateY(-50%);
+    overflow: hidden;
+    &:before{
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "";
+        border: 60px solid @grey;
+        border-radius: 50%;
+        box-sizing: border-box;
+    }
+}
+#bg-circle-holder-inside{
+    position: absolute;
+    transition: all .25s @easing;
+}
+#bg-circle-overlay{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    background: @black;
+    overflow: hidden;
+    & > .circle{
+        width: 33.33333333333333%;
+        height: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        padding-top: 33.33333333333333%;
+        transform: translateX(-50%) translateY(-50%);
+        overflow: hidden;
+        &:before{
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: "";
+            border-radius: 50%;
+            border: 60px solid @grey;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  background circle end                     */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  underline start                           */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.underline{
+    display: block;
+    width: 80px;
+    height: 2px;
+    background: @white;
+    overflow: hidden;
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  underline end                             */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  arrows start                              */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+*[class^="arrow"]{
+    display: inline-block;
+    width: 47px;
+    height: 8px;
+    position: relative;
+    transition: all .5s @easing;
+    &:before{
+        display: block;
+        width: 40px;
+        height: 2px;
+        margin: 3px 0;
+        background: @white;
+        content: "";
+    }
+    &:after{
+        display: block;
+        height: 0;
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+        border-left: 7px solid @white;
+        content: "";
+    }
+    &.arrow-small{
+        width: 27px;
+        &:before{
+            width: 20px;
+        }
+    }
+    &.arrow-top{
+        width: 8px;
+        height: 47px;
+        &:before{
+            width: 2px;
+            height: 40px;
+            margin: 0 3px;
+        }
+        &:after{
+            border-top: none;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 7px solid @white;
+        }
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  arrows end                                */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  to top start                              */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#to-top{
+    display: block;
+    width: 8px;
+    height: 47px;
+    position: fixed;
+    left: 106px;
+    bottom: 80px;
+    z-index: 20;
+    cursor: pointer;
+    & > .arrow{ transition: all .25s @easing; }
+    &:hover{
+        .arrow{ transform: translateY(-20px); }
+    }
+}
+
+.__loading #to-top{ display: none; }
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  to top end                                */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  buttons start                             */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+*[class^="btn"]{
+    width: 220px;
+    height: 30px;
+    overflow: hidden;
+    & > a{
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        & > span,
+        &:after{
+            display: block;
+            width: 100%;
+            height: 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        & > span{
+            z-index: 10;
+            font-size: 1em;
+            color: @white;
+            text-align: center;
+        }
+        &:after{
+            top: 10px;
+            content: "";
+            background: @grey;
+            transition: all .25s @easing;
+        }
+        &:hover{
+            &:after{
+                transform: translateY(18px);
+                background: @white;
+            }
+        }
+    }
+    &.btn-small{
+        width: 160px;
+        & > a{
+            & > span{
+                font-family: @djsl;
+                font-size: .875em;
+            }
+        }
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  buttons end                               */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  footer start                              */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#footer{
+    width: 100%;
+    height: 80px;
+    position: relative;
+    margin-top: -80px;
+    clear: both;
+    background: @black;
+    overflow: hidden;
+    a{
+        display: block;
+        width: 30px;
+        height: 30px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+    small{
+        display: block;
+        font-family: @djsc;
+        font-size: .875em;
+        text-align: center;
+        color: @grey;
+        margin-top: 10px;
+        line-height: 20px;
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  footer end                                */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  landscape start                           */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#landscape-cap-holder{
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    background: @black;
+    overflow: hidden;
+    .circle-holder{
+        width: 50%;
+        height: 0;
+        padding-top: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        overflow: hidden;
+        &:before{
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 80px solid @grey;
+            border-radius: 50%;
+            box-sizing: border-box;
+            content: "";
+        }
+    }
+    .inner{
+        max-width: 800px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 20;
+        transform: translateX(-50%) translateY(-50%);
+        .underline{
+            margin: 0 auto;
+        }
+        h2, p{
+            color: @white;
+            text-align: center;
+        }
+        h2{
+            font-family: @djsc;
+            padding: 40px 40px 20px;
+            text-transform: uppercase;
+        }
+        p{ font-size: 1.125em; }
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  landscape end                             */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  adaptive start                            */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@media only screen and @notebook{
+
+    h1{ font-size: 5em; }
+    h2{ font-size: 4em; }
+    h3{ font-size: 1.25em; }
+    h4{ font-size: 1.125em; }
+    
+}
+
+@media only screen and @tablet{
+
+    #logo-holder{
+        width: 60px;
+        height: 60px;
+    }
+
+    #bg-circle-overlay{
+        & > .circle{
+            width: 62.5%;
+            padding-top: 62.5%;
+        }
+    }
+
+    #to-top{
+        left: 80px;
+        &:hover{
+            .arrow{ transform: translateY(0px); }
+        }
+    }
+
+}
+
+@media only screen and @mobileL{
+
+    h1{ font-size: 2.5em; }
+    h2{ font-size: 1.75em; }
+    h3{ font-size: 1em; }
+    h4{ font-size: 1em; }
+
+    p, a, time{ font-size: .875em; }
+
+    #logo-holder{
+        width: 40px;
+        height: 40px;
+        top: 40px;
+        left: 40px;
+    }
+
+    #to-top{
+        width: 8px;
+        height: 30px;
+        left: 40px;
+        bottom: 40px;
+        .arrow{
+            width: 8px;
+            height: 30px;
+            &:before{
+                height: 25px;
+                margin-top: 5px;
+            }
+            &:after{
+                border-top: none;
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-bottom: 5px solid @white; 
+            }
+        }
+    }
+
+    #footer{
+        a{
+            display: block;
+            width: 30px;
+            height: 30px;
+            margin: 25px auto;
+            overflow: hidden;
+        }
+        small{ display: none; }
+    }
+
+}
+
+@media only screen and @mobileS{
+
+    h1{ font-size: 2.25em; }
+    h2{ font-size: 1.75em; }
+
+    #logo-holder{
+        top: 20px;
+        left: 20px;
+    }
+
+    #to-top{
+        left: 20px;
+        bottom: 20px;
+    }
+
+}
+
+@media only screen @landscape{
+    
+    #content{ display: none; }
+    #landscape-cap-holder{ display: block; }
+
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  adaptive end                              */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

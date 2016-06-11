@@ -220,7 +220,7 @@ class ConcertAdmin extends Admin
         $message = [
             'title' => $concert->getTitle(),
             'text'  => $concert->getSubscriptionMessage(),
-            'link'  => $_router->generate('concerts', [], TRUE),
+            'link'  => $_router->generate('affiche', [], TRUE),
         ];
 
         $_subscriptionSender = $this->getConfigurationPool()->getContainer()

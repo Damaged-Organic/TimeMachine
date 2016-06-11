@@ -17,6 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
     AppBundle\Entity\Utility\Traits\DoctrineMapping\TranslationMapper,
+    AppBundle\Entity\Utility\Traits\DoctrineMapping\SlugMapper,
     AppBundle\Entity\Utility\Traits\TagTrait,
     AppBundle\Entity\Utility\Interfaces\MusicianConstantsInterface,
     AppBundle\Entity\Utility\Traits\FileObjects\MusicianFileObjectsTrait;
@@ -31,7 +32,7 @@ use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
  */
 class Musician implements Translatable, MusicianConstantsInterface
 {
-    use IdMapper, TranslationMapper, TagTrait, MusicianFileObjectsTrait;
+    use IdMapper, TranslationMapper, SlugMapper, TagTrait, MusicianFileObjectsTrait;
 
     /**
      * @ORM\OneToMany(targetEntity="MusicianTranslation", mappedBy="object", cascade={"persist", "remove"})
@@ -49,7 +50,7 @@ class Musician implements Translatable, MusicianConstantsInterface
      *
      * @Gedmo\Translatable
      */
-    protected $fullName;
+    protected $title;
 
     /**
      * @ORM\Column(type="string", length=200)
@@ -59,7 +60,7 @@ class Musician implements Translatable, MusicianConstantsInterface
     protected $skill;
 
     /**
-     * @ORM\Column(type="text", length=200)
+     * @ORM\Column(type="text", length=1000)
      *
      * @Gedmo\Translatable
      */
@@ -86,6 +87,21 @@ class Musician implements Translatable, MusicianConstantsInterface
     protected $isMainCast = FALSE;
 
     /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    protected $photoMain;
+
+    /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    protected $photoPart;
+
+    /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    protected $photoMenu;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -98,30 +114,30 @@ class Musician implements Translatable, MusicianConstantsInterface
      */
     public function __toString()
     {
-        return ( $this->fullName ) ?: "Музыкант";
+        return ( $this->title ) ?: "Музыкант";
     }
 
     /**
-     * Set fullName
+     * Set title
      *
-     * @param string $fullName
+     * @param string $title
      * @return Musician
      */
-    public function setFullName($fullName)
+    public function setTitle($title)
     {
-        $this->fullName = $fullName;
+        $this->title = $title;
 
         return $this;
     }
 
     /**
-     * Get fullName
+     * Get title
      *
      * @return string
      */
-    public function getFullName()
+    public function getTitle()
     {
-        return $this->fullName;
+        return $this->title;
     }
 
     /**
@@ -260,6 +276,75 @@ class Musician implements Translatable, MusicianConstantsInterface
     public function getIsMainCast()
     {
         return $this->isMainCast;
+    }
+
+    /**
+     * Set photoMain
+     *
+     * @param string $photoMain
+     * @return Musician
+     */
+    public function setPhotoMain($photoMain)
+    {
+        $this->photoMain = $photoMain;
+
+        return $this;
+    }
+
+    /**
+     * Get photoMain
+     *
+     * @return string
+     */
+    public function getPhotoMain()
+    {
+        return $this->photoMain;
+    }
+
+    /**
+     * Set photoPart
+     *
+     * @param string $photoPart
+     * @return Musician
+     */
+    public function setPhotoPart($photoPart)
+    {
+        $this->photoPart = $photoPart;
+
+        return $this;
+    }
+
+    /**
+     * Get photoPart
+     *
+     * @return string
+     */
+    public function getPhotoPart()
+    {
+        return $this->photoPart;
+    }
+
+    /**
+     * Set photoMenu
+     *
+     * @param string $photoMenu
+     * @return Musician
+     */
+    public function setPhotoMenu($photoMenu)
+    {
+        $this->photoMenu = $photoMenu;
+
+        return $this;
+    }
+
+    /**
+     * Get photoMenu
+     *
+     * @return string
+     */
+    public function getPhotoMenu()
+    {
+        return $this->photoMenu;
     }
 
     /**

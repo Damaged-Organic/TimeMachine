@@ -1,0 +1,93 @@
+{# src/AppBundle/Resources/views/State/blog.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ metadata.title }} - {{ 'common.title'|trans }}
+{% endblock %}
+
+{% block metadata %}
+    {{ parent() }}
+    <meta name="description" content="{{ metadata.description }}">
+    <meta name="robots" content="{{ metadata.robots }}">
+    {# Open Graph #}
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="{{ url('blog') }}">
+    <meta property="og:title" content="{{ metadata.title }} - {{ 'common.title'|trans }}">
+	<meta property="og:description" content="{{ metadata.description }}">
+    <meta property="og:image" content="{{ absolute_url(asset('bundles/app/images/logo.png')) }}">
+    <meta property="og:image:type" content="image/png">
+    {# Locale reference #}
+    <link rel="canonical" href="{{ url('blog', { '_locale': "ru" }) }}">
+    <link rel="alternate" href="{{ url('blog', { '_locale': "ru" }) }}" hreflang="x-default">
+    <link rel="alternate" href="{{ url('blog', { '_locale': "ru" }) }}" hreflang="ru-ru">
+    <link rel="alternate" href="{{ url('blog', { '_locale': "en" }) }}" hreflang="en-us">
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/blog.bundle.min.css') }}">
+{% endblock %}
+
+{% block content %}
+    <main id="content">
+        <section class="outer blog-holder">
+            <h1 class="entitled-holder">
+                {{ 'blog.headline'|trans }}
+            </h1>
+            <div class="inner grid" id="lift-holder">
+
+                {% for article in articles %}
+                    <article class="item lift-item">
+                        <div class="photo-holder">
+                            <div class="photo">
+                                <figure>
+                                    <img src="{{ vich_uploader_asset(article.articleBlocks.0, 'imageFile')|imagine_filter('blog_image_thumb') }}" alt="{{ article.title }}">
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="stamp-holder">
+                            <time class="upper-title" datetime="{{ article.createdAt|date('Y-m-d') }}">
+                                {{ article.createdAt|date('Y') }}
+                            </time>
+                            <span class="sub-title">
+                                {% if _locale == 'ru' %}
+                                    {{ article.createdAt|localizeddate('long', 'none', null, null, 'dd MMMM') }}
+                                {% else %}
+                                    {{ article.createdAt|localizeddate('long', 'none', null, null, 'MMMM, dd') }}
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="info-holder">
+                            <span class="upper-title">
+                                {{ 'blog.article.views'|transchoice(article.views) }}
+                            </span>
+                            <span class="underline"></span>
+                            <h2>{{ article.title }}</h2>
+                            <p>{{ article.articleBlocks.0.text|truncate(250) }}</p>
+                            <a href="{{ path('blog', { 'id': article.id, 'slug': article.slug }) }}">
+                                {{ 'blog.article.read_more'|trans }}
+                                <span class="arrow"></span>
+                            </a>
+                        </div>
+                    </article>
+                {% endfor %}
+
+            </div>
+        </section>
+        <div id="to-top">
+            <span class="arrow arrow-top"></span>
+        </div>
+    </main>
+    <div id="bg-circle-overlay">
+        <div class="circle"></div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+
+    {% include 'AppBundle:Component:footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/blog.bundle.min.js') }}"></script>
+{% endblock %}

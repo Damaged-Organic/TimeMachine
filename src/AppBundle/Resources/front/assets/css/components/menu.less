@@ -1,0 +1,464 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  toggle menu                               */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#toggle-menu{
+    width: 40px;
+    height: 22px;
+    position: fixed;
+    top: 80px;
+    right: 80px;
+    z-index: 30;
+    cursor: pointer;
+    transition: all .5s @easing 1s;
+    & > .line{
+        display: block;
+        width: 100%;
+        height: 2px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: @white;
+        opacity: 1;
+        transition: all .5s @easing 0s;
+        &:nth-child(1){
+            transform: translateY(0);
+        }
+        &:nth-child(2){
+            transform: translateY(10px);
+        }
+        &:nth-child(3){
+            transform: translateY(20px);
+        }
+    }
+    &:hover{
+        & > .line{ transform: translateY(10px); }
+    }
+    &.active{
+        & > .line{
+            &:nth-child(1){ transform: translateY(10px) rotate(45deg); }
+            &:nth-child(2){
+                transition: none;
+                opacity: 0;
+                transform: translateY(0px);
+            }
+            &:nth-child(3){ transform: translateY(10px) rotate(-45deg); }
+        }
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  toggle end                                */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  menu start                                */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#menu-holder{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 25;
+    background: @black;
+    transform: translateX(-100%);
+    transition: all .5s @easing;
+    overflow: hidden;
+    .lang{
+        width: 160px;
+        height: 160px;
+        position: relative;
+        background: @grey;
+        overflow: hidden;
+        & > a{
+            display: block;
+            width: 100%;
+            height: 100%;
+            font-size: 1em;
+            color: @white;
+            line-height: 160px;
+            text-align: center;
+        }  
+    }
+    .menu{
+        width: 100%;
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        overflow: hidden;
+        .entitled{
+            display: block;
+            width: 100%;
+            font-family: @djsc;
+            font-size: 1.125em;
+            text-transform: uppercase;
+            color: @white;
+            padding-left: 12.5%;
+            box-sizing: border-box;
+            &:before{
+                display: inline-block;
+                vertical-align: middle;
+                width: 80px;
+                height: 2px;
+                background: @white;
+                content: "";
+                margin-right: 20px;
+            }
+        }
+        & > nav{
+            display: block;
+            width: 100%;
+            height: auto;
+            margin: 80px 0 0;
+            ul{
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+            li{
+                display: block;
+                width: 480px;
+                height: 30px;
+                margin-bottom: 20px;
+                position: relative;
+                padding-left: 16.66666666666667%;
+                box-sizing: border-box;
+                &:last-child{ margin-bottom: 0; }
+                &:after{
+                    display: block;
+                    width: 100%;
+                    height: 20px;
+                    position: absolute;
+                    top: 10px;
+                    left: 0;
+                    content: "";
+                    background: @grey;
+                    transition: all .25s @easing 0s;
+                    transform: translateX(-100%);
+                }
+                a{
+                    display: block;
+                    width: 160px;
+                    height: 20px;
+                    position: relative;
+                    z-index: 10;
+                    float: right;
+                    backface-visibility: hidden;
+                    span{
+                        display: inline-block;
+                        height: 20px;
+                        font-family: @djsc;
+                        font-size: 1.5em;
+                        text-transform: uppercase;
+                        color: @white;
+                        line-height: 20px;
+                        &.num{
+                            font-size: 1em;
+                            margin-right: 20px;
+                        }
+                    }
+                }
+                &.active,
+                &:hover{
+                    &:after{
+                        transform: translateX(0%);
+                    }
+                }
+            }
+        }
+    }
+    .social-holder{
+        display: block;
+        width: 100%;
+        height: 40px;
+        position: absolute;
+        left: 0;
+        bottom: 80px;
+        padding-left: 12.5%;
+        box-sizing: border-box;
+        overflow: hidden;
+        li{
+            display: inline-block;
+            width: auto;
+            line-height: 40px;
+            a{
+                display: inline-block;
+                font-family: @djsl;
+                font-size: .875em;
+                color: @white;
+                margin-right: 40px;
+                &:before{
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 40px;
+                    height: 2px;
+                    margin-right: 20px;
+                    background: @white;
+                    content: "";
+                }
+            }
+        }
+    }
+    .participants-holder{
+        width: 31.25%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 16.66666666666667%;
+        z-index: 5;
+        box-sizing: border-box;
+        .item-holder{
+            width: 100%;
+            height: 25%;
+            .photo,
+            .square{
+                display: block;
+                width: 50%;
+                height: 100%;
+                position: relative;
+                float: left;
+                background: @grey;
+            }
+            .square{
+                .title{
+                    display: block;
+                    width: 100%;
+                    height: 40px;
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    color: @white;
+                    font-size: .875em;
+                    transform: translateY(-50%);
+                    &:before{
+                        display: inline-block;
+                        vertical-align: middle;
+                        width: 40px;
+                        height: 2px;
+                        margin: 0 20px 0 -20px;
+                        content: "";
+                        background: @white;
+                    }
+                }
+                & > .arrow{
+                    position: absolute;
+                    right: 40px;
+                    bottom: 40px;
+                    transition: all .5s @easing;
+                    transform: translateX(0px);
+                }
+                &:hover{
+                    & > .arrow{
+                        transform: translateX(20px);
+                    }
+                }
+            }
+            &.reverse{
+                .photo,
+                .square{
+                    float: right;
+                }
+            }
+            &:nth-child(1){
+                .photo{
+                    background: url("@{images}makar-menu.jpg") no-repeat 50% 0%;
+                    background-size: cover;
+                }
+            }
+            &:nth-child(2){
+                .photo{
+                    background: url("@{images}kytikov-menu.jpg") no-repeat 50% 0%;
+                    background-size: cover;
+                }
+            }
+            &:nth-child(3){
+                .photo{
+                    background: url("@{images}efremov-menu.jpg") no-repeat 50% 0%;
+                    background-size: cover;
+                }
+            }
+            &:nth-child(4){
+                .photo{
+                    background: url("@{images}derjavin-menu.jpg") no-repeat 50% 0%;
+                    background-size: cover;
+                }
+            }
+        }
+    }
+    &.active{ transform: translateX(0%); }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  menu end                                  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  adaptive start                            */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@media only screen and @tablet{
+    
+    #toggle-menu{
+        &:hover{
+            & > .line{
+                &:nth-child(1){ transform: translateY(0px); }
+                &:nth-child(2){ transform: translateY(10px); }
+                &:nth-child(3){ transform: translateY(20px); }
+            }
+        }
+        &.active{
+            & > .line{
+                &:nth-child(1){ transform: translateY(10px) rotate(45deg); }
+                &:nth-child(2){
+                    transition: none;
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                &:nth-child(3){ transform: translateY(10px) rotate(-45deg); }
+            }
+        }
+    }
+
+    #menu-holder{
+        .lang{
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            top: 60px;
+            left: 80px;
+            & > a{ line-height: 80px; }  
+        }
+        .menu{
+            .entitled{ padding-left: 80px; }
+            & > nav{
+                li{
+                    width: 320px;
+                    padding-left: 160px;
+                }
+            }
+        }
+        .social-holder{ padding-left: 80px; }
+        .participants-holder{ display: none; }
+    }
+
+}
+
+@media only screen and @mobileL{
+
+    #toggle-menu{
+        width: 30px;
+        height: 22px;
+        top: 40px;
+        right: 40px;
+    }
+
+    #menu-holder{
+        .lang{
+            top: 20px;
+            left: 20px;
+        }
+    }
+
+}
+
+@media only screen and @mobileM{
+
+    #menu-holder{
+        .lang{
+            top: 0;
+            left: 0; 
+        }
+        .menu{
+            .entitled{
+                font-size: 1em;
+                padding-left: 40px;
+                &:before{ width: 40px; }
+            }
+            & > nav{
+                margin: 40px 0 0;
+                li{
+                    width: 240px;
+                    padding-left: 80px;
+                }
+            }
+        }
+        .social-holder{
+            height: auto;
+            bottom: 40px;
+            padding-left: 40px;
+            li{
+                display: block;
+                width: 100%;
+                line-height: 20px;
+                a{
+                    display: block;
+                    width: 100%;
+                    margin-right: 0;
+                    &:before{
+                        width: 20px;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+@media only screen and @mobileS{
+    
+    #toggle-menu{
+        top: 20px;
+        right: 20px;
+        &.active{
+            top: 20px;
+        }
+    }
+
+    #menu-holder{
+        .menu{
+            .entitled{
+                padding-left: 20px;
+            }
+            & > nav{
+                margin: 20px 0 0;
+                li{
+                    width: 200px;
+                    padding-left: 40px;
+                    margin-bottom: 10px;
+                    a{
+                        width: 120px;
+                        font-size: 1em;
+                        span{
+                            font-size: 1.125em;
+                            &.num{
+                                margin-right: 10px;
+                                font-size: .75em;
+                            }
+                        }
+                    } 
+                }
+            }
+        }
+        .social-holder{
+            height: auto;
+            bottom: 40px;
+            padding-left: 20px;
+            li{
+                display: inline-block;
+                width: auto;
+                line-height: 20px;
+                a{
+                    display: inline-block;
+                    width: auto;
+                    margin-right: 10px;
+                    &:before{
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  adaptive end                              */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

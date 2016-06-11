@@ -168,7 +168,7 @@ class ArticleAdmin extends Admin
         $message = [
             'title' => $article->getTitle(),
             'text'  => $article->getSubscriptionMessage(),
-            'link'  => $_router->generate('articles', [
+            'link'  => $_router->generate('blog', [
                 'id'   => $article->getId(),
                 'slug' => $article->getSlug(),
             ], TRUE),

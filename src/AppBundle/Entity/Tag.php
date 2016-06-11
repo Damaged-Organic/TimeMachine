@@ -34,12 +34,12 @@ class Tag implements Translatable
     protected $musician;
 
     /**
-     * @ORM\OneToMany(targetEntity="PhotoAlbum", mappedBy="object", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="PhotoAlbum", mappedBy="tag", cascade={"persist", "remove"})
      */
     protected $photoAlbums;
 
     /**
-     * @ORM\OneToMany(targetEntity="Photo", mappedBy="object", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Photo", mappedBy="tag", cascade={"persist", "remove"})
      */
     protected $photos;
 

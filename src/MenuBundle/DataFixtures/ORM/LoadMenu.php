@@ -18,7 +18,7 @@ class LoadMenu extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($menuItem);
         $manager->flush();
 
-        $menuItem->setTitle("Homepage")
+        $menuItem->setTitle("Home")
             ->setTranslatableLocale('en');
         $manager->persist($menuItem);
         $manager->flush();
@@ -27,11 +27,11 @@ class LoadMenu extends AbstractFixture implements OrderedFixtureInterface
 
         $menuItem = (new Menu)
             ->setTitle("Афиша")
-            ->setRoute("events");
+            ->setRoute("affiche");
         $manager->persist($menuItem);
         $manager->flush();
 
-        $menuItem->setTitle("Events")
+        $menuItem->setTitle("Affiche")
             ->setTranslatableLocale('en');
         $manager->persist($menuItem);
         $manager->flush();
@@ -52,25 +52,12 @@ class LoadMenu extends AbstractFixture implements OrderedFixtureInterface
         // ---
 
         $menuItem = (new Menu)
-            ->setTitle("Музыка")
-            ->setRoute("music");
+            ->setTitle("Группа")
+            ->setRoute("band");
         $manager->persist($menuItem);
         $manager->flush();
 
-        $menuItem->setTitle("Music")
-            ->setTranslatableLocale('en');
-        $manager->persist($menuItem);
-        $manager->flush();
-
-        // ---
-
-        $menuItem = (new Menu)
-            ->setTitle("Книги")
-            ->setRoute("books");
-        $manager->persist($menuItem);
-        $manager->flush();
-
-        $menuItem->setTitle("Books")
+        $menuItem->setTitle("Band")
             ->setTranslatableLocale('en');
         $manager->persist($menuItem);
         $manager->flush();
@@ -91,38 +78,12 @@ class LoadMenu extends AbstractFixture implements OrderedFixtureInterface
         // ---
 
         $menuItem = (new Menu)
-            ->setTitle("Книги")
-            ->setRoute("books");
+            ->setTitle("Галерея")
+            ->setRoute("gallery");
         $manager->persist($menuItem);
         $manager->flush();
 
-        $menuItem->setTitle("Books")
-            ->setTranslatableLocale('en');
-        $manager->persist($menuItem);
-        $manager->flush();
-
-        // ---
-
-        $menuItem = (new Menu)
-            ->setTitle("Картины")
-            ->setRoute("pictures");
-        $manager->persist($menuItem);
-        $manager->flush();
-
-        $menuItem->setTitle("Pictures")
-            ->setTranslatableLocale('en');
-        $manager->persist($menuItem);
-        $manager->flush();
-
-        // ---
-
-        $menuItem = (new Menu)
-            ->setTitle("Биография")
-            ->setRoute("biography");
-        $manager->persist($menuItem);
-        $manager->flush();
-
-        $menuItem->setTitle("Biography")
+        $menuItem->setTitle("Gallery")
             ->setTranslatableLocale('en');
         $manager->persist($menuItem);
         $manager->flush();

@@ -1,0 +1,18 @@
+{# src/AppBundle/Resources/views/Component/Header/menu.html.twig #}
+<div class="menu">
+    <span class="entitled">{{ 'header.menu'|trans }}</span>
+    <nav>
+        <ul>
+
+            {% for item in menu %}
+                <li {{ ( item.route == route ) ? 'class="active"' }}>
+                    <a href="{{ path(item.route) }}">
+                        <span class="num">{{ "%02d"|format(loop.index) }}.</span>
+                        <span class="title">{{ item.title }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+
+        </ul>
+    </nav>
+</div>

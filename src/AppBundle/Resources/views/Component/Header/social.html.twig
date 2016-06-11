@@ -1,0 +1,10 @@
+{# src/AppBundle/Resources/views/Component/Header/social.html.twig #}
+<ul class="social-holder">
+
+    {% for title, link in social %}
+        <li>
+            <a href="{{ link }}">{{ title|lower }}</a>
+        </li>
+    {% endfor %}
+
+</ul>

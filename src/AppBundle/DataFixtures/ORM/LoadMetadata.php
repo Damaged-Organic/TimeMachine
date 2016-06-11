@@ -20,7 +20,87 @@ class LoadMetadata extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($metadata);
         $manager->flush();
 
-        $metadata->setTitle("Homepage")
+        $metadata->setTitle("Home")
+            ->setDescription("")
+            ->setTranslatableLocale('en');
+        $manager->persist($metadata);
+        $manager->flush();
+
+        // ---
+
+        $metadata = (new Metadata)
+            ->setRoute("affiche")
+            ->setRobots("index, follow")
+            ->setTitle("Афиша")
+            ->setDescription("");
+        $manager->persist($metadata);
+        $manager->flush();
+
+        $metadata->setTitle("Affiche")
+            ->setDescription("")
+            ->setTranslatableLocale('en');
+        $manager->persist($metadata);
+        $manager->flush();
+
+        // ---
+
+        $metadata = (new Metadata)
+            ->setRoute("blog")
+            ->setRobots("index, follow")
+            ->setTitle("Блог")
+            ->setDescription("");
+        $manager->persist($metadata);
+        $manager->flush();
+
+        $metadata->setTitle("Blog")
+            ->setDescription("")
+            ->setTranslatableLocale('en');
+        $manager->persist($metadata);
+        $manager->flush();
+
+        // ---
+
+        $metadata = (new Metadata)
+            ->setRoute("band")
+            ->setRobots("index, follow")
+            ->setTitle("Группа")
+            ->setDescription("");
+        $manager->persist($metadata);
+        $manager->flush();
+
+        $metadata->setTitle("Band")
+            ->setDescription("")
+            ->setTranslatableLocale('en');
+        $manager->persist($metadata);
+        $manager->flush();
+
+        // ---
+
+        $metadata = (new Metadata)
+            ->setRoute("music")
+            ->setRobots("index, follow")
+            ->setTitle("Музыка")
+            ->setDescription("");
+        $manager->persist($metadata);
+        $manager->flush();
+
+        $metadata->setTitle("Music")
+            ->setDescription("")
+            ->setTranslatableLocale('en');
+        $manager->persist($metadata);
+        $manager->flush();
+
+        // ---
+
+        $metadata = (new Metadata)
+            ->setRoute("gallery")
+            ->setRobots("index, follow")
+            ->setTitle("Галерея")
+            ->setDescription("");
+        $manager->persist($metadata);
+        $manager->flush();
+
+        $metadata->setTitle("Gallery")
             ->setDescription("")
             ->setTranslatableLocale('en');
         $manager->persist($metadata);

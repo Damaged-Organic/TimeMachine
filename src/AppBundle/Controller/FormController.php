@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Component\HttpFoundation\JsonResponse;
 
-use AppBundle\Controller\Utility\FormErrorHandlerTrait;
+use AppBundle\Controller\Utility\Traits\FormErrorHandlerTrait;
 
 use AppBundle\Entity\Subscriber,
     AppBundle\Form\Type\SubscriberType;

@@ -2,8 +2,7 @@
 // src/AppBundle/Admin/SongAdmin.php
 namespace AppBundle\Admin;
 
-use Symfony\Component\DependencyInjection\ContainerInterface,
-    Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Sonata\AdminBundle\Admin\Admin,
     Sonata\AdminBundle\Datagrid\ListMapper,

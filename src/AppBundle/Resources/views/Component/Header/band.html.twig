@@ -1,0 +1,14 @@
+{# src/AppBundle/Resources/views/Component/Header/band.html.twig #}
+<div class="participants-holder">
+
+    {% for musician in musicians %}
+        <div class="item-holder {{ ( loop.index is divisible by(2) ) ? 'reverse' }}">
+            <div class="photo"></div>
+            <a href="{{ path('band', { 'id': musician.id, 'slug': musician.slug }) }}" class="square">
+                <span class="title">{{ musician.title }}</span>
+                <span class="arrow arrow-small"></span>
+            </a>
+        </div>
+    {% endfor %}
+
+</div>

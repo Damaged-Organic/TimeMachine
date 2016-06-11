@@ -1,0 +1,171 @@
+{# src/AppBundle/Resources/views/State/blog_article.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ article.title }} - {{ metadata.title }} - {{ 'common.title'|trans }}
+{% endblock %}
+
+{% block metadata %}
+    {{ parent() }}
+
+    {% set majorArticleBlock = article.articleBlocks.0 %}
+
+    <meta name="description" content="{{ majorArticleBlock.text|truncate(250) }}">
+    <meta name="robots" content="{{ metadata.robots }}">
+    {# Open Graph #}
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="{{ url('blog', { 'id': article.id, 'slug': article.slug }) }}">
+    <meta property="og:title" content="{{ article.title }} - {{ metadata.title }} - {{ 'common.title'|trans }}">
+	<meta property="og:description" content="{{ majorArticleBlock.text|truncate(250) }}">
+    <meta property="og:image" content="{{ absolute_url(vich_uploader_asset(majorArticleBlock, 'imageFile')) }}">
+    <meta property="og:image:type" content="image/{{ majorArticleBlock.imageName|split('.')[1] }}">
+    {# Locale reference #}
+    <link rel="canonical" href="{{ url('blog', { '_locale': "ru", 'id': article.id, 'slug': article.slug }) }}">
+    <link rel="alternate" href="{{ url('blog', { '_locale': "ru", 'id': article.id, 'slug': article.slug }) }}" hreflang="x-default">
+    <link rel="alternate" href="{{ url('blog', { '_locale': "ru", 'id': article.id, 'slug': article.slug }) }}" hreflang="ru-ru">
+    <link rel="alternate" href="{{ url('blog', { '_locale': "en", 'id': article.id, 'slug': article.slug }) }}" hreflang="en-us">
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/post.bundle.min.css') }}">
+{% endblock %}
+
+{% block content %}
+    <main id="content">
+        <div class="outer post-holder">
+            <article class="inner post">
+                <div class="entitled-holder">
+                    <h1>{{ article.title }}</h1>
+                </div>
+
+                {% set majorArticleBlock = article.articleBlocks.0 %}
+
+                <div class="info-holder">
+                    <div class="photo-holder">
+                        <div class="photo">
+                            <figure>
+                                <img src="{{ vich_uploader_asset(majorArticleBlock, 'imageFile') }}" alt="{{ article.title }}">
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="stamp-holder">
+                            <time class="upper-title" datetime="{{ article.createdAt|date('Y-m-d') }}">
+                                {{ article.createdAt|date('Y') }}
+                            </time>
+                            <span class="sub-title">
+                                {% if _locale == 'ru' %}
+                                    {{ article.createdAt|localizeddate('long', 'none', null, null, 'dd MMMM') }}
+                                {% else %}
+                                    {{ article.createdAt|localizeddate('long', 'none', null, null, 'MMMM, dd') }}
+                                {% endif %}
+                            </span>
+                        </div>
+                        <span class="upper-title">
+                            {{ 'blog.article.views'|transchoice(article.views) }}
+                        </span>
+                        <span class="underline"></span>
+
+                        {% for paragraph in majorArticleBlock.getTextByNewline %}
+                            <p>{{ paragraph }}</p>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+                {% if majorArticleBlock.quote %}
+                    <div class="quote-holder">
+                        <span class="quote top">‘‘</span>
+                        <span class="quote bottom">’’</span>
+                        <p>{{ majorArticleBlock.quote }}</p>
+                    </div>
+                {% endif %}
+
+                {% for articleBlock in article.articleBlocks[1:] %}
+
+                    {% if not articleBlock.imageName and not articleBlock.youTubeLink %}
+                        {% set infoHolderClass = 'text-only' %}
+                    {% else %}
+                        {% set infoHolderClass = ( loop.index is divisible by(2) ) ? 'reversed' %}
+                    {% endif %}
+
+                    <div class="info-holder {{ infoHolderClass }}">
+
+                        {% if articleBlock.imageName %}
+                            <div class="photo-holder">
+                                <div class="photo">
+                                    <figure>
+                                        <img src="{{ vich_uploader_asset(articleBlock, 'imageFile') }}" alt="{{ article.title }}">
+                                    </figure>
+                                </div>
+                            </div>
+                        {% elseif articleBlock.youTubeLink %}
+                            <div class="video-holder">
+                                <div class="video">
+                                    <iframe src="https://www.youtube.com/embed/{{ articleBlock.youTubeId }}" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <div class="info">
+
+                            {% for paragraph in articleBlock.getTextByNewline %}
+                                <p>{{ paragraph }}</p>
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                    {% if articleBlock.quote %}
+                        <div class="quote-holder">
+                            <span class="quote top">‘‘</span>
+                            <span class="quote bottom">’’</span>
+                            <p>{{ articleBlock.quote }}</p>
+                        </div>
+                    {% endif %}
+
+                {% endfor %}
+
+            </article>
+            <div class="nav-holder">
+
+                {% if closestArticles.prev %}
+                    <div class="btn left">
+                        <a href="{{ path('blog', { 'id': closestArticles.prev.id, 'slug': closestArticles.prev.slug }) }}">
+                            <span>{{ 'blog.article.prev'|trans|lower }}</span>
+                        </a>
+                    </div>
+                {% endif %}
+
+                {% if closestArticles.next %}
+                    <div class="btn right">
+                        <a href="{{ path('blog', { 'id': closestArticles.next.id, 'slug': closestArticles.next.slug }) }}">
+                            <span>{{ 'blog.article.next'|trans|lower }}</span>
+                        </a>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </main>
+    <div id="social-like-holder">
+        <ul class="social-likes">
+            <li class="facebook">facebook</li>
+            <li class="twitter">twitter</li>
+        </ul>
+    </div>
+    <div id="bg-circle-overlay">
+        <div class="circle"></div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+
+    {% include 'AppBundle:Component:footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/post.bundle.min.js') }}"></script>
+{% endblock %}

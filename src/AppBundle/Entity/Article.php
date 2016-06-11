@@ -2,7 +2,7 @@
 // src/AppBundle/Entity/Article.php
 namespace AppBundle\Entity;
 
-use DateTime;
+use DateTime, IntlDateFormatter;
 
 use Doctrine\ORM\Mapping as ORM,
     Doctrine\Common\Collections\ArrayCollection;
@@ -23,6 +23,8 @@ use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
 class Article implements Translatable
 {
     use IdMapper, TranslationMapper, SlugMapper;
+
+    const LIFT_ITEMS = 3;
 
     /**
      * @ORM\OneToMany(targetEntity="ArticleTranslation", mappedBy="object", cascade={"persist", "remove"})
@@ -244,4 +246,65 @@ class Article implements Translatable
     }
 
     /** END Custom methods */
+
+    /** Transform entities for AJAX request */
+
+    static private function getHumanDate($article, $_locale)
+    {
+        if( $_locale == 'ru' ) {
+            $formatterDate = IntlDateFormatter::create(
+                $_locale, IntlDateFormatter::LONG, IntlDateFormatter::NONE, NULL, NULL, 'dd MMMM'
+            );
+        } else {
+            $formatterDate = IntlDateFormatter::create(
+                $_locale, IntlDateFormatter::LONG, IntlDateFormatter::NONE, NULL, NULL, 'MMMM dd'
+            );
+        }
+
+        $date = $formatterDate->format($article->getCreatedAt());
+
+        return $date;
+    }
+
+    static public function flattenForXhr(array $articles, $_translator, $_twig, $_router, $_locale, $vichUploaderAsset)
+    {
+        foreach( $articles as $article )
+        {
+            if( !($article instanceof Article) )
+                continue;
+
+            $majorArticleBlock = $article->getArticleBlocks()[0];
+
+            $photo       = $vichUploaderAsset->asset($majorArticleBlock, 'imageFile');
+            $humanDate   = self::getHumanDate($article, $_locale);
+            $viewCount   = $_translator->transChoice(
+                'blog.article.views', $article->getViews(), ['%count%' => $article->getViews()]
+            );
+            $description = call_user_func_array(
+                $_twig->getFilter('truncate')->getCallable(),
+                [$_twig, $majorArticleBlock->getText(), 250]
+            );
+            $linkTitle   = $_translator->trans('blog.article.read_more');
+            $link        = $_router->generate('blog', [
+                'id' => $article->getId(), 'slug' => $article->getSlug()
+            ]);
+
+            $output[] = [
+                'photo'       => $photo,
+                'photoTitle'  => $article->getTitle(),
+                'machineDate' => $article->getCreatedAt()->format('Y-m-d'),
+                'year'        => $article->getCreatedAt()->format('Y'),
+                'humanDate'   => $humanDate,
+                'title'       => $article->getTitle(),
+                'description' => $description,
+                'viewCount'   => $viewCount,
+                'link'        => $link,
+                'linkTitle'   => $linkTitle,
+            ];
+        }
+
+        return $output;
+    }
+
+    /** END Transform entities for AJAX request */
 }

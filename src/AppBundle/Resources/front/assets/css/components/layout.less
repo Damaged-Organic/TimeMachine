@@ -1,0 +1,349 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  layout start                              */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#page,
+#content{
+    height: auto;
+    min-height: 100%;
+}
+
+#content{
+    background: @black;
+    padding-bottom: 80px;
+    .outer{
+        position: relative;
+        z-index: 10;
+        padding: 240px 12.5% 0;
+        box-sizing: border-box;
+    }
+}
+
+h1.entitled-holder{
+    font-family: @djsc;
+    font-size: 1em;
+    color: @white;
+    text-transform: uppercase;
+    &:before{
+        display: inline-block;
+        vertical-align: middle;
+        width: 80px;
+        height: 2px;
+        background: @white;
+        margin-right: 20px;
+        content: "";
+        overflow: hidden;
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  layout end                                */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  grid start                                */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.grid{
+    width: 100%;
+    height: auto;
+    margin-top: 80px;
+    overflow: hidden;
+    .item{
+        width: 100%;
+        height: auto;
+        margin-bottom: 80px;
+        position: relative;
+        overflow: hidden;
+        .photo-holder{
+            width: 50%;
+            height: auto;
+            float: left;
+            padding-left: 80px;
+            position: relative;
+            z-index: 10;
+            box-sizing: border-box;
+            overflow: hidden;
+            .photo{
+                width: 100%;
+                height: 0;
+                position: relative;
+                top: 0;
+                left: 0;
+                padding-top: 100%;
+                overflow: hidden;
+                &:before,
+                & > figure{
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                }
+                &:before{
+                    z-index: 5;
+                    content: "";
+                    background: fade(@grey, 60%);
+                }
+            }
+        }
+        .stamp-holder{
+            width: 100%;
+            height: auto;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            overflow: hidden;
+            & > .upper-title{
+                display: block;
+                width: 100%;
+                font-family: @djsc;
+                font-size: 3.75em;
+                text-align: right;
+                color: @grey;
+                text-transform: uppercase;
+            }
+            & > .sub-title{
+                display: block;
+                font-size: 1em;
+                text-align: right;
+                color: @white;
+            }
+        }
+        .info-holder{
+            width: 50%;
+            height: auto;
+            float: left;
+            position: relative;
+            z-index: 10;
+            padding-top: 160px;
+            .upper-title{
+                display: block;
+                width: 100%;
+                font-family: @djsl;
+                font-size: 1em;
+                padding: 0 0 20px 20px;
+                color: @white;
+            }
+            .underline{
+                margin-left: -40px;
+            }
+            h2{
+                font-size: 1.125em;
+                text-align: left;
+                text-transform: uppercase;
+                padding: 40px 0 0 40px;
+                color: @white;
+            }
+            p{
+                text-align: left;
+                padding: 20px 0 0 20px;
+                color: @white;
+            }
+            a{
+                display: inline-block;
+                float: right;
+                margin: 40px 80px 0 0;
+                color: @white;
+                .arrow{
+                    padding-left: 20px;
+                    transition: all .75s @easing;
+                }
+                &:hover{
+                    .arrow{
+                        transform: translateX(20px);
+                    }
+                }
+            }
+        }
+        &:nth-child(even){
+            .photo-holder,
+            .info-holder{
+                float: right;
+            }
+            .stamp-holder{
+                width: 50%;
+            }
+            .info-holder{
+                .upper-title{ padding: 0 0 20px 40px; }
+                .underline{ margin-left: 0px; }
+                h2{ padding: 40px 0 0 60px; }
+                p{ padding: 20px 0 0 40px; }
+            }
+        }
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  grid end                                  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  adaptive start                            */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@media only screen and @tablet{
+
+    #content .outer{ padding: 200px 0 0 16.66666666666667%; }
+
+    .grid{
+        .item{
+            .photo-holder{
+                width: 100%;
+                float: none;
+                padding-left: 40px;
+            }
+            .stamp-holder{
+                z-index: 15;
+                padding-left: 40px;
+                box-sizing: border-box;
+                & > .upper-title{
+                    font-size: 2.5em;
+                    padding: 0 40px;
+                    box-sizing: border-box;
+                }
+                & > .sub-title{ padding: 0 40px; }
+            }
+            .info-holder{
+                width: 100%;
+                float: none;
+                z-index: 15;
+                padding: 0 0 0 20px;
+                margin-top: -160px;
+                box-sizing: border-box;
+                overflow: hidden;
+                .upper-title{ padding: 0 40px 20px; }
+                .underline{ margin-left: -20px; }
+                h2{ padding: 40px 40px 0; }
+                p{ padding: 20px 40px 0; }
+                a{
+                    margin: 40px 80px 0 0;
+                    &:hover{
+                        .arrow{ transform: translateX(0px); }
+                    }
+                }
+            }
+            &:nth-child(even){
+                .photo-holder,
+                .info-holder{
+                    float: none;
+                }
+                .stamp-holder{ width: 100%; }
+                .info-holder{
+                    .upper-title{ padding: 0 40px 20px; }
+                    .underline{ margin-left: -20px; }
+                    h2{ padding: 40px 40px 0; }
+                    p{ padding: 20px 40px 0; }
+                }
+            }
+        }
+    }
+
+}
+
+@media only screen and @mobileL{
+
+    #content .outer{ padding: 160px 0 0 16.66666666666667%; }
+    
+    h1.entitled-holder{
+        &:before{
+            width: 40px;
+            height: 2px;
+        }
+    }
+
+    .grid{
+        margin-top: 40px;
+        .item{
+            margin-bottom: 40px;
+            .photo-holder{
+                padding-left: 20px;
+            }
+            .stamp-holder{
+                top: 20px;
+                & > .upper-title{
+                    padding: 0 20px;
+                }
+                & > .sub-title{
+                    padding: 0 20px;
+                    font-size: .875em;
+                }
+            }
+            .info-holder{
+                padding: 0;
+                margin-top: -100px;
+                .upper-title{
+                    padding: 0 40px 10px;
+                    font-size: .875em;
+                }
+                .underline{
+                    width: 40px;
+                    margin-left: 0;
+                }
+                h2{
+                    padding: 20px 20px 0 40px;
+                    font-size: 1em;
+                }
+                p{ padding: 10px 20px 0 40px; }
+                a{ margin: 20px 40px 0 0; }
+            }
+            &:nth-child(even){
+                .info-holder{
+                    .upper-title{ padding: 0 20px 10px 40px; }
+                    .underline{ margin-left: 0; }
+                    h2{ padding: 20px 20px 0 40px; }
+                    p{ padding: 10px 20px 0 40px; }
+                }
+            }
+        }
+    }
+
+}
+
+@media only screen and @mobileM{
+
+    #content .outer{ padding: 120px 0 0 16.66666666666667%; }
+
+    .grid{
+        .item{
+            .stamp-holder{
+                & > .upper-title{ font-size: 2em; }
+                & > .sub-title{ font-size: .75em; }
+            }
+            .info-holder{ margin-top: -120px; }
+        }
+    }
+
+}
+
+@media only screen and @mobileS{
+
+    #content .outer{ padding: 80px 0 0 16.66666666666667%; }
+
+    .grid{
+        margin-top: 40px;
+        .item{
+            margin-bottom: 40px;
+            .photo-holder{ padding-left: 0; }
+            .stamp-holder{
+                padding: 0;
+                & > .upper-title{ font-size: 1.5em; }
+            }
+            .info-holder{
+                padding: 0;
+                margin-top: -160px;
+                .upper-title{ padding: 0 10px 10px 20px; }
+                h2{ padding: 20px 10px 0 20px; }
+                p{ padding: 10px 10px 0 20px; }
+            }
+            &:nth-child(even){
+                .info-holder{
+                    .upper-title{ padding: 0 10px 10px 20px; }
+                    .underline{ margin-left: 0; }
+                    h2{ padding: 20px 10px 0 20px; }
+                    p{ padding: 10px 10px 0 20px; }
+                }
+            }
+        }
+    }
+
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  adaptive end                              */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

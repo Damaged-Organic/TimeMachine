@@ -18,7 +18,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
     AppBundle\Entity\Utility\Traits\DoctrineMapping\TranslationMapper,
     AppBundle\Entity\Utility\Interfaces\ArticleBlockConstantsInterface,
-    AppBundle\Entity\Utility\Traits\FileObjects\ArticleBlockFileObjectsTrait;
+    AppBundle\Entity\Utility\Traits\FileObjects\ArticleBlockFileObjectsTrait,
+    AppBundle\Entity\Utility\Traits\TextFormatter;
 
 /**
  * @ORM\Table(name="articles_blocks")
@@ -30,7 +31,7 @@ use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
  */
 class ArticleBlock implements Translatable, ArticleBlockConstantsInterface
 {
-    use IdMapper, TranslationMapper, ArticleBlockFileObjectsTrait;
+    use IdMapper, TranslationMapper, ArticleBlockFileObjectsTrait, TextFormatter;
 
     /**
      * @ORM\OneToMany(targetEntity="ArticleBlockTranslation", mappedBy="object", cascade={"persist", "remove"})
@@ -104,6 +105,11 @@ class ArticleBlock implements Translatable, ArticleBlockConstantsInterface
     public function getText()
     {
         return $this->text;
+    }
+
+    public function getTextByNewline()
+    {
+        return $this->explodeByNewline($this->text);
     }
 
     /**

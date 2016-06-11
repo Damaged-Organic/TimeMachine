@@ -1,3 +1,45 @@
 # src/AppBundle/Resources/translations/messages.ru.yml
 common:
-    title: Машина Времени
+    title:  Машина Времени
+    footer: © Машина Времени, %timeline%. Web Production by %link%.
+
+index:
+    topline:  Рок-Группа
+    headline: Машина Времени
+    slogan: >
+        Только помни, что правда всегда победит, даже если погибнет в бою. Береги каждый день, пока ты живой, и, пока твой ангел с тобой, - пой!
+    affiche: Афиша
+
+    musician:
+        read_more: читать далее
+        back_band: назад к группе
+
+affiche:
+    headline: Афиша
+
+    tickets:
+        available:     билеты
+        not_available: билетов нет
+
+blog:
+    headline: Блог
+
+    article:
+        views:     '{0} нет просмотров | %count% просмотр | %count% просмотра | %count% просмотров'
+        read_more: читать далее
+        prev:      предыдущий
+        next:      следующий
+
+music:
+    headline: Музыка
+
+    album:
+        songs:         '{0} нет песен | %count% песня | %count% песни | %count% песен'
+        songs_details: '{0} в альбоме нет песен | в альбоме %count% песня | в альбоме %count% песни | в альбоме %count% песен'
+        details:       детали
+
+    song:
+        text: текст песни
+
+header:
+    menu: меню

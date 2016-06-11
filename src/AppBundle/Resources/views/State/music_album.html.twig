@@ -1,0 +1,111 @@
+{# src/AppBundle/Resources/views/State/music_album.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ album.title }} - {{ metadata.title }} - {{ 'common.title'|trans }}
+{% endblock %}
+
+{% block metadata %}
+    {{ parent() }}
+    <meta name="description" content="{{ metadata.description }}">
+    <meta name="robots" content="{{ metadata.robots }}">
+    {# Open Graph #}
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="{{ url('music', { 'id': album.id, 'slug': album.slug }) }}">
+    <meta property="og:title" content="{{ album.title }} - {{ metadata.title }} - {{ 'common.title'|trans }}">
+	<meta property="og:description" content="{{ metadata.description }}">
+    <meta property="og:image" content="{{ absolute_url(vich_uploader_asset(album, 'coverFile')) }}">
+    <meta property="og:image:type" content="image/{{ album.coverName|split('.')[1] }}">
+    {# Locale reference #}
+    <link rel="canonical" href="{{ url('music', { '_locale': "ru", 'id': album.id, 'slug': album.slug }) }}">
+    <link rel="alternate" href="{{ url('music', { '_locale': "ru", 'id': album.id, 'slug': album.slug }) }}" hreflang="x-default">
+    <link rel="alternate" href="{{ url('music', { '_locale': "ru", 'id': album.id, 'slug': album.slug }) }}" hreflang="ru-ru">
+    <link rel="alternate" href="{{ url('music', { '_locale': "en", 'id': album.id, 'slug': album.slug }) }}" hreflang="en-us">
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/album.bundle.min.css') }}">
+{% endblock %}
+
+{% block content %}
+    <main id="content">
+        <article class="outer album-holder">
+            <h1 class="entitled-holder">{{ album.title }}</h1>
+            <div class="inner">
+                <div class="photo-holder">
+                    <div class="photo">
+                        <figure>
+                            <img src="{{ vich_uploader_asset(album, 'coverFile') }}" alt="{{ album.title }}">
+                        </figure>
+                    </div>
+                    <ul class="buy-holder">
+
+                        {% if album.iTunesLink %}
+                            <li><a href="{{ album.iTunesLink }}">iTunes</a></li>
+                        {% endif %}
+
+                        {% if album.googlePlayLink %}
+                            <li><a href="{{ album.googlePlayLink }}">Google Play</a></li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+                <div class="info-holder" id="tracks-holder">
+                    <div class="track-list-holder">
+                        <div class="stamp-holder">
+                            <span class="upper-title">{{ album.yearOfRelease }}</span>
+                        </div>
+                        <span class="upper-title">{{ 'music.album.songs_details'|transchoice(album.songs|length) }}</span>
+                        <span class="underline"></span>
+                        <ul>
+
+                            {% for song in album.songs %}
+                                <li class="song touchable" data-song-id="{{ song.id }}">
+                                    <span class="song-title">
+                                        {{ song.title }}
+                                        <span>{{ song.getFormattedSongDuration() }}</span>
+                                    </span>
+                                    <span class="lane">{{ 'music.song.text'|trans }}</span>
+                                </li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                    <div class="song-text-holder">
+                        <span class="close-text">вернуться к списку</span>
+                        <div class="btn btn-small show-notes touchable">
+                            <a href="#">
+                                <span>показать ноты</span>
+                            </a>
+                        </div>
+                        <span class="underline"></span>
+                        <div class="song-text" id="song-text-holder"></div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+    <div id="bg-circle-overlay">
+        <div class="circle"></div>
+    </div>
+    <div id="visualize-holder" data-song="{{ vich_uploader_asset(album, 'trackFile') }}">
+        <canvas id="visualizer"></canvas>
+    </div>
+    <div id="play-button">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+{% endblock %}
+
+{% block footer %}
+
+    {% include 'AppBundle:Component:footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/album.bundle.min.js') }}"></script>
+{% endblock %}

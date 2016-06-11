@@ -94,6 +94,9 @@ class AlbumAdmin extends Admin
                                     'rows' => '5',
                                 ],
                             ],
+                            'slug' => [
+                                'display' => FALSE,
+                            ],
                         ],
                     ])
                 ->end()

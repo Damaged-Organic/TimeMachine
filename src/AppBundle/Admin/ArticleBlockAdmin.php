@@ -4,6 +4,8 @@ namespace AppBundle\Admin;
 
 use DateTime;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 use Sonata\AdminBundle\Admin\Admin,
     Sonata\AdminBundle\Datagrid\ListMapper,
     Sonata\AdminBundle\Datagrid\DatagridMapper,
@@ -29,7 +31,7 @@ class ArticleBlockAdmin extends Admin
             $imagePath = $articleBlock->getImagePath();
 
             $imageHelpOption = ( $imagePath )
-                ? '<img src="' . $imagePath . '" class="admin-preview" />'
+                ? '<img src="' . $imagePath . '" class="admin-preview">'
                 : FALSE;
         } else {
             $imagePath = NULL;
@@ -48,6 +50,9 @@ class ArticleBlockAdmin extends Admin
                             'ru' => [
                                 'required' => TRUE,
                                 'label'    => "Текст",
+                                'constraints' => [
+                                    new Assert\Length(['max' => 2000]),
+                                ],
                             ],
                             'en' => [
                                 'required' => FALSE,
@@ -59,6 +64,7 @@ class ArticleBlockAdmin extends Admin
                             'rows' => '10',
                             'style' => 'min-width: 600px;',
                         ],
+
                     ],
                     'quote' => [
                         'locale_options' => [

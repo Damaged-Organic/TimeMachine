@@ -2,7 +2,7 @@
 // src/AppBundle/Entity/Concert.php
 namespace AppBundle\Entity;
 
-use DateTime;
+use DateTime, IntlDateFormatter;
 
 use Symfony\Component\HttpFoundation\File\File,
     Symfony\Component\Validator\Constraints as Assert;
@@ -32,6 +32,8 @@ use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
 class Concert implements Translatable, ConcertConstantsInterface
 {
     use IdMapper, TranslationMapper, SlugMapper, ConcertFileObjectsTrait;
+
+    const LIFT_ITEMS = 3;
 
     /**
      * @ORM\OneToMany(targetEntity="ConcertTranslation", mappedBy="object", cascade={"persist", "remove"})
@@ -331,4 +333,61 @@ class Concert implements Translatable, ConcertConstantsInterface
     }
 
     /** END Custom methods */
+
+    /** Transform entities for AJAX request */
+
+    static private function getHumanDate($concert, $_locale)
+    {
+        if( $_locale == 'ru' ) {
+            $formatterDate = IntlDateFormatter::create(
+                $_locale, IntlDateFormatter::LONG, IntlDateFormatter::NONE, NULL, NULL, 'd MMM YYY'
+            );
+        } else {
+            $formatterDate = IntlDateFormatter::create(
+                $_locale, IntlDateFormatter::LONG, IntlDateFormatter::NONE
+            );
+        }
+
+        $formatterTime = IntlDateFormatter::create(
+            $_locale, IntlDateFormatter::NONE, IntlDateFormatter::SHORT, NULL, NULL, 'HH:mm'
+        );
+
+        $date = $formatterDate->format($concert->getDoorsOpenAt());
+        $time = $formatterTime->format($concert->getDoorsOpenAt());
+
+        return "{$date} | {$time}";
+    }
+
+    static public function flattenForXhr(array $concerts, $_translator, $_locale, $vichUploaderAsset)
+    {
+        foreach( $concerts as $concert )
+        {
+            if( !($concert instanceof Concert) )
+                continue;
+
+            $photo     = $vichUploaderAsset->asset($concert, 'posterFile');
+            $humanDate = self::getHumanDate($concert, $_locale);
+            $linkTitle = ( $concert->getTicketsLink() )
+                ? $_translator->trans('affiche.tickets.available')
+                : $_translator->trans('affiche.tickets.not_available')
+            ;
+
+            $output[] = [
+                "photo"         => $photo,
+                "photoTitle"    => $concert->getCity(),
+                "location"      => $concert->getCountry() . " " . $concert->getCity(),
+                "street"        => $concert->getPlace(),
+                "machineDate"   => $concert->getDoorsOpenAt()->format('Y-m-d'),
+                "humanDate"     => $humanDate,
+                "title"         => $concert->getTitle(),
+                "description"   => $concert->getDescription(),
+                "link"          => $concert->getTicketsLink(),
+                "linkTitle"     => $linkTitle,
+            ];
+        }
+
+        return $output;
+    }
+
+    /** END Transform entities for AJAX request */
 }

@@ -113,7 +113,7 @@ services:
         arguments:
             - ~
             - AppBundle\Entity\Article
-            - ~
+            - AppBundle:Admin\ArticleAdmin
         calls:
             - [ setTranslationDomain, [AppBundle] ]
 
@@ -127,9 +127,6 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [AppBundle] ]
-
-    app.musician_controller:
-        class: AppBundle\Admin\Utility\Controller\MusicianAdminController
 
     sonata.admin.musician:
         class: AppBundle\Admin\MusicianAdmin
@@ -172,7 +169,7 @@ services:
         arguments:
             - ~
             - AppBundle\Entity\Album
-            - ~
+            - AppBundle:Admin\AlbumAdmin
         calls:
             - [ setTranslationDomain, [AppBundle] ]
 

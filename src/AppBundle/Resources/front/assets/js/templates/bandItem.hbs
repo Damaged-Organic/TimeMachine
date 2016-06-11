@@ -1,0 +1,23 @@
+{{#each participants}}
+
+    <article class="item lift-item">
+        <div class="photo-holder">
+            <div class="photo">
+                <figure>
+                    <img src="{{ photo }}" alt="{{ photoTitle }}">
+                </figure>
+            </div>
+        </div>
+        <div class="stamp-holder">
+            <span class="upper-title">{{ entryYear }}</span>
+            <p class="sub-title">{{ yearsInGroup }}</p>
+        </div>
+        <div class="info-holder">
+            <span class="upper-title">{{ role }}</span>
+            <span class="underline"></span>
+            <h2>{{ title }}</h2>
+            <p>{{ description }}</p>
+        </div>
+    </article>
+
+{{/each}}

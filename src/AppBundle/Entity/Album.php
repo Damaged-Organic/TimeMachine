@@ -17,6 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
     AppBundle\Entity\Utility\Traits\DoctrineMapping\TranslationMapper,
+    AppBundle\Entity\Utility\Traits\DoctrineMapping\SlugMapper,
     AppBundle\Entity\Utility\Interfaces\AlbumConstantsInterface,
     AppBundle\Entity\Utility\Traits\FileObjects\AlbumFileObjectsTrait;
 
@@ -30,7 +31,9 @@ use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
  */
 class Album implements Translatable, AlbumConstantsInterface
 {
-    use IdMapper, TranslationMapper, AlbumFileObjectsTrait;
+    use IdMapper, TranslationMapper, SlugMapper, AlbumFileObjectsTrait;
+
+    const LIFT_ITEMS = 3;
 
     /**
      * @ORM\OneToMany(targetEntity="AlbumTranslation", mappedBy="object", cascade={"persist", "remove"})

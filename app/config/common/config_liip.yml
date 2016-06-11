@@ -14,10 +14,15 @@ liip_imagine:
     filter_sets:
         cache: ~
 
-        some_thumb:
+        blog_image_thumb:
             quality: 100
             filters:
-                thumbnail: { size: [350, 350], mode: outbound }
+                thumbnail: { size: [500, 500], mode: outbound }
+
+        album_cover_thumb:
+            quality: 100
+            filters:
+                thumbnail: { size: [500, 500], mode: outbound }
 
         some_watermark:
             filters:

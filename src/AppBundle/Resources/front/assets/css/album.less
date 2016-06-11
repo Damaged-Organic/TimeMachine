@@ -1,0 +1,576 @@
+@import "components/common.less";
+@import "components/menu.less";
+@import "components/loader.less";
+@import "components/ajax-loader.less";
+@import "components/ajax-response.less";
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  layout start                              */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#page,
+#content{
+    height: auto;
+    min-height: 100%;
+}
+
+#content{
+    background: @black;
+    padding-bottom: 80px;
+    .outer{
+        position: relative;
+        z-index: 10;
+        padding: 240px 12.5% 0;
+        box-sizing: border-box;
+    }
+}
+
+#bg-circle-overlay{ display: none; }
+
+#visualize-holder{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    background: @black;
+    overflow: hidden;
+    & > canvas{
+        display: block;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+}
+
+#play-button{
+    width: 26px;
+    height: 26px;
+    position: fixed;
+    right: 80px;
+    bottom: 80px;
+    z-index: 20;
+    background: transparent;
+    cursor: pointer;
+    overflow: hidden;
+    & > span{
+        display: block;
+        width: 2px;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        background: @white;
+        transform: translateY(24px);
+        &:nth-child(1){ left: 0; }
+        &:nth-child(2){ left: 6px; }
+        &:nth-child(3){ left: 12px; }
+        &:nth-child(4){ left: 18px; }
+        &:nth-child(5){ left: 24px; }
+    }
+    &.active{
+        & > span{
+            &:nth-child(1){ animation: play .75s @easing .3s infinite; }
+            &:nth-child(2){ animation: play .5s @easing .3s infinite; }
+            &:nth-child(3){ animation: play 1.25s @easing .1s infinite; }
+            &:nth-child(4){ animation: play .5s @easing .2s infinite; }
+            &:nth-child(5){ animation: play .75s @easing .4s infinite; }
+        }
+    }
+}
+
+@keyframes play{
+    0% { transform: translateY(24px); }
+    100% { transform: translateY(0px); }
+}
+
+.__ie #play-button{ display: none; }
+
+.__ie #visualize-holder,
+.__mobile #visualize-holder{
+    display: none;
+}
+
+.__ie #bg-circle-overlay,
+.__mobile #bg-circle-overlay{
+    display: block;
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  layout end                                */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  album start                               */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.album-holder{
+    width: 100%;
+    margin-bottom: 80px;
+    overflow: hidden;
+    h1.entitled-holder{
+        position: relative;
+        font-family: @djsc;
+        font-size: 1em;
+        color: @white;
+        text-transform: uppercase;
+        padding-left: 100px;
+        box-sizing: border-box;
+        &:before{
+            display: block;
+            width: 80px;
+            height: 2px;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            content: "";
+            background: @white;
+            transform: translateY(-50%);
+            overflow: hidden;
+        }
+    }
+    .inner{
+        overflow: hidden;
+        margin-top: 80px;
+        & > .photo-holder,
+        & > .info-holder{
+            width: 50%;
+            height: auto;
+            float: left;
+        }
+        & > .photo-holder{
+            padding-left: 80px;
+            position: relative;
+            box-sizing: border-box;
+            overflow: hidden;
+            .photo{
+                width: 100%;
+                height: 0;
+                padding-top: 100%;
+                position: relative;
+                overflow: hidden;
+                &:before{
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 1;
+                    content: "";
+                    background: fade(@black, 60%);
+                    overflow: hidden;
+                }
+                figure{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                }
+            }
+            .buy-holder{
+                width: 100%;
+                height: auto;
+                margin-top: 40px;
+                li{
+                    display: block;
+                    width: 100%;
+                    margin-top: 10px;
+                    text-align: left;
+                    a{
+                        display: inline-block;
+                        font-size: .875em;
+                        color: @white;
+                        &:before{
+                            display: inline-block;
+                            vertical-align: middle;
+                            width: 40px;
+                            height: 2px;
+                            content: "";
+                            margin-right: 20px;
+                            background: @white;
+                        }
+                    }
+                }
+            }
+        }
+        & > .info-holder{
+            position: relative;
+            z-index: 10;
+            .track-list-holder{
+                display: block;
+                .stamp-holder{
+                    margin-top: 40px;
+                    .upper-title{
+                        display: block;
+                        width: 100%;
+                        height: auto;
+                        font-family: @djsc;
+                        font-size: 3.75em;
+                        text-align: right;
+                        color: @grey;
+                        text-transform: uppercase;
+                    }
+                }
+                & > .upper-title{
+                    display: block;
+                    width: 100%;
+                    font-family: @djsl;
+                    text-align: left;
+                    color: @white;
+                    margin-top: 20px;
+                    padding: 0 0 20px 20px;
+                    box-sizing: border-box;
+                }
+                .underline{
+                    margin-left: -40px;
+                }
+                ul, li{
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    overflow: hidden;
+                }
+                ul{ margin-top: 40px; }
+                li{
+                    height: 30px;
+                    position: relative;
+                    margin-top: 10px;
+                    padding-left: 40px;
+                    box-sizing: border-box;
+                    cursor: pointer;
+                    overflow: hidden;
+                    &:first-child{ margin-top: 0; }
+                    & > span{
+                        display: block;
+                        width: 100%;
+                        height: 20px;
+                        position: relative;
+                        background: transparent;
+                    }
+                    & > .song-title{
+                        z-index: 5;
+                        color: @white;
+                        text-align: left;
+                        line-height: 20px;
+                        & > span{
+                            display: inline-block;
+                            float: right;
+                            color: @white;
+                            font-size: .875em;
+                            padding-right: 20px;
+                        }
+                    }
+                    & > .lane{
+                        position: absolute;
+                        top: 10px;
+                        left: 0;
+                        background: @grey;
+                        transform: translateX(-100%);
+                        transition: all .5s @easing 0s;
+                        color: @black;
+                        line-height: 20px;
+                        font-size: .875em;
+                        text-align: right;
+                        padding-right: 120px;
+                        box-sizing: border-box;
+                    }
+                    &:hover{
+                        & > .lane{
+                            transform: translateX(0%);
+                        }
+                    }
+                }
+            }
+            .song-text-holder{
+                display: none;
+                position: relative;
+                .close-text{
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    font-size: 1em;
+                    color: @white;
+                    margin-top: 40px;
+                    text-align: right;
+                    cursor: pointer;
+                    &:before{
+                        display: inline-block;
+                        vertical-align: middle;
+                        width: 40px;
+                        height: 2px;
+                        content: "";
+                        margin-right: 20px;
+                        background: @white;
+                    }
+                }
+                .btn-small{
+                    position: absolute;
+                    top: 40px;
+                    right: 0;
+                }
+                .underline{ margin: 100px 0 0 -40px; }
+                .song-text{
+                    margin-top: 40px;
+                    p{
+                        text-align: left;
+                        padding: 0 40px;
+                        margin-bottom: 20px;
+                        color: @white;
+                        white-space: pre;
+                        .note{
+                            display: none;
+                            vertical-align: middle;
+                            font-family: @djsc;
+                            font-size: 1em;
+                            color: @white;
+                            background: @grey;
+                            padding: 3px 5px;
+                            text-transform: uppercase;
+                            box-sizing: border-box;
+                        }
+                        &:last-child{ margin-bottom: 0; }
+                    }
+                }
+                
+            }
+            &.active{
+                .track-list-holder{ display: none; }
+                .song-text-holder{ display: block; }
+            }
+            &.notes-on{
+                .song-text-holder .song-text p .note{ display: inline-block; }
+            }
+        }
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  album   end                               */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  adaptive start                            */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@media only screen and @tablet{
+
+    #content .outer{ padding: 200px 0 0 16.66666666666667%; }
+    
+    #bg-circle-overlay{ display: block; }
+    #visualize-holder{ display: none; }
+    #play-button{ display: none; }
+    
+    
+    .album-holder{
+        .inner{
+            & > .photo-holder,
+            & > .info-holder{
+                width: 100%;
+                float: none;
+            }
+            & > .photo-holder{
+                padding-left: 40px;
+                .buy-holder{
+                    margin-top: 0;
+                    position: fixed;
+                    top: 50%;
+                    left: 0;
+                    z-index: 10;
+                    transform: translateY(-50%);
+                }
+            }
+            & > .info-holder{
+                margin-top: -360px;
+                .track-list-holder{
+                    padding: 0 40px;
+                    box-sizing: border-box;
+                    .stamp-holder{
+                        margin-top: 0;
+                        .upper-title{ font-size: 2.5em; }
+                    }
+                    & > .upper-title{
+                        margin-top: 20px;
+                        padding: 0 40px 20px;
+                    }
+                    .underline{ margin-left: -40px; }
+                    li{
+                        &.touch-end{
+                            & > .lane{ transform: translateX(-100%); }
+                        }
+                        &.touch-start{
+                            & > .lane{ transform: translateX(0%); }
+                        }
+                    }
+                }
+                .song-text-holder{
+                    padding: 0 40px;
+                    box-sizing: border-box;
+                    .close-text{
+                        margin-top: 0;
+                        font-size: .875em;
+                    }
+                    .btn-small{
+                        right: 40px;
+                        &.touch-end{
+                            a:after{
+                                transform: translateY(0px);
+                                background: @grey;
+                            }
+                        }
+                        &.touch-start{
+                            a:after{
+                                transform: translateY(18px);
+                                background: @white;
+                            }
+                        }
+                    }
+                    .underline{ margin: 80px 0 0 -40px; }
+                    .song-text{
+                        margin-top: 40px;
+                    }
+                    
+                }
+            }
+        }
+    }
+
+}
+
+@media only screen and @mobileL{
+    
+    #content .outer{ padding: 160px 0 0 16.66666666666667%; }
+
+    .album-holder{
+        h1.entitled-holder{
+            padding: 0 40px 0 60px;
+            &:before{
+                width: 40px;
+            }
+        }
+        .inner{
+            margin-top: 40px;
+            .photo-holder{
+                padding-left: 20px;
+                .buy-holder{
+                    li a:before{ width: 20px; }
+                }
+            }
+            .info-holder{
+                margin-top: -200px;
+                .track-list-holder{
+                    padding: 0 20px 0 40px;
+                    .upper-title{
+                        padding: 0 0 20px;
+                    }
+                    .underline{ width: 40px; }
+                    ul{
+                        margin-top: 20px;
+                        li{ padding: 0; }
+                    }
+                }
+                .song-text-holder{
+                    padding: 0 20px 0 40px;
+                    .btn-small{ right: 20px; }
+                    .underline{ width: 40px; }
+                    .song-text{
+                        margin-top: 20px;
+                        p{ padding: 0; }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+@media only screen and @mobileM{
+
+    #content .outer{ padding: 120px 0 0 16.66666666666667%; }
+
+    .album-holder{
+        margin-bottom: 40px;
+        h1.entitled-holder{
+            padding: 0 20px 0 60px;
+        }
+        .inner{
+            margin-top: 40px;
+            .photo-holder{
+                padding-left: 20px;
+                .buy-holder{
+                    position: absolute;
+                    top: 20px;
+                    left: auto;
+                    right: 0;
+                    transform: translateY(0);
+                    li{
+                        text-align: right;
+                        a{
+                            &:before{ display: none; }
+                            &:after{
+                                display: inline-block;
+                                vertical-align: middle;
+                                width: 20px;
+                                height: 2px;
+                                content: "";
+                                background: @white;
+                                margin-left: 20px;
+                            }
+                        }
+                    }
+                }
+            }
+            .info-holder{
+                margin-top: -160px;
+                .track-list-holder{
+                    .stamp-holder{
+                        .upper-title{ padding-bottom: 0; }
+                    }
+                    ul{
+                        li{
+                            .song-title{
+                                font-size: .875em;
+                                & > span{ padding-right: 0; }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+@media only screen and @mobileS{
+
+    #content .outer{ padding: 80px 0 0 16.66666666666667%; }
+    
+    .album-holder{
+        .inner{
+            .info-holder{
+                margin-top: -120px;
+                .track-list-holder{
+                    .stamp-holder{ display: none; }
+                    ul{
+                        li{
+                            height: auto;
+                            .song-title{
+                                height: auto;
+                                position: relative;
+                                line-height: 16px;
+                                padding-right: 40px;
+                                box-sizing: border-box;
+                                & > span{
+                                    position: absolute;
+                                    top: 50%;
+                                    right: 0;
+                                    transform: translateY(-50%);
+                                    font-size: .75em;
+                                }
+                            }
+                            .lane{ display: none; }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  adaptive end                              */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

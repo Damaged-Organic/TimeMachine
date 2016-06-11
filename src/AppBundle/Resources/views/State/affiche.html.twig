@@ -1,0 +1,96 @@
+{# src/AppBundle/Resources/views/State/affiche.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ metadata.title }} - {{ 'common.title'|trans }}
+{% endblock %}
+
+{% block metadata %}
+    {{ parent() }}
+    <meta name="description" content="{{ metadata.description }}">
+    <meta name="robots" content="{{ metadata.robots }}">
+    {# Open Graph #}
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="{{ url('affiche') }}">
+    <meta property="og:title" content="{{ metadata.title }} - {{ 'common.title'|trans }}">
+	<meta property="og:description" content="{{ metadata.description }}">
+    <meta property="og:image" content="{{ absolute_url(asset('bundles/app/images/logo.png')) }}">
+    <meta property="og:image:type" content="image/png">
+    {# Locale reference #}
+    <link rel="canonical" href="{{ url('affiche', { '_locale': "ru" }) }}">
+    <link rel="alternate" href="{{ url('affiche', { '_locale': "ru" }) }}" hreflang="x-default">
+    <link rel="alternate" href="{{ url('affiche', { '_locale': "ru" }) }}" hreflang="ru-ru">
+    <link rel="alternate" href="{{ url('affiche', { '_locale': "en" }) }}" hreflang="en-us">
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/affiche.bundle.min.css') }}">
+{% endblock %}
+
+{% block content %}
+    <main id="content">
+        <section class="outer affiche-holder">
+            <h1 class="entitled-holder">
+                {{ 'affiche.headline'|trans }}
+            </h1>
+            <div class="inner grid" id="lift-holder">
+
+                {% for concert in concerts %}
+                    <article class="item lift-item">
+                        <div class="photo-holder">
+                            <div class="photo">
+                                <figure>
+                                    <img src="{{ vich_uploader_asset(concert, 'posterFile') }}" alt="{{ concert.city }}">
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="stamp-holder">
+                            <span class="upper-title">{{ concert.country }}, {{ concert.city }}</span>
+                            <p class="sub-title">{{ concert.place }}</p>
+                        </div>
+                        <div class="info-holder">
+                            <time class="upper-title" datetime="{{ concert.doorsOpenAt|date('Y-m-d') }}">
+
+                                {% if _locale == 'ru' %}
+                                    {{ concert.doorsOpenAt|localizeddate('long', 'none', null, null, 'd MMM YYY') }}
+                                {% else %}
+                                    {{ concert.doorsOpenAt|localizeddate('long', 'none') }}
+                                {% endif %}
+
+                                | {{ concert.doorsOpenAt|localizeddate('none', 'short', null, null, 'HH:mm') }}
+                            </time>
+                            <span class="underline"></span>
+                            <h2>{{ concert.title }}</h2>
+                            <p>{{ concert.description }}</p>
+                            {% if concert.ticketsLink %}
+                                <a href="{{ concert.ticketsLink }}">
+                                    {{ 'affiche.tickets.available'|trans }}
+                                    <span class="arrow"></span>
+                                </a>
+                            {% else %}
+                                {{ 'affiche.tickets.not_available'|trans }}
+                            {% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
+
+            </div>
+        </section>
+        <div id="to-top">
+            <span class="arrow arrow-top"></span>
+        </div>
+    </main>
+    <div id="bg-circle-overlay">
+        <div class="circle"></div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+
+    {% include 'AppBundle:Component:footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/affiche.bundle.min.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,12 @@
+{# src/AppBundle/Resources/views/Component/footer.html.twig #}
+<footer id="footer">
+    <a href="{{ developers.link }}" class="logo" target="_blank">
+        <img src="{{ asset('bundles/app/images/cheers-logo.png') }}" alt="{{ developers.name }}">
+    </a>
+    <small>
+        {{ 'common.footer'|trans({
+            '%timeline%': '2016'|timeline,
+            '%link%': '<a href="{{ developers.link }}" target="_blank">CHEERS</a>'
+        })|raw }}
+    </small>
+</footer>

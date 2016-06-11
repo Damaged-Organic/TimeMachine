@@ -1,9 +1,24 @@
 # app/config/common/services.yml
 services:
+    # Twig
+
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
+
     twig.extension.text:
         class: Twig_Extensions_Extension_Text
         tags:
             - { name: twig.extension }
+
+    app.twig_extension:
+        class: AppBundle\Twig\AppExtension
+        public: false
+        tags:
+            - { name: twig.extension }
+
+    # Events
 
     app.page_init_listener:
         class:     AppBundle\EventListener\PageInitListener

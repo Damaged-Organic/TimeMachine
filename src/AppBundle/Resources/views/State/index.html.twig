@@ -2,31 +2,161 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block title %}
-    {{ 'common.title'|trans }} - {{ metadata.title|default("") }}
+    {{ 'common.title'|trans }} - {{ metadata.title }}
 {% endblock %}
 
-{% block meta %}
-    <meta name="description" content="{{ metadata.description|default("") }}" >
+{% block metadata %}
+    {{ parent() }}
+    <meta name="description" content="{{ metadata.description }}">
     <meta name="robots" content="{{ metadata.robots }}">
-    <meta property="og:image" content="{{ asset('bundles/app/images/portrait-photo.jpg', absolute=true) }}">
-    <meta property="og:image:type" content="image/jpg">
+    {# Open Graph #}
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="{{ url('index') }}">
+    <meta property="og:title" content="{{ 'common.title'|trans }}">
+	<meta property="og:description" content="{{ metadata.description }}">
+    <meta property="og:image" content="{{ absolute_url(asset('bundles/app/images/logo.png')) }}">
+    <meta property="og:image:type" content="image/png">
     {# Locale reference #}
-    <link rel="canonical" href="{{ url('index_default') }}" />
-    <link rel="alternate" href="{{ url('index', { '_locale': "en" }) }}" hreflang="en-us" />
-    <link rel="alternate" href="{{ url('index', { '_locale': "ru" }) }}" hreflang="ru-ru" />
-    <link rel="alternate" href="{{ url('index', { '_locale': "ru" }) }}" hreflang="x-default" />
+    <link rel="canonical" href="{{ url('index', { '_locale': "ru" }) }}">
+    <link rel="alternate" href="{{ url('index', { '_locale': "ru" }) }}" hreflang="x-default">
+    <link rel="alternate" href="{{ url('index', { '_locale': "ru" }) }}" hreflang="ru-ru">
+    <link rel="alternate" href="{{ url('index', { '_locale': "en" }) }}" hreflang="en-us">
 {% endblock %}
 
 {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/home.bundle.min.css') }}">
 {% endblock %}
 
 {% block content %}
-    Time Machine
+    <main id="content">
+        <section class="outer part-holder center">
+            <div class="bg-circle-holder-inside"></div>
+            <ul class="participants-photo-holder">
+                <li>
+                    <div class="btn btn-small switcher-cntrl" data-position="tl">
+                        <a href="#"><span>{{ musicians.makarevich.title }}</span></a>
+                    </div>
+                    <div class="participant-photo"></div>
+                </li>
+                <li>
+                    <div class="btn btn-small switcher-cntrl" data-position="tr">
+                        <a href="#"><span>{{ musicians.kutikov.title }}</span></a>
+                    </div>
+                    <div class="participant-photo"></div>
+                </li>
+                <li>
+                    <div class="btn btn-small switcher-cntrl" data-position="bl">
+                        <a href="#"><span>{{ musicians.efremov.title }}</span></a>
+                    </div>
+                    <div class="participant-photo"></div>
+                </li>
+                <li>
+                    <div class="btn btn-small switcher-cntrl" data-position="br">
+                        <a href="#"><span>{{ musicians.derzhavin.title }}</span></a>
+                    </div>
+                    <div class="participant-photo"></div>
+                </li>
+            </ul>
+            <div class="inner info-holder">
+                <span class="upper-title">{{ 'index.topline'|trans }}</span>
+                <span class="underline"></span>
+                <h1>{{ 'index.headline'|trans }}</h1>
+                <p>{{ 'index.slogan'|trans }}</p>
+                <a href="{{ path('affiche') }}">
+                    {{ 'index.affiche'|trans }}
+                    <span class="arrow"></span>
+                </a>
+            </div>
+            <div class="scroll-down-holder">
+                <span class="icon icon-arrow-down"></span>
+            </div>
+        </section>
 
-    {{ render(controller(
-        'AppBundle:Form:subscriberForm'
-    )) }}
+        <section class="outer part-holder top-left">
+            <div class="photo-holder"></div>
+            <div class="outer right-content-holder">
+                <div class="inner info-holder">
+                    <span class="background-date-holder">{{ musicians.makarevich.dateOfBirth|date('Y') }}</span>
+                    <div class="info">
+                        <span class="upper-title">{{ musicians.makarevich.skill }}</span>
+                        <span class="underline"></span>
+                        <h2>{{ musicians.makarevich.title }}</h2>
+                        <p>{{ musicians.makarevich.story }}</p>
+                        <a href="{{ path('band', { 'id': musicians.makarevich.id, 'slug': musicians.makarevich.slug }) }}">
+                            {{ 'index.musician.read_more'|trans }}
+                            <span class="arrow"></span>
+                        </a>
+                    </div>
+                </div>
+                <span class="initials-letter a">a</span>
+                <span class="initials-letter m">m</span>
+            </div>
+        </section>
+        <section class="outer part-holder right-side top-right">
+            <div class="photo-holder"></div>
+            <div class="outer right-content-holder">
+                <div class="inner info-holder">
+                    <span class="background-date-holder">{{ musicians.kutikov.dateOfBirth|date('Y') }}</span>
+                    <div class="info">
+                        <span class="upper-title">{{ musicians.kutikov.skill }}</span>
+                        <span class="underline"></span>
+                        <h2>{{ musicians.kutikov.title }}</h2>
+                        <p>{{ musicians.kutikov.story }}</p>
+                        <a href="{{ path('band', { 'id': musicians.kutikov.id, 'slug': musicians.kutikov.slug }) }}">
+                            {{ 'index.musician.read_more'|trans }}
+                            <span class="arrow"></span>
+                        </a>
+                    </div>
+                </div>
+                <span class="initials-letter a">a</span>
+                <span class="initials-letter k">k</span>
+            </div>
+        </section>
+        <section class="outer part-holder bottom-left">
+            <div class="photo-holder"></div>
+            <div class="outer right-content-holder">
+                <div class="inner info-holder">
+                    <span class="background-date-holder">{{ musicians.efremov.dateOfBirth|date('Y') }}</span>
+                    <div class="info">
+                        <span class="upper-title">{{ musicians.efremov.skill }}</span>
+                        <span class="underline"></span>
+                        <h2>{{ musicians.efremov.title }}</h2>
+                        <p>{{ musicians.efremov.story }}</p>
+                        <a href="{{ path('band', { 'id': musicians.efremov.id, 'slug': musicians.efremov.slug }) }}">
+                            {{ 'index.musician.read_more'|trans }}
+                            <span class="arrow"></span>
+                        </a>
+                    </div>
+                </div>
+                <span class="initials-letter v">v</span>
+                <span class="initials-letter e">e</span>
+            </div>
+        </section>
+        <section class="outer part-holder right-side bottom-right">
+            <div class="photo-holder"></div>
+            <div class="outer right-content-holder">
+                <div class="inner info-holder">
+                    <span class="background-date-holder">{{ musicians.derzhavin.dateOfBirth|date('Y') }}</span>
+                    <div class="info">
+                        <span class="upper-title">{{ musicians.derzhavin.skill }}</span>
+                        <span class="underline"></span>
+                        <h2>{{ musicians.derzhavin.title }}</h2>
+                        <p>{{ musicians.derzhavin.story }}</p>
+                        <a href="{{ path('band', { 'id': musicians.derzhavin.id, 'slug': musicians.derzhavin.slug }) }}">
+                            {{ 'index.musician.read_more'|trans }}
+                            <span class="arrow"></span>
+                        </a>
+                    </div>
+                </div>
+                <span class="initials-letter a">a</span>
+                <span class="initials-letter d">d</span>
+            </div>
+        </section>
+        <span id="close-part">{{ 'index.musician.back_band'|trans }}</span>
+        <div id="bg-circle-holder"></div>
+    </main>
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{ asset('bundles/app/js/home.bundle.min.js') }}"></script>
 {% endblock %}

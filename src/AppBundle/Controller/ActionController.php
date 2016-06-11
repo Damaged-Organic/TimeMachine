@@ -6,12 +6,147 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,
-    Symfony\Component\HttpFoundation\Request;
+    Symfony\Component\HttpFoundation\Request,
+    Symfony\Component\HttpFoundation\Response;
 
-use AppBundle\Entity\Subscriber;
+use AppBundle\Controller\Utility\Interfaces\LiftInterface,
+    AppBundle\Controller\Utility\Traits\LiftHelperTrait,
+    AppBundle\Entity\Concert,
+    AppBundle\Entity\Article,
+    AppBundle\Entity\Subscriber;
 
-class ActionController extends Controller
+class ActionController extends Controller implements LiftInterface
 {
+    use LiftHelperTrait;
+
+    /**
+     * @Method({"GET"})
+     * @Route(
+     *      "/affiche/lift",
+     *      name="affiche_lift",
+     *      host="{_locale}.{domain}",
+     *      defaults={"_locale" = "%locale%", "domain" = "%domain%"},
+     *      requirements={"_locale" = "%locale%|en", "domain" = "%domain%"},
+     *      condition="request.isXmlHttpRequest()"
+     * )
+     * @Route(
+     *      "/affiche/lift",
+     *      name="affiche_lift_default",
+     *      host="{domain}",
+     *      defaults={"_locale" = "%locale%", "domain" = "%domain%"},
+     *      requirements={"domain" = "%domain%"},
+     *      condition="request.isXmlHttpRequest()"
+     * )
+     */
+    public function afficheLiftAction(Request $request, $_locale)
+    {
+        if( !$request->query->has(self::LIFT_PARAMETER) )
+            return FALSE;
+
+        $liftParameter = $request->query->get(self::LIFT_PARAMETER);
+
+        if( !$this->isLiftParameterValid($liftParameter) )
+            throw $this->createNotFoundException();
+
+        $_manager = $this->getDoctrine()->getManager();
+
+        $concerts = $_manager->getRepository('AppBundle:Concert')
+            ->findNewest($liftParameter)
+        ;
+
+        if( !$concerts ) {
+            $response = [
+                'data' => $this->composeResponseData($liftParameter, TRUE, NULL),
+                'code' => 200,
+            ];
+        } else {
+            $concertsTotal = $_manager->getRepository('AppBundle:Concert')
+                ->countAll()
+            ;
+
+            $isLast = $this->isLast($liftParameter, $concertsTotal, $concerts);
+
+            $concerts = Concert::flattenForXhr(
+                $concerts,
+                $this->get('translator'),
+                $_locale,
+                $this->get('vich_uploader.templating.helper.uploader_helper')
+            );
+
+            $response = [
+                'data' => $this->composeResponseData($liftParameter, $isLast, $concerts),
+                'code' => 200,
+            ];
+        }
+
+        return new Response(json_encode($response['data']), $response['code']);
+    }
+
+    /**
+     * @Method({"GET"})
+     * @Route(
+     *      "/blog/lift",
+     *      name="blog_lift",
+     *      host="{_locale}.{domain}",
+     *      defaults={"_locale" = "%locale%", "domain" = "%domain%"},
+     *      requirements={"_locale" = "%locale%|en", "domain" = "%domain%"},
+     *      condition="request.isXmlHttpRequest()"
+     * )
+     * @Route(
+     *      "/blog/lift",
+     *      name="blog_lift_default",
+     *      host="{domain}",
+     *      defaults={"_locale" = "%locale%", "domain" = "%domain%"},
+     *      requirements={"domain" = "%domain%"},
+     *      condition="request.isXmlHttpRequest()"
+     * )
+     */
+    public function blogLiftAction(Request $request, $_locale)
+    {
+        if( !$request->query->has(self::LIFT_PARAMETER) )
+            return FALSE;
+
+        $liftParameter = $request->query->get(self::LIFT_PARAMETER);
+
+        if( !$this->isLiftParameterValid($liftParameter) )
+            throw $this->createNotFoundException();
+
+        $_manager = $this->getDoctrine()->getManager();
+
+        $articles = $_manager->getRepository('AppBundle:Article')
+            ->findNewest($liftParameter)
+        ;
+
+        if( !$articles ) {
+            $response = [
+                'data' => $this->composeResponseData($liftParameter, TRUE, NULL),
+                'code' => 200,
+            ];
+        } else {
+            $articlesTotal = $_manager->getRepository('AppBundle:Article')
+                ->countAll()
+            ;
+
+            $isLast = $this->isLast($liftParameter, $articlesTotal, $articles);
+
+            $articles = Article::flattenForXhr(
+                $articles,
+                $this->get('translator'),
+                $this->get('twig'),
+                $this->get('router'),
+                $_locale,
+                $this->get('vich_uploader.templating.helper.uploader_helper')
+            );
+
+            $response = [
+                'data' => $this->composeResponseData($liftParameter, $isLast, $articles),
+                'code' => 200,
+            ];
+        }
+
+        return new Response(json_encode($response['data']), $response['code']);
+    }
+
     /**
      * @Method({"GET"})
      * @Route(
