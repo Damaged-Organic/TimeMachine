@@ -160,7 +160,32 @@ class StateController extends AppController implements PageInitInterface
      */
     public function bandAction(Request $request, $id = NULL)
     {
-        return \Symfony\Component\HttpFoundation\Response('0k');
+        $_manager = $this->getDoctrine()->getManager();
+
+        if( $id ) {
+            $musician = $_manager->getRepository('AppBundle:Musician')
+                ->findSingleMainCast($id)
+            ;
+
+            if( !$musician )
+                throw $this->createNotFoundException();
+
+            $response = [
+                'view' => 'AppBundle:State:musician.html.twig',
+                'data' => ['musician' => $musician],
+            ];
+        } else {
+            $musicians = $_manager->getRepository('AppBundle:Musician')
+                ->findOldest()
+            ;
+
+            $response = [
+                'view' => 'AppBundle:State:band.html.twig',
+                'data' => ['musicians' => $musicians],
+            ];
+        }
+
+        return $this->render($response['view'], $response['data']);
     }
 
     /**

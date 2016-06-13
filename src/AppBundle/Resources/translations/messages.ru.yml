@@ -30,6 +30,12 @@ blog:
         prev:      предыдущий
         next:      следующий
 
+band:
+    headline: Группа
+
+    musician:
+        years: '{0} 1 год в группе | %count% год в группе | %count% года в группе | %count% лет в группе'
+
 music:
     headline: Музыка
 
@@ -39,7 +45,9 @@ music:
         details:       детали
 
     song:
-        text: текст песни
+        text:   текст песни
+        back:   вернуться к списку
+        chords: показать ноты
 
 header:
     menu: меню

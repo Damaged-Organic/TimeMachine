@@ -10,13 +10,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
 
 class ComponentController extends Controller
 {
-    public function localeAction(Request $request, $_locale)
+    public function localeAction($_locale)
     {
+        $_request = $this->get('request_stack')->getMasterRequest();
+
         $switchLocale = ( $_locale == 'ru' ) ? 'en' : 'ru';
 
+        $routeParameters = trim($_request->getPathInfo(), '/');
+
         return $this->render('AppBundle:Component/Header:locale.html.twig', [
-            'route'        => $this->get('app.metadata')->getCurrentRoute(),
-            'switchLocale' => $switchLocale,
+            'route'           => $this->get('app.metadata')->getCurrentRoute(),
+            'switchLocale'    => $switchLocale,
+            'routeParameters' => $routeParameters,
         ]);
     }
 

@@ -24,6 +24,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [500, 500], mode: outbound }
 
+        musician_photo_thumb:
+            quality: 100
+            filters:
+                thumbnail: { size: [500, 500], mode: outbound }
+
         some_watermark:
             filters:
                 watermark:

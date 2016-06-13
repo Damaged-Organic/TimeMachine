@@ -9,7 +9,7 @@ class BandLift extends Lift{
 
     constructor(){
         super(el, {
-            url: "/php/band.php",
+            url: "/band/lift",
             perRequest: 3
         });
 

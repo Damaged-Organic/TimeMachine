@@ -9,7 +9,7 @@ class AlbumsLift extends Lift{
 
     constructor(){
         super(el, {
-            url: "/php/albums.php",
+            url: "/albums/lift",
             perRequest: 3
         });
 

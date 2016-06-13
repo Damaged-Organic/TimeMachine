@@ -1,4 +1,4 @@
-{# src/AppBundle/Resources/views/State/music.html.twig #}
+{# src/AppBundle/Resources/views/State/band.html.twig #}
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block title %}
@@ -11,53 +11,46 @@
     <meta name="robots" content="{{ metadata.robots }}">
     {# Open Graph #}
 	<meta property="og:type" content="website">
-	<meta property="og:url" content="{{ url('music') }}">
+	<meta property="og:url" content="{{ url('band') }}">
     <meta property="og:title" content="{{ metadata.title }} - {{ 'common.title'|trans }}">
 	<meta property="og:description" content="{{ metadata.description }}">
     <meta property="og:image" content="{{ absolute_url(asset('bundles/app/images/logo.png')) }}">
     <meta property="og:image:type" content="image/png">
     {# Locale reference #}
-    <link rel="canonical" href="{{ url('music', { '_locale': "ru" }) }}">
-    <link rel="alternate" href="{{ url('music', { '_locale': "ru" }) }}" hreflang="x-default">
-    <link rel="alternate" href="{{ url('music', { '_locale': "ru" }) }}" hreflang="ru-ru">
-    <link rel="alternate" href="{{ url('music', { '_locale': "en" }) }}" hreflang="en-us">
+    <link rel="canonical" href="{{ url('band', { '_locale': "ru" }) }}">
+    <link rel="alternate" href="{{ url('band', { '_locale': "ru" }) }}" hreflang="x-default">
+    <link rel="alternate" href="{{ url('band', { '_locale': "ru" }) }}" hreflang="ru-ru">
+    <link rel="alternate" href="{{ url('band', { '_locale': "en" }) }}" hreflang="en-us">
 {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bundles/app/css/albums.bundle.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/band.bundle.min.css') }}">
 {% endblock %}
 
 {% block content %}
     <main id="content">
-        <section class="outer albums-holder">
-            <h1 class="entitled-holder">
-                {{ 'music.headline'|trans }}
-            </h1>
+        <section class="outer band-holder">
+            <h1 class="entitled-holder">{{ 'band.headline'|trans }}</h1>
             <div class="inner grid" id="lift-holder">
 
-                {% for album in albums %}
+                {% for musician in musicians %}
                     <article class="item lift-item">
                         <div class="photo-holder">
                             <div class="photo">
                                 <figure>
-                                    <img src="{{ vich_uploader_asset(album, 'coverFile')|imagine_filter('album_cover_thumb') }}" alt="{{ album.title }}">
+                                    <img src="{{ vich_uploader_asset(musician, 'photoFile')|imagine_filter('musician_photo_thumb') }}" alt="{{ musician.title }}">
                                 </figure>
                             </div>
                         </div>
                         <div class="stamp-holder">
-                            <span class="upper-title">{{ album.yearOfRelease }}</span>
+                            <span class="upper-title">{{ musician.dateOfBirth|date("Y") }}</span>
+                            <p class="sub-title">{{ 'band.musician.years'|transchoice(musician.getYearsActive()) }}</p>
                         </div>
                         <div class="info-holder">
-                            <span class="upper-title">
-                                {{ 'music.album.songs'|transchoice(album.songs|length) }}
-                            </span>
+                            <span class="upper-title">{{ musician.skill }}</span>
                             <span class="underline"></span>
-                            <h2>{{ album.title }}</h2>
-                            <p>{{ album.description|truncate(250) }}</p>
-                            <a href="{{ path('music', { 'id': album.id, 'slug': album.slug }) }}">
-                                {{ 'music.album.details'|trans }}
-                                <span class="arrow"></span>
-                            </a>
+                            <h2>{{ musician.title }}</h2>
+                            <p>{{ musician.story|truncate(500) }}</p>
                         </div>
                     </article>
                 {% endfor %}
@@ -80,5 +73,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('bundles/app/js/albums.bundle.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/band.bundle.min.js') }}"></script>
 {% endblock %}

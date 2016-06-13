@@ -60,7 +60,7 @@
                         <ul>
 
                             {% for song in album.songs %}
-                                <li class="song touchable" data-song-id="{{ song.id }}">
+                                <li class="song touchable {{ ( not song.lyrics ) ? 'no-text' }}" data-song-id="{{ song.id }}">
                                     <span class="song-title">
                                         {{ song.title }}
                                         <span>{{ song.getFormattedSongDuration() }}</span>
@@ -72,10 +72,10 @@
                         </ul>
                     </div>
                     <div class="song-text-holder">
-                        <span class="close-text">вернуться к списку</span>
+                        <span class="close-text">{{ 'music.song.back'|trans }}</span>
                         <div class="btn btn-small show-notes touchable">
                             <a href="#">
-                                <span>показать ноты</span>
+                                <span>{{ 'music.song.chords'|trans }}</span>
                             </a>
                         </div>
                         <span class="underline"></span>

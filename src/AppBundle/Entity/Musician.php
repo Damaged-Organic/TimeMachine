@@ -34,6 +34,8 @@ class Musician implements Translatable, MusicianConstantsInterface
 {
     use IdMapper, TranslationMapper, SlugMapper, TagTrait, MusicianFileObjectsTrait;
 
+    const LIFT_ITEMS = 4;
+
     /**
      * @ORM\OneToMany(targetEntity="MusicianTranslation", mappedBy="object", cascade={"persist", "remove"})
      */
@@ -387,4 +389,38 @@ class Musician implements Translatable, MusicianConstantsInterface
     }
 
     /** END Custom methods */
+
+    /** Transform entities for AJAX request */
+
+    static public function flattenForXhr(array $musicians, $_translator, $_twig, $_router, $vichUploaderAsset)
+    {
+        foreach( $musicians as $musician )
+        {
+            if( !($musician instanceof Musician) )
+                continue;
+
+            $photo       = $vichUploaderAsset->asset($musician, 'photoFile');
+            $yearsInBand = $_translator->transChoice(
+                'band.musician.years', $musician->getYearsActive(), ['%count%' => $musician->getYearsActive()]
+            );
+            $description = call_user_func_array(
+                $_twig->getFilter('truncate')->getCallable(),
+                [$_twig, $musician->getStory(), 500]
+            );
+
+            $output[] = [
+                "photo"         => $photo,
+                "photoTitle"    => $musician->getTitle(),
+                "entryYear"     => $musician->getYearOfEntry(),
+                "yearsInGroup"  => $yearsInBand,
+                "role"          => $musician->getSkill(),
+                "title"         => $musician->getTitle(),
+                "description"   => $description,
+            ];
+        }
+
+        return $output;
+    }
+
+    /** END Transform entities for AJAX request */
 }

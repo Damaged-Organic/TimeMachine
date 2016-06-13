@@ -22,7 +22,7 @@ class MusicianAdmin extends Admin
             ->add('id', 'number', [
                 'label' => "ID",
             ])
-            ->addIdentifier('fullName', 'text', [
+            ->addIdentifier('title', 'text', [
                 'label' => "Полное имя",
             ])
             ->add('skill', 'text', [
@@ -68,7 +68,7 @@ class MusicianAdmin extends Admin
                     'translatable_class' => 'AppBundle\Entity\Musician',
                     'required'           => TRUE,
                     'fields' => [
-                        'fullName' => [
+                        'title' => [
                             'locale_options' => [
                                 'ru' => [
                                     'required' => TRUE,

@@ -1,4 +1,4 @@
 {# src/AppBundle/Resources/views/Component/Header/locale.html.twig #}
 <div class="lang">
-    <a href="{{ path(route, { '_locale': switchLocale }) }}">{{ switchLocale|upper }}</a>
+    <a href="{{ path('index', { '_locale': switchLocale }) ~ routeParameters }}">{{ switchLocale|upper }}</a>
 </div>

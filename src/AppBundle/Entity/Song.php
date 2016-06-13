@@ -193,7 +193,16 @@ class Song implements Translatable
 
     public function getFormattedSongDuration()
     {
-        return "{$this->durationMinutes}:{$this->durationSeconds}";
+        if( !is_null($this->durationMinutes) && !is_null($this->durationSeconds) ) {
+            $durationMinutes = str_pad($this->durationMinutes, 2, '0', STR_PAD_LEFT);
+            $durationSeconds = str_pad($this->durationSeconds, 2, '0', STR_PAD_LEFT);
+
+            $duration = "{$durationMinutes}:{$durationSeconds}";
+        } else {
+            $duration = "-";
+        }
+
+        return $duration;
     }
 
     /** END Custom methods */

@@ -99,12 +99,12 @@ class SongAdmin extends Admin
                     'lyrics' => [
                         'locale_options' => [
                             'ru' => [
-                                'required' => TRUE,
+                                'required' => FALSE,
                                 'label'    => "Текст (паттерн для аккордов - [аккорд])",
                             ],
                             'en' => [
                                 'required' => FALSE,
-                                'label'    => "Text",
+                                'label'    => "Text (chord pattern - [chord])",
                             ],
                         ],
                         'field_type' => 'textarea',
