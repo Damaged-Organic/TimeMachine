@@ -24,6 +24,8 @@ class PhotoAlbum implements Translatable
 {
     use IdMapper, TranslationMapper, TagTrait;
 
+    const LIFT_ITEMS = 3;
+
     /**
      * @ORM\OneToMany(targetEntity="PhotoAlbumTranslation", mappedBy="object", cascade={"persist", "remove"})
      */

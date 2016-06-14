@@ -34,7 +34,9 @@ band:
     headline: Band
 
     musician:
-        years: '{0} 1 year in band | {1} %count% year in band | [2,Inf] %count% years in band'
+        years:       '{0} 1 year in band | {1} %count% year in band | [2,Inf] %count% years in band'
+        born:        born
+        questionary: Questionary
 
 music:
     headline: Music

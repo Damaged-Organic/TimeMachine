@@ -313,10 +313,12 @@ class ActionController extends Controller implements LiftInterface
         ;
 
         if( !$song || !$song->getLyrics() ) {
+            $_translator = $this->get('translator');
+
             $response = [
                 'data' => [
-                    'title'   => "Oooppppps",
-                    'message' => "Something went wrong!",
+                    'title'   => $_translator->trans('common.error.title', [], 'responses'),
+                    'message' => $_translator->trans('common.error.text', [], 'responses'),
                 ],
                 'code' => 500,
             ];

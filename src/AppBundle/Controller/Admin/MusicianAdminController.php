@@ -14,14 +14,14 @@ class MusicianAdminController extends Controller
     public function deleteAction($id)
     {
         if( FALSE === $this->admin->isGranted('DELETE') )
-            throw new AccessDeniedException();
+            throw new \AccessDeniedException();
 
         $id = $this->get('request')->get($this->admin->getIdParameter());
 
         $musician = $this->admin->getObject($id);
 
         if( !$musician )
-            throw new NotFoundHttpException(sprintf('unable to find the Musician with id : %s', $id));
+            throw new \NotFoundHttpException(sprintf('unable to find the Musician with id : %s', $id));
 
         // Restrict deletion of main cast musician
         if( $musician->getIsMainCast() )
@@ -37,7 +37,7 @@ class MusicianAdminController extends Controller
     public function batchActionDelete(ProxyQueryInterface $query)
     {
         if( FALSE === $this->admin->isGranted('DELETE') )
-            throw new AccessDeniedException();
+            throw new \AccessDeniedException();
 
         $result = $query->execute();
 
@@ -48,13 +48,13 @@ class MusicianAdminController extends Controller
                 {
                     // Restrict deletion of main cast musicians
                     if( $musician->getIsMainCast() )
-                        throw new Exception;
+                        throw new \Exception;
 
                     $this->admin->delete($musician, FALSE);
                 }
 
                 $this->addFlash('sonata_flash_success', 'flash_batch_delete_success');
-            } catch( Exception $e ) {
+            } catch( \Exception $e ) {
                 $this->addFlash('sonata_flash_error', 'Нельзя удалять музыканта из основого состава группы!');
             }
         }

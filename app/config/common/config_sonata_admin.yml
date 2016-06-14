@@ -139,6 +139,28 @@ services:
         calls:
             - [ setTranslationDomain, [AppBundle] ]
 
+    sonata.admin.biography:
+        class: AppBundle\Admin\BiographyAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "", label: "", show_in_dashboard: false }
+        arguments:
+            - ~
+            - AppBundle\Entity\Biography
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]
+
+    sonata.admin.questionary:
+        class: AppBundle\Admin\QuestionaryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "", label: "", show_in_dashboard: false }
+        arguments:
+            - ~
+            - AppBundle\Entity\Questionary
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]
+
     sonata.admin.photo_album:
         class: AppBundle\Admin\PhotoAlbumAdmin
         tags:
@@ -146,7 +168,7 @@ services:
         arguments:
             - ~
             - AppBundle\Entity\PhotoAlbum
-            - ~
+            - AppBundle:Admin\PhotoAlbumAdmin
         calls:
             - [ setTranslationDomain, [AppBundle] ]
 

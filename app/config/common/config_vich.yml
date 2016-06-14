@@ -6,6 +6,20 @@ twig:
 vich_uploader:
     db_driver: orm
     mappings:
+        concert_poster:
+            uri_prefix:         /uploads/concert/poster
+            upload_destination: %kernel.root_dir%/../www/uploads/concert/poster
+            namer:              vich_uploader.namer_uniqid
+            delete_on_remove:   true
+            delete_on_update:   true
+
+        article_block_image:
+            uri_prefix:         /uploads/article_block/image
+            upload_destination: %kernel.root_dir%/../www/uploads/article_block/image
+            namer:              vich_uploader.namer_uniqid
+            delete_on_remove:   true
+            delete_on_update:   true
+
         musician_photo:
             uri_prefix:         /uploads/musician/photo
             upload_destination: %kernel.root_dir%/../www/uploads/musician/photo
@@ -13,9 +27,9 @@ vich_uploader:
             delete_on_remove:   true
             delete_on_update:   true
 
-        concert_poster:
-            uri_prefix:         /uploads/concert/poster
-            upload_destination: %kernel.root_dir%/../www/uploads/concert/poster
+        biography_photo:
+            uri_prefix:         /uploads/biography/photo
+            upload_destination: %kernel.root_dir%/../www/uploads/biography/photo
             namer:              vich_uploader.namer_uniqid
             delete_on_remove:   true
             delete_on_update:   true
@@ -37,13 +51,6 @@ vich_uploader:
         photo_album_photo:
             uri_prefix:         /uploads/photo_album/photo
             upload_destination: %kernel.root_dir%/../www/uploads/photo_album/photo
-            namer:              vich_uploader.namer_uniqid
-            delete_on_remove:   true
-            delete_on_update:   true
-
-        article_block_image:
-            uri_prefix:         /uploads/article_block/image
-            upload_destination: %kernel.root_dir%/../www/uploads/article_block/image
             namer:              vich_uploader.namer_uniqid
             delete_on_remove:   true
             delete_on_update:   true

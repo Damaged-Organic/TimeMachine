@@ -52,7 +52,7 @@
                             <time class="upper-title" datetime="{{ concert.doorsOpenAt|date('Y-m-d') }}">
 
                                 {% if _locale == 'ru' %}
-                                    {{ concert.doorsOpenAt|localizeddate('long', 'none', null, null, 'd MMM YYY') }}
+                                    {{ concert.doorsOpenAt|localizeddate('long', 'none', null, null, 'd MMMM YYY') }}
                                 {% else %}
                                     {{ concert.doorsOpenAt|localizeddate('long', 'none') }}
                                 {% endif %}
@@ -82,6 +82,12 @@
     </main>
     <div id="bg-circle-overlay">
         <div class="circle"></div>
+    </div>
+    <div id="ajax-loader">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
     </div>
 {% endblock %}
 

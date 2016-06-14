@@ -1,0 +1,105 @@
+{# src/AppBundle/Resources/views/State/gallery.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ metadata.title }} - {{ 'common.title'|trans }}
+{% endblock %}
+
+{% block metadata %}
+    {{ parent() }}
+    <meta name="description" content="{{ metadata.description }}">
+    <meta name="robots" content="{{ metadata.robots }}">
+    {# Open Graph #}
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="{{ url('gallery') }}">
+    <meta property="og:title" content="{{ metadata.title }} - {{ 'common.title'|trans }}">
+	<meta property="og:description" content="{{ metadata.description }}">
+    <meta property="og:image" content="{{ absolute_url(asset('bundles/app/images/logo.png')) }}">
+    <meta property="og:image:type" content="image/png">
+    {# Locale reference #}
+    <link rel="canonical" href="{{ url('gallery', { '_locale': "ru" }) }}">
+    <link rel="alternate" href="{{ url('gallery', { '_locale': "ru" }) }}" hreflang="x-default">
+    <link rel="alternate" href="{{ url('gallery', { '_locale': "ru" }) }}" hreflang="ru-ru">
+    <link rel="alternate" href="{{ url('gallery', { '_locale': "en" }) }}" hreflang="en-us">
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/gallery.bundle.min.css') }}">
+{% endblock %}
+
+{% block content %}
+    <main id="content">
+        <section class="outer gallery-holder">
+            <h1 class="entitled-holder">Gallery</h1>
+            <div class="inner grid" id="lift-holder">
+
+                {% for album in albums %}
+
+                    {% set majorPhoto = album.photos.0 %}
+
+                    <article class="item lift-item">
+                        <div class="photo-holder">
+                            <div class="photo">
+                                <figure>
+                                    <img src="{{ vich_uploader_asset(majorPhoto, 'photoFile') }}" alt="{{ album.title }}">
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="stamp-holder">
+                            <time class="upper-title" datetime="2016-03-26">2016</time>
+                            <span class="sub-title">22 марта</span>
+                        </div>
+                        <div class="info-holder">
+                            <span class="upper-title">23 фотографии</span>
+                            <span class="underline"></span>
+                            <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum eius nulla veritatis vitae, ipsa perspiciatis error ea voluptatem expedita! Perferendis quis nisi ad odit tempore error atque dolor aspernatur porro!</p>
+                            <a href="photos.html">view<span class="arrow"></span></a>
+                        </div>
+                    </article>
+                {% endfor %}
+
+            </div>
+        </section>
+        <div id="tags-holder">
+            <ul>
+                <li class="active"><a href="#" class="tag" data-tag-id="0">#{{ 'common.title'|trans }}</a></li>
+
+                {% for tag in tags %}
+                    <li><a href="#" class="tag" data-tag-id="{{ tag.id }}">{{ tag.getFormattedTag }}</a></li>
+                {% endfor %}
+
+            </ul>
+        </div>
+        <div id="timeline-holder">
+            <div id="timeline" data-year-start="{{ years|last }}" data-year-end="{{ years|first }}">
+                <div id="dragger"></div>
+                <span id="year-holder"></span>
+                <div class="lane"></div>
+            </div>
+        </div>
+    </main>
+    <div id="bg-circle-overlay">
+        <div class="circle"></div>
+    </div>
+    <div id="ajax-loader">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+    <div id="ajax-response-holder"></div>
+    <div id="to-top">
+        <span class="arrow arrow-top"></span>
+    </div>
+{% endblock %}
+
+{% block footer %}
+
+    {% include 'AppBundle:Component:footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/gallery.bundle.min.js') }}"></script>
+{% endblock %}

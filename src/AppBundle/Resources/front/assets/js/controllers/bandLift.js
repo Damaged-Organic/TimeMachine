@@ -10,7 +10,7 @@ class BandLift extends Lift{
     constructor(){
         super(el, {
             url: "/band/lift",
-            perRequest: 3
+            perRequest: 4
         });
 
         this.render();

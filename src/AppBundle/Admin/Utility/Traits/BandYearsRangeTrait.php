@@ -16,4 +16,15 @@ trait BandYearsRangeTrait
 
         return $yearsRange;
     }
+
+    public function getFullYearsRangeChoice()
+    {
+        $years = range('1900', (new DateTime())->format('Y'));
+
+        $yearsRange = array_reverse(
+            array_combine($years, $years), TRUE
+        );
+
+        return $yearsRange;
+    }
 }

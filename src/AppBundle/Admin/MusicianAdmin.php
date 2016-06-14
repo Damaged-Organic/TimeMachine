@@ -56,98 +56,147 @@ class MusicianAdmin extends Admin
             $photoHelpOption = ( $photoPath = $musician->getPhotoPath() )
                 ? '<img src="' . $photoPath . '" class="admin-preview" />'
                 : FALSE;
+
+            $isMainCast = $musician->getIsMainCast();
         } else {
             $photoRequired   = TRUE;
             $photoHelpOption = FALSE;
+
+            $isMainCast = FALSE;
         }
 
         $formMapper
-            ->with('Музыкант - Локализованные данные')
-                ->add('translations', 'a2lix_translations_gedmo', [
-                    'label'              => FALSE,
-                    'translatable_class' => 'AppBundle\Entity\Musician',
-                    'required'           => TRUE,
-                    'fields' => [
-                        'title' => [
-                            'locale_options' => [
-                                'ru' => [
-                                    'required' => TRUE,
-                                    'label'    => "Имя и фамилия",
+            ->tab('Музыкант')
+                ->with('Музыкант - Локализованные данные')
+                    ->add('translations', 'a2lix_translations_gedmo', [
+                        'label'              => FALSE,
+                        'translatable_class' => 'AppBundle\Entity\Musician',
+                        'required'           => TRUE,
+                        'fields' => [
+                            'title' => [
+                                'locale_options' => [
+                                    'ru' => [
+                                        'required' => TRUE,
+                                        'label'    => "Имя и фамилия",
+                                    ],
+                                    'en' => [
+                                        'required' => TRUE,
+                                        'label'    => "Full name",
+                                    ],
                                 ],
-                                'en' => [
-                                    'required' => TRUE,
-                                    'label'    => "Full name",
+                            ],
+                            'skill' => [
+                                'locale_options' => [
+                                    'ru' => [
+                                        'required' => TRUE,
+                                        'label'    => "Роль в группе",
+                                    ],
+                                    'en' => [
+                                        'required' => TRUE,
+                                        'label'    => "Role in a band",
+                                    ],
                                 ],
+                            ],
+                            'story' => [
+                                'locale_options' => [
+                                    'ru' => [
+                                        'required' => TRUE,
+                                        'label'    => "История от музыканта",
+                                    ],
+                                    'en' => [
+                                        'required' => TRUE,
+                                        'label'    => "Musicians story",
+                                    ],
+                                ],
+                                'attr' => [
+                                    'rows' => '5',
+                                ],
+                            ],
+                            'slug' => [
+                                'display' => FALSE,
                             ],
                         ],
-                        'skill' => [
-                            'locale_options' => [
-                                'ru' => [
-                                    'required' => TRUE,
-                                    'label'    => "Роль в группе",
-                                ],
-                                'en' => [
-                                    'required' => TRUE,
-                                    'label'    => "Role in a band",
-                                ],
-                            ],
+                    ])
+                ->end()
+                ->with('Музыкант - Общие данные')
+                    ->add('photoFile', 'vich_file', [
+                        'label'         => "Фотография",
+                        'required'      => $photoRequired,
+                        'allow_delete'  => FALSE,
+                        'download_link' => FALSE,
+                        'help'          => $photoHelpOption,
+                        'attr'          => [
+                            'style' => 'width: 400px; padding: 5px 0 0 5px;',
                         ],
-                        'story' => [
-                            'locale_options' => [
-                                'ru' => [
-                                    'required' => TRUE,
-                                    'label'    => "История от музыканта",
-                                ],
-                                'en' => [
-                                    'required' => TRUE,
-                                    'label'    => "Musicians story",
-                                ],
-                            ],
-                            'attr' => [
-                                'rows' => '5',
-                            ],
+                    ])
+                    ->add('dateOfBirth', 'sonata_type_date_picker', [
+                        'label'  => "Дата рождения",
+                        'format' => 'dd-MM-yyyy',
+                        'attr'   => [
+                            'data-date-format' => 'DD-MM-YYYY',
                         ],
-                    ],
-                ])
-            ->end()
-            ->with('Музыкант - Общие данные')
-                ->add('photoFile', 'vich_file', [
-                    'label'         => "Фотография",
-                    'required'      => $photoRequired,
-                    'allow_delete'  => FALSE,
-                    'download_link' => FALSE,
-                    'help'          => $photoHelpOption,
-                    'attr'          => [
-                        'style' => 'width: 400px; padding: 5px 0 0 5px;',
-                    ],
-                ])
-                ->add('dateOfBirth', 'sonata_type_date_picker', [
-                    'label'  => "Дата рождения",
-                    'format' => 'dd-MM-yyyy',
-                    'attr'   => [
-                        'data-date-format' => 'DD-MM-YYYY',
-                    ],
-                ])
-                ->add('yearOfEntry', 'choice', [
-                    'label'   => "Год вступления в группу",
-                    'choices' => $yearsRange,
-                ])
-                ->add('yearOfExit', 'choice', [
-                    'required'    => FALSE,
-                    'label'       => "Год выхода из группы",
-                    'choices'     => $yearsRange,
-                    'placeholder' => "состоит в группе по текущее время",
-                ])
-            ->end()
-            ->with('Музыкант - Тэг')
-                ->add('tag', 'entity', [
-                    'required'    => FALSE,
-                    'disabled'    => TRUE,
-                    'label'       => FALSE,
-                    'class'       => 'AppBundle\Entity\Tag',
-                    'placeholder' => Tag::getDefaultTag(),
-                ])
+                    ])
+                    ->add('yearOfEntry', 'choice', [
+                        'label'   => "Год вступления в группу",
+                        'choices' => $yearsRange,
+                    ])
+                    ->add('yearOfExit', 'choice', [
+                        'required'    => FALSE,
+                        'label'       => "Год выхода из группы",
+                        'choices'     => $yearsRange,
+                        'placeholder' => "состоит в группе по текущее время",
+                    ])
+                ->end()
+                ->with('Музыкант - Тэг')
+                    ->add('tag', 'entity', [
+                        'required'    => FALSE,
+                        'disabled'    => TRUE,
+                        'label'       => FALSE,
+                        'class'       => 'AppBundle\Entity\Tag',
+                        'placeholder' => Tag::getDefaultTag(),
+                    ])
+                ->end()
             ->end()
         ;
+
+        if( $isMainCast )
+        {
+            $formMapper
+                ->tab('Биография')
+                    ->with('Музыкант - биография')
+                        ->add('biographies', 'sonata_type_collection', [
+                            'label'        => FALSE,
+                            'by_reference' => FALSE,
+                            'required'     => TRUE,
+                            'btn_add'      => 'Добавить блок',
+                        ], [
+                            'edit'   => 'inline',
+                            'inline' => 'table',
+                        ])
+                    ->end()
+                ->end()
+                ->tab('Анкета')
+                    ->with('Музыкант - анкета')
+                        ->add('questionnaires', 'sonata_type_collection', [
+                            'label'        => FALSE,
+                            'by_reference' => FALSE,
+                            'required'     => TRUE,
+                            'btn_add'      => 'Добавить блок',
+                        ], [
+                            'edit'   => 'inline',
+                            'inline' => 'table',
+                        ])
+                    ->end()
+                ->end()
+            ;
+        }
+    }
+
+    public function getFormTheme()
+    {
+        return array_merge(
+            parent::getFormTheme(),
+            array('ApplicationSonataUserBundle:Admin/Form:form_admin_fields.html.twig')
+        );
     }
 }

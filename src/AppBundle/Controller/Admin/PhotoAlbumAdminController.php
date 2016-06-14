@@ -1,5 +1,5 @@
 <?php
-// src/AppBundle/Controller/Admin/ArticleAdminController.php
+// src/AppBundle/Controller/Admin/PhotoAlbumAdminController.php
 namespace AppBundle\Controller\Admin;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sonata\AdminBundle\Controller\CRUDController as Controller,
     Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 
-class ArticleAdminController extends Controller
+class PhotoAlbumAdminController extends Controller
 {
     public function createAction()
     {
@@ -31,20 +31,13 @@ class ArticleAdminController extends Controller
 
             $isFormValid = $form->isValid();
 
-            // Restrict article without preview image
-            $articleBlocks = $object->getArticleBlocks();
+            // Restrict photo album without photos
+            $photos = $object->getPhotos();
 
-            if( count($articleBlocks) == 0 ) {
+            if( count($photos) == 0 ) {
                 $this->addFlash(
                     'sonata_flash_error',
-                    'Должен присутствовать хотя бы один блок статьи!'
-                );
-
-                $isFormValid = false;
-            } elseif( !($articleBlocks[0]->getImageFile()) ) {
-                $this->addFlash(
-                    'sonata_flash_error',
-                    'Для первого блока статьи должно быть загружено изображение!'
+                    'В фотоальбоме должна быть хотя бы одна фотография!'
                 );
 
                 $isFormValid = false;
@@ -142,13 +135,13 @@ class ArticleAdminController extends Controller
 
             $isFormValid = $form->isValid();
 
-            // Restrict article without preview image
-            $articleBlocks = $object->getArticleBlocks();
+            // Restrict photo album without photos
+            $photos = $object->getPhotos();
 
-            if( count($articleBlocks) == 0 ) {
+            if( count($photos) == 0 ) {
                 $this->addFlash(
                     'sonata_flash_error',
-                    'Должен присутствовать хотя бы один блок статьи!'
+                    'В фотоальбоме должна быть хотя бы одна фотография!'
                 );
 
                 $isFormValid = false;

@@ -161,7 +161,7 @@ class PhotoAdmin extends Admin
                             ],
                         ],
                         'attr' => [
-                            'style' => 'min-width: 200px;',
+                            'style' => 'min-width: 300px;',
                         ],
                     ],
                 ],

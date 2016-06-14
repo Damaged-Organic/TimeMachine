@@ -340,7 +340,7 @@ class Concert implements Translatable, ConcertConstantsInterface
     {
         if( $_locale == 'ru' ) {
             $formatterDate = IntlDateFormatter::create(
-                $_locale, IntlDateFormatter::LONG, IntlDateFormatter::NONE, NULL, NULL, 'd MMM YYY'
+                $_locale, IntlDateFormatter::LONG, IntlDateFormatter::NONE, NULL, NULL, 'd MMMM YYY'
             );
         } else {
             $formatterDate = IntlDateFormatter::create(

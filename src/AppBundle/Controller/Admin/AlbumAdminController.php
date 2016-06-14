@@ -2,8 +2,6 @@
 // src/AppBundle/Controller/Admin/AlbumAdminController.php
 namespace AppBundle\Controller\Admin;
 
-use Exception;
-
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 use Sonata\AdminBundle\Controller\CRUDController as Controller,
@@ -17,7 +15,7 @@ class AlbumAdminController extends Controller
         $templateKey = 'edit';
 
         if (false === $this->admin->isGranted('CREATE')) {
-            throw new AccessDeniedException();
+            throw new \AccessDeniedException();
         }
 
         $object = $this->admin->getNewInstance();
@@ -47,7 +45,7 @@ class AlbumAdminController extends Controller
                 // persist if the form was valid and if in preview mode the preview was approved
                 if ($isFormValid && (!$this->isInPreviewMode() || $this->isPreviewApproved())) {
                     if (false === $this->admin->isGranted('CREATE', $object)) {
-                        throw new AccessDeniedException();
+                        throw new \AccessDeniedException();
                     }
 
                     try {
@@ -71,7 +69,7 @@ class AlbumAdminController extends Controller
 
                         // redirect to edit mode
                         return $this->redirectTo($object);
-                    } catch (ModelManagerException $e) {
+                    } catch (\ModelManagerException $e) {
                         $this->logModelManagerException($e);
 
                         $isFormValid = false;
@@ -119,11 +117,11 @@ class AlbumAdminController extends Controller
         $object = $this->admin->getObject($id);
 
         if (!$object) {
-            throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+            throw new \NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
         }
 
         if (false === $this->admin->isGranted('EDIT', $object)) {
-            throw new AccessDeniedException();
+            throw new \AccessDeniedException();
         }
 
         $this->admin->setSubject($object);
@@ -171,7 +169,7 @@ class AlbumAdminController extends Controller
 
                         // redirect to edit mode
                         return $this->redirectTo($object);
-                    } catch (ModelManagerException $e) {
+                    } catch (\ModelManagerException $e) {
                         $this->logModelManagerException($e);
 
                         $isFormValid = false;

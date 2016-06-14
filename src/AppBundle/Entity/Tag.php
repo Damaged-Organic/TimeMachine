@@ -243,5 +243,10 @@ class Tag implements Translatable
         return "#" . self::DEFAULT_TAG;
     }
 
+    public function getFormattedTag()
+    {
+        return "#{$this->title}";
+    }
+
     /** END Custom methods */
 }

@@ -34,7 +34,9 @@ band:
     headline: Группа
 
     musician:
-        years: '{0} 1 год в группе | %count% год в группе | %count% года в группе | %count% лет в группе'
+        years:       '{0} 1 год в группе | %count% год в группе | %count% года в группе | %count% лет в группе'
+        born:        родился
+        questionary: Анкета
 
 music:
     headline: Музыка

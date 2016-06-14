@@ -1,0 +1,140 @@
+{# src/AppBundle/Resources/views/State/musician.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ musician.title }} - {{ metadata.title }} - {{ 'common.title'|trans }}
+{% endblock %}
+
+{% block metadata %}
+    {{ parent() }}
+    <meta name="description" content="{{ metadata.description }}">
+    <meta name="robots" content="{{ metadata.robots }}">
+    {# Open Graph #}
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="{{ url('band', { 'id': musician.id, 'slug': musician.slug }) }}">
+    <meta property="og:title" content="{{ musician.title }} - {{ metadata.title }} - {{ 'common.title'|trans }}">
+	<meta property="og:description" content="{{ metadata.description }}">
+    <meta property="og:image" content="{{ absolute_url(vich_uploader_asset(musician, 'photoFile')) }}">
+    <meta property="og:image:type" content="image/{{ vich_uploader_asset(musician, 'photoFile')|split('.')[1] }}">
+    {# Locale reference #}
+    <link rel="canonical" href="{{ url('band', { '_locale': "ru", 'id': musician.id, 'slug': musician.slug }) }}">
+    <link rel="alternate" href="{{ url('band', { '_locale': "ru", 'id': musician.id, 'slug': musician.slug }) }}" hreflang="x-default">
+    <link rel="alternate" href="{{ url('band', { '_locale': "ru", 'id': musician.id, 'slug': musician.slug }) }}" hreflang="ru-ru">
+    <link rel="alternate" href="{{ url('band', { '_locale': "en", 'id': musician.id, 'slug': musician.slug }) }}" hreflang="en-us">
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/participants.bundle.min.css') }}">
+{% endblock %}
+
+{% block content %}
+    <main id="content">
+        <section class="outer participants-holder">
+            <h1 class="entitled-holder">{{ musician.title }}</h1>
+            <div class="inner grid">
+                <article class="item">
+                    <div class="photo-holder">
+                        <div class="photo">
+                            <figure>
+                                <img src="{{ vich_uploader_asset(musician, 'photoFile') }}" alt="{{ musician.title }}">
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="stamp-holder">
+                        <time class="upper-title" datetime="{{ musician.dateOfBirth|date("Y-m-d") }}">
+                            {{ musician.dateOfBirth|date("Y") }}
+                        </time>
+                        <span class="sub-title">
+
+                            {{ 'band.musician.born'|trans }}
+
+                            {% if _locale == 'ru' %}
+                                {{ musician.dateOfBirth|localizeddate('long', 'none', null, null, 'd MMMM') }}
+                            {% else %}
+                                {{ musician.dateOfBirth|localizeddate('long', 'none', null, null, 'MMMM, d') }}
+                            {% endif %}
+
+                        </span>
+                    </div>
+                    <div class="info-holder">
+                        <span class="underline"></span>
+                        <p>{{ musician.story }}</p>
+                    </div>
+                </article>
+
+                {% for biography in musician.biographies %}
+                    <article class="item">
+                        <div class="photo-holder">
+                            <div class="photo">
+                                <figure>
+                                    <img src="{{ vich_uploader_asset(biography, 'photoFile') }}" alt="{{ biography.title }}">
+                                </figure>
+                            </div>
+                        </div>
+
+                        {% if biography.event or biography.year %}
+                            <div class="stamp-holder">
+
+                                {% if biography.year %}
+                                    <span class="upper-title">{{ biography.year }}</span>
+                                {% endif %}
+
+                                {% if biography.event %}
+                                    <span class="sub-title">{{ biography.event }}</span>
+                                {% endif %}
+
+                            </div>
+                        {% endif %}
+
+                        <div class="info-holder">
+                            <span class="underline"></span>
+                            <h2>{{ biography.title }}</h2>
+                            <p>{{ biography.text }}</p>
+                        </div>
+                    </article>
+                {% endfor %}
+
+            </div>
+            <aside class="questionary-holder">
+                <h2 class="questionary-entitled">
+                    {{ 'band.musician.questionary'|trans }}
+                </h2>
+
+                {% for questionary in musician.questionnaires %}
+                    <article class="questionary-item">
+                        <div class="square-num">
+                            <span class="num">{{ loop.index }}</span>
+                        </div>
+                        <div class="info-holder">
+                            <h3>{{ questionary.question }}</h3>
+                            <p>{{ questionary.answer }}</p>
+                        </div>
+                    </article>
+                {% endfor %}
+
+            </aside>
+        </section>
+        <div id="to-top">
+            <span class="arrow arrow-top"></span>
+        </div>
+    </main>
+    <div id="bg-circle-overlay">
+        <div class="circle"></div>
+    </div>
+    <div id="ajax-loader">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+{% endblock %}
+
+{% block footer %}
+
+    {% include 'AppBundle:Component:footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/participants.bundle.min.js') }}"></script>
+{% endblock %}

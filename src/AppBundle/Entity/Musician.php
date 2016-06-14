@@ -48,6 +48,16 @@ class Musician implements Translatable, MusicianConstantsInterface
     protected $tag;
 
     /**
+     * @ORM\OneToMany(targetEntity="Biography", mappedBy="musician", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    protected $biographies;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Questionary", mappedBy="musician", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    protected $questionnaires;
+
+    /**
      * @ORM\Column(type="string", length=250)
      *
      * @Gedmo\Translatable
@@ -108,7 +118,9 @@ class Musician implements Translatable, MusicianConstantsInterface
      */
     public function __construct()
     {
-        $this->translations = new ArrayCollection;
+        $this->translations   = new ArrayCollection;
+        $this->biographies    = new ArrayCollection;
+        $this->questionnaires = new ArrayCollection;
     }
 
     /**
@@ -370,6 +382,74 @@ class Musician implements Translatable, MusicianConstantsInterface
     public function getTag()
     {
         return $this->tag;
+    }
+
+    /**
+     * Add biography
+     *
+     * @param \AppBundle\Entity\Biography $biography
+     * @return Musician
+     */
+    public function addBiography(\AppBundle\Entity\Biography $biography)
+    {
+        $biography->setMusician($this);
+        $this->biographies[] = $biography;
+
+        return $this;
+    }
+
+    /**
+     * Remove biographies
+     *
+     * @param \AppBundle\Entity\Biography $biographies
+     */
+    public function removeBiography(\AppBundle\Entity\Biography $biographies)
+    {
+        $this->biographies->removeElement($biographies);
+    }
+
+    /**
+     * Get biographies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBiographies()
+    {
+        return $this->biographies;
+    }
+
+    /**
+     * Add questionary
+     *
+     * @param \AppBundle\Entity\Questionary $questionary
+     * @return Musician
+     */
+    public function addQuestionnaire(\AppBundle\Entity\Questionary $questionary)
+    {
+        $questionary->setMusician($this);
+        $this->questionnaires[] = $questionary;
+
+        return $this;
+    }
+
+    /**
+     * Remove questionnaires
+     *
+     * @param \AppBundle\Entity\Questionary $questionnaires
+     */
+    public function removeQuestionnaire(\AppBundle\Entity\Questionary $questionnaires)
+    {
+        $this->questionnaires->removeElement($questionnaires);
+    }
+
+    /**
+     * Get questionnaires
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getQuestionnaires()
+    {
+        return $this->questionnaires;
     }
 
     /** Custom methods */

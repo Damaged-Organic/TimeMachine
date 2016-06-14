@@ -9,10 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
     Symfony\Component\HttpFoundation\Request;
 
 use AppBundle\Controller\Utility\Extended\AppController,
-    AppBundle\Controller\Contract\PageInitInterface;
+    AppBundle\Controller\Contract\PageInitInterface,
+    AppBundle\Admin\Utility\Traits\BandYearsRangeTrait;
 
 class StateController extends AppController implements PageInitInterface
 {
+    use BandYearsRangeTrait;
+
     /**
      * @Method({"GET"})
      * @Route(
@@ -238,22 +241,57 @@ class StateController extends AppController implements PageInitInterface
     /**
      * @Method({"GET"})
      * @Route(
-     *      "/gallery",
+     *      "/gallery/{id}/{slug}",
      *      name="gallery",
      *      host="{_locale}.{domain}",
-     *      defaults={"_locale" = "%locale%", "domain" = "%domain%"},
-     *      requirements={"_locale" = "%locale%|en", "domain" = "%domain%"}
+     *      defaults={"_locale" = "%locale%", "domain" = "%domain%", "id" = null, "slug" = null},
+     *      requirements={"_locale" = "%locale%|en", "domain" = "%domain%", "id" = "\d+", "slug" = "[a-z0-9_]+"}
      * )
      * @Route(
-     *      "/gallery",
+     *      "/gallery/{id}/{slug}",
      *      name="gallery_default",
      *      host="{domain}",
-     *      defaults={"_locale" = "%locale%", "domain" = "%domain%"},
-     *      requirements={"domain" = "%domain%"}
+     *      defaults={"_locale" = "%locale%", "domain" = "%domain%", "id" = null, "slug" = null},
+     *      requirements={"domain" = "%domain%", "id" = "\d+", "slug" = "[a-z0-9_]+"}
      * )
      */
-    public function galleryAction(Request $request)
+    public function galleryAction(Request $request, $id = NULL)
     {
-        return \Symfony\Component\HttpFoundation\Response('0k');
+        $_manager = $this->getDoctrine()->getManager();
+
+        if( $id ) {
+            $album = $_manager->getRepository('AppBundle:PhotoAlbum')
+                ->findSingle($id)
+            ;
+
+            if( !$album )
+                throw $this->createNotFoundException();
+
+            $response = [
+                'view' => 'AppBundle:State:gallery_album.html.twig',
+                'data' => ['album' => $album],
+            ];
+        } else {
+            $albums = $_manager->getRepository('AppBundle:PhotoAlbum')
+                ->findNewest()
+            ;
+
+            $tags = $_manager->getRepository('AppBundle:Tag')
+                ->findAll()
+            ;
+
+            $years = $this->getYearsRangeChoice();
+
+            $response = [
+                'view' => 'AppBundle:State:gallery.html.twig',
+                'data' => [
+                    'albums' => $albums,
+                    'tags'   => $tags,
+                    'years'  => $years,
+                ],
+            ];
+        }
+
+        return $this->render($response['view'], $response['data']);
     }
 }

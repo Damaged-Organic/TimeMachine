@@ -1,4 +1,9 @@
 # src/AppBundle/Resources/translations/responses.en.yml
+common:
+    error:
+        title: Oh noes!
+        text:  Something went wrong...
+
 subscribe:
     success:  "Thank you for your attention! We've sent a letter with confirmation link on specified e-mail."
     failure:  Unfortunately, something went wrong. Please, make another attempt later.

@@ -108,9 +108,9 @@ class SongAdmin extends Admin
                             ],
                         ],
                         'field_type' => 'textarea',
-                        'attr'       => [
+                        'attr' => [
                             'cols' => '175',
-                            'rows' => '2',
+                            'rows' => '10',
                         ],
                     ],
                 ],
