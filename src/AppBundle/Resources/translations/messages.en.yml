@@ -3,6 +3,9 @@ common:
     title:  Mashina Vremeni
     footer: © Mashina Vremeni, %timeline%. Web Production by %link%.
 
+header:
+    menu: menu
+
 index:
     topline:  Rock Band
     headline: Mashina Vremeni
@@ -51,5 +54,9 @@ music:
         back:   back to the list
         chords: show chords
 
-header:
-    menu: menu
+gallery:
+    headline: Gallery
+
+    photo:
+        amount: '{0} no photos | {1} %count% photo | [2,Inf] %count% photos'
+        view:   view

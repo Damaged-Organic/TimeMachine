@@ -2,6 +2,8 @@
 // src/AppBundle/Admin/PhotoAdmin.php
 namespace AppBundle\Admin;
 
+use IntlDateFormatter;
+
 use Symfony\Component\DependencyInjection\ContainerInterface,
     Symfony\Component\Validator\Constraints as Assert;
 
@@ -55,8 +57,9 @@ class PhotoAdmin extends Admin
             ->add('title', 'text', [
                 'label' => "Название",
             ])
-            ->add('yearTaken', 'number', [
-                'label' => "Дата съемки",
+            ->add('dateTaken', 'date', [
+                'label'    => "Дата съемки",
+                'dateType' => IntlDateFormatter::LONG,
             ])
             ->add('tag', 'entity', [
                 'label' => "Тэг",
@@ -92,25 +95,25 @@ class PhotoAdmin extends Admin
         // Sonata mega-kludge to get parent value from embeded admin for new child entities
         if( $this->getSubject() ) {
             $tag       = ( $photo->getTag() ) ?: NULL;
-            $yearTaken = $this->getSubject()->getYearTaken();
+            $dateTaken = $this->getSubject()->getDateTaken();
 
             $session = $this->getRequest()->getSession();
 
-            if( !$yearTaken )
-                $yearTaken = $session->get('photo_admin_year_taken');
+            if( !$dateTaken )
+                $dateTaken = $session->get('photo_admin_date_taken');
 
             if( !$tag )
                 $tag = $session->get('photo_admin_tag');
         } else {
             $tag       = $this->getParentFieldDescription()->getAdmin()->getSubject()->getTag();
-            $yearTaken = $this->getParentFieldDescription()->getAdmin()->getSubject()->getYearTaken();
+            $dateTaken = $this->getParentFieldDescription()->getAdmin()->getSubject()->getDateTaken();
 
             $session = $this->getRequest()->getSession();
 
-            if( $yearTaken ) {
-                $session->set('photo_admin_year_taken', $yearTaken);
+            if( $dateTaken ) {
+                $session->set('photo_admin_date_taken', $dateTaken);
             } else {
-                $yearTaken = $session->get('photo_admin_year_taken');
+                $dateTaken = $session->get('photo_admin_date_taken');
             }
 
             if( $tag ) {
@@ -186,10 +189,14 @@ class PhotoAdmin extends Admin
                     'style' => 'width: 200px; padding: 5px 0 0 5px;',
                 ],
             ])
-            ->add('yearTaken', 'choice', [
-                'label'   => "Год съемки",
-                'choices' => $yearsRange,
-                'data'    => $yearTaken,
+            ->add('dateTaken', 'sonata_type_datetime_picker', [
+                'label'  => "Дата съемки",
+                'format' => 'dd-MM-yyyy',
+                'attr'   => [
+                    'data-date-format' => 'DD-MM-YYYY',
+                ],
+                'dp_default_date' => $dateTaken,
+                'data'            => $dateTaken,
             ])
             ->add('tag', 'entity', [
                 'required'    => FALSE,

@@ -3,6 +3,9 @@ common:
     title:  Машина Времени
     footer: © Машина Времени, %timeline%. Web Production by %link%.
 
+header:
+    menu: меню
+
 index:
     topline:  Рок-Группа
     headline: Машина Времени
@@ -51,5 +54,9 @@ music:
         back:   вернуться к списку
         chords: показать ноты
 
-header:
-    menu: меню
+gallery:
+    headline: Галерея
+
+    photo:
+        amount: '{0} нет фотографий | %count% фотография | %count% фотографии | %count% фотографий'
+        view:   смотреть

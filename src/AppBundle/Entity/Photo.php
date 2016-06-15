@@ -60,9 +60,9 @@ class Photo implements Translatable, PhotoConstantsInterface
     protected $title;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="date")
      */
-    protected $yearTaken;
+    protected $dateTaken;
 
     /**
      * @ORM\Column(type="boolean")
@@ -75,8 +75,6 @@ class Photo implements Translatable, PhotoConstantsInterface
     public function __construct()
     {
         $this->translations = new ArrayCollection;
-
-        $this->dateOfCreation = new DateTime();
     }
 
     /**
@@ -111,26 +109,26 @@ class Photo implements Translatable, PhotoConstantsInterface
     }
 
     /**
-     * Set yearTaken
+     * Set dateTaken
      *
-     * @param integer $yearTaken
+     * @param \DateTime $dateTaken
      * @return Photo
      */
-    public function setYearTaken($yearTaken)
+    public function setDateTaken($dateTaken)
     {
-        $this->yearTaken = $yearTaken;
+        $this->dateTaken = $dateTaken;
 
         return $this;
     }
 
     /**
-     * Get yearTaken
+     * Get dateTaken
      *
-     * @return integer
+     * @return \DateTime
      */
-    public function getYearTaken()
+    public function getDateTaken()
     {
-        return $this->yearTaken;
+        return $this->dateTaken;
     }
 
     /**

@@ -9,7 +9,7 @@ class GalleryMobileLift extends Lift{
 
     constructor(){
         super(el, {
-            url: "/php/gallery.php",
+            url: "/app_dev.php/gallery/lift",
             perRequest: 3
         });
 

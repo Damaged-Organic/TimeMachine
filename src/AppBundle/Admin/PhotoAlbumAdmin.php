@@ -2,6 +2,8 @@
 // src/AppBundle/Admin/PhotoAlbumAdmin.php
 namespace AppBundle\Admin;
 
+use IntlDateFormatter;
+
 use Sonata\AdminBundle\Admin\Admin,
     Sonata\AdminBundle\Datagrid\ListMapper,
     Sonata\AdminBundle\Datagrid\DatagridMapper,
@@ -24,8 +26,9 @@ class PhotoAlbumAdmin extends Admin
             ->addIdentifier('title', 'text', [
                 'label' => "Название",
             ])
-            ->add('yearTaken', 'number', [
-                'label' => "Дата съемки",
+            ->add('dateTaken', 'date', [
+                'label'    => "Дата съемки",
+                'dateType' => IntlDateFormatter::LONG,
             ])
             ->add('getTagOrDefault', NULL, [
                 'label' => "Тэг",
@@ -80,13 +83,19 @@ class PhotoAlbumAdmin extends Admin
                                     'rows' => '5',
                                 ],
                             ],
+                            'slug' => [
+                                'display' => FALSE,
+                            ],
                         ],
                     ])
                 ->end()
                 ->with('Фотоальбом - Общие данные')
-                    ->add('yearTaken', 'choice', [
-                        'label'   => "Год съемки",
-                        'choices' => $yearsRange,
+                    ->add('dateTaken', 'sonata_type_datetime_picker', [
+                        'label'  => "Дата съемки",
+                        'format' => 'dd-MM-yyyy',
+                        'attr'   => [
+                            'data-date-format' => 'DD-MM-YYYY',
+                        ],
                     ])
                     ->add('isActive', 'checkbox', [
                         'required' => FALSE,

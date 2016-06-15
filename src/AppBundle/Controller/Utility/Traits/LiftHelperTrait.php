@@ -18,9 +18,9 @@ trait LiftHelperTrait
     public function composeResponseData($current, $isLast, $collection = NULL)
     {
         return [
-            'isLast'  => $isLast,
-            'current' => $current,
-            'data'    => $collection,
+            'isLast'   => $isLast,
+            'current'  => $current,
+            'data'     => $collection,
         ];
     }
 

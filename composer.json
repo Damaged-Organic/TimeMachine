@@ -32,7 +32,8 @@
         "vich/uploader-bundle": "^0.14.0",
         "liip/imagine-bundle": "^1.2",
         "sonata-project/formatter-bundle": "^2.3",
-        "pixassociates/sortable-behavior-bundle": "^1.0"
+        "pixassociates/sortable-behavior-bundle": "^1.0",
+        "beberlei/DoctrineExtensions": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

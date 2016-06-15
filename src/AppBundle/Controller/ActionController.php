@@ -15,6 +15,7 @@ use AppBundle\Controller\Utility\Interfaces\LiftInterface,
     AppBundle\Entity\Article,
     AppBundle\Entity\Musician,
     AppBundle\Entity\Album,
+    AppBundle\Entity\PhotoAlbum,
     AppBundle\Entity\Subscriber;
 
 class ActionController extends Controller implements LiftInterface
@@ -270,6 +271,69 @@ class ActionController extends Controller implements LiftInterface
 
             $response = [
                 'data' => $this->composeResponseData($liftParameter, $isLast, $albums),
+                'code' => 200,
+            ];
+        }
+
+        return new Response(json_encode($response['data']), $response['code']);
+    }
+
+    /**
+     * @Method({"GET"})
+     * @Route(
+     *      "/gallery/lift",
+     *      name="gallery_lift",
+     *      host="{_locale}.{domain}",
+     *      defaults={"_locale" = "%locale%", "domain" = "%domain%"},
+     *      requirements={"_locale" = "%locale%|en", "domain" = "%domain%"},
+     *      condition="request.isXmlHttpRequest()"
+     * )
+     * @Route(
+     *      "/gallery/lift",
+     *      name="gallery_lift_default",
+     *      host="{domain}",
+     *      defaults={"_locale" = "%locale%", "domain" = "%domain%"},
+     *      requirements={"domain" = "%domain%"},
+     *      condition="request.isXmlHttpRequest()"
+     * )
+     */
+    public function galleryLiftAction(Request $request, $_locale)
+    {
+        $_actionHandler = $this->get('app.action_handler');
+
+        $requestParameters = $_actionHandler->getGalleryRequestParameters($request);
+
+        if( !$requestParameters )
+            throw $this->createNotFoundException();
+
+        $_manager = $this->getDoctrine()->getManager();
+
+        $photoAlbums = $_manager->getRepository('AppBundle:PhotoAlbum')
+            ->findNewest($requestParameters)
+        ;
+
+        if( !$photoAlbums ) {
+            $response = [
+                'data' => $_actionHandler->composeGalleryResponseData($requestParameters, NULL, NULL),
+                'code' => 200,
+            ];
+        } else {
+            $photoAlbumsTotal = $_manager->getRepository('AppBundle:PhotoAlbum')
+                ->countAllByParameters($requestParameters)
+            ;
+
+            $photoAlbums = PhotoAlbum::flattenForXhr(
+                $photoAlbums,
+                $this->get('translator'),
+                $this->get('twig'),
+                $this->get('router'),
+                $this->get('liip_imagine.controller'),
+                $_locale,
+                $this->get('vich_uploader.templating.helper.uploader_helper')
+            );
+
+            $response = [
+                'data' => $_actionHandler->composeGalleryResponseData($requestParameters, $photoAlbumsTotal, $photoAlbums),
                 'code' => 200,
             ];
         }

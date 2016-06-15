@@ -30,31 +30,42 @@
 {% block content %}
     <main id="content">
         <section class="outer gallery-holder">
-            <h1 class="entitled-holder">Gallery</h1>
+            <h1 class="entitled-holder">{{ 'gallery.headline'|trans }}</h1>
             <div class="inner grid" id="lift-holder">
 
-                {% for album in albums %}
+                {% for photoAlbum in photoAlbums %}
 
-                    {% set majorPhoto = album.photos.0 %}
+                    {% set majorPhoto = photoAlbum.photos.0 %}
 
                     <article class="item lift-item">
                         <div class="photo-holder">
                             <div class="photo">
                                 <figure>
-                                    <img src="{{ vich_uploader_asset(majorPhoto, 'photoFile') }}" alt="{{ album.title }}">
+                                    <img src="{{ vich_uploader_asset(majorPhoto, 'photoFile')|imagine_filter('photo_album_photo_thumb') }}" alt="{{ photoAlbum.title }}">
                                 </figure>
                             </div>
                         </div>
                         <div class="stamp-holder">
-                            <time class="upper-title" datetime="2016-03-26">2016</time>
-                            <span class="sub-title">22 марта</span>
+                            <time class="upper-title" datetime="{{ photoAlbum.dateTaken|date('Y-m-d') }}">
+                                {{ photoAlbum.dateTaken|date('Y') }}
+                            </time>
+                            <span class="sub-title">
+                                {% if _locale == 'ru' %}
+                                    {{ photoAlbum.dateTaken|localizeddate('long', 'none', null, null, 'dd MMMM') }}
+                                {% else %}
+                                    {{ photoAlbum.dateTaken|localizeddate('long', 'none', null, null, 'MMMM, dd') }}
+                                {% endif %}
+                            </span>
                         </div>
                         <div class="info-holder">
-                            <span class="upper-title">23 фотографии</span>
+                            <span class="upper-title">{{ 'gallery.photo.amount'|transchoice(photoAlbum.getPhotosNumber()) }}</span>
                             <span class="underline"></span>
-                            <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum eius nulla veritatis vitae, ipsa perspiciatis error ea voluptatem expedita! Perferendis quis nisi ad odit tempore error atque dolor aspernatur porro!</p>
-                            <a href="photos.html">view<span class="arrow"></span></a>
+                            <h2>{{ photoAlbum.title }}</h2>
+                            <p>{{ photoAlbum.description|truncate(500) }}</p>
+                            <a href="{{ path('gallery', { 'id': photoAlbum.id, 'slug': photoAlbum.slug }) }}">
+                                {{ 'gallery.photo.view'|trans }}
+                                <span class="arrow"></span>
+                            </a>
                         </div>
                     </article>
                 {% endfor %}

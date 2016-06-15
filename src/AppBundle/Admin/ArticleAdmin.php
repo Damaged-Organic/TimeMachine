@@ -2,7 +2,7 @@
 // src/AppBundle/Admin/ArticleAdmin.php
 namespace AppBundle\Admin;
 
-use DateTime, IntlDateFormatter;
+use IntlDateFormatter;
 
 use Symfony\Component\Validator\Constraints as Assert;
 

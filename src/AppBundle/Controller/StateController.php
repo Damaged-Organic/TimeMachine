@@ -260,19 +260,19 @@ class StateController extends AppController implements PageInitInterface
         $_manager = $this->getDoctrine()->getManager();
 
         if( $id ) {
-            $album = $_manager->getRepository('AppBundle:PhotoAlbum')
+            $photoAlbum = $_manager->getRepository('AppBundle:PhotoAlbum')
                 ->findSingle($id)
             ;
 
-            if( !$album )
+            if( !$photoAlbum )
                 throw $this->createNotFoundException();
 
             $response = [
                 'view' => 'AppBundle:State:gallery_album.html.twig',
-                'data' => ['album' => $album],
+                'data' => ['photoAlbum' => $photoAlbum],
             ];
         } else {
-            $albums = $_manager->getRepository('AppBundle:PhotoAlbum')
+            $photoAlbums = $_manager->getRepository('AppBundle:PhotoAlbum')
                 ->findNewest()
             ;
 
@@ -285,9 +285,9 @@ class StateController extends AppController implements PageInitInterface
             $response = [
                 'view' => 'AppBundle:State:gallery.html.twig',
                 'data' => [
-                    'albums' => $albums,
-                    'tags'   => $tags,
-                    'years'  => $years,
+                    'photoAlbums' => $photoAlbums,
+                    'tags'        => $tags,
+                    'years'       => $years,
                 ],
             ];
         }

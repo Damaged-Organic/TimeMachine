@@ -2,7 +2,9 @@
 // src/AppBundle/Entity/PhotoAlbum.php
 namespace AppBundle\Entity;
 
-use DateTime;
+use DateTime, IntlDateFormatter;
+
+use Symfony\Component\HttpFoundation\Request;
 
 use Doctrine\ORM\Mapping as ORM,
     Doctrine\Common\Collections\ArrayCollection;
@@ -12,6 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo,
 
 use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
     AppBundle\Entity\Utility\Traits\DoctrineMapping\TranslationMapper,
+    AppBundle\Entity\Utility\Traits\DoctrineMapping\SlugMapper,
     AppBundle\Entity\Utility\Traits\TagTrait;
 
 /**
@@ -22,7 +25,7 @@ use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
  */
 class PhotoAlbum implements Translatable
 {
-    use IdMapper, TranslationMapper, TagTrait;
+    use IdMapper, TranslationMapper, SlugMapper, TagTrait;
 
     const LIFT_ITEMS = 3;
 
@@ -58,9 +61,9 @@ class PhotoAlbum implements Translatable
     protected $description;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="date")
      */
-    protected $yearTaken;
+    protected $dateTaken;
 
     /**
      * @ORM\Column(type="boolean")
@@ -75,7 +78,7 @@ class PhotoAlbum implements Translatable
         $this->translations = new ArrayCollection;
         $this->photos       = new ArrayCollection;
 
-        $this->dateOfCreation = new DateTime();
+        $this->dateTaken = new DateTime();
     }
 
     /**
@@ -133,26 +136,26 @@ class PhotoAlbum implements Translatable
     }
 
     /**
-     * Set yearTaken
+     * Set dateTaken
      *
-     * @param integer $yearTaken
+     * @param \DateTime $dateTaken
      * @return PhotoAlbum
      */
-    public function setYearTaken($yearTaken)
+    public function setDateTaken($dateTaken)
     {
-        $this->yearTaken = $yearTaken;
+        $this->dateTaken = $dateTaken;
 
         return $this;
     }
 
     /**
-     * Get yearTaken
+     * Get dateTaken
      *
-     * @return integer
+     * @return \DateTime
      */
-    public function getYearTaken()
+    public function getDateTaken()
     {
-        return $this->yearTaken;
+        return $this->dateTaken;
     }
 
     /**
@@ -243,4 +246,68 @@ class PhotoAlbum implements Translatable
     }
 
     /** END Custom methods */
+
+    /** Transform entities for AJAX request */
+
+    static private function getHumanDate($photoAlbum, $_locale)
+    {
+        if( $_locale == 'ru' ) {
+            $formatterDate = IntlDateFormatter::create(
+                $_locale, IntlDateFormatter::LONG, IntlDateFormatter::NONE, NULL, NULL, 'dd MMMM'
+            );
+        } else {
+            $formatterDate = IntlDateFormatter::create(
+                $_locale, IntlDateFormatter::LONG, IntlDateFormatter::NONE, NULL, NULL, 'MMMM dd'
+            );
+        }
+
+        $date = $formatterDate->format($photoAlbum->getDateTaken());
+
+        return $date;
+    }
+
+    static public function flattenForXhr(array $photoAlbums, $_translator, $_twig, $_router, $_liip, $_locale, $vichUploaderAsset)
+    {
+        foreach( $photoAlbums as $photoAlbum )
+        {
+            if( !($photoAlbum instanceof PhotoAlbum) )
+                continue;
+
+            $majorPhoto = $photoAlbum->getPhotos()[0];
+
+            $photo       = $vichUploaderAsset->asset($majorPhoto, 'photoFile');
+
+            $photo       = $_liip->filterAction(new Request, $vichUploaderAsset->asset($majorPhoto, 'photoFile'), 'photo_album_photo_thumb');
+            $photo       = $photo->headers->get('location');
+
+            $humanDate   = self::getHumanDate($photoAlbum, $_locale);
+            $photoCount  = $_translator->transChoice(
+                'gallery.photo.amount', $photoAlbum->getPhotosNumber(), ['%count%' => $photoAlbum->getPhotosNumber()]
+            );
+            $description = call_user_func_array(
+                $_twig->getFilter('truncate')->getCallable(),
+                [$_twig, $photoAlbum->getDescription(), 500]
+            );
+            $linkTitle   = $_translator->trans('gallery.photo.view');
+            $link        = $_router->generate('gallery', [
+                'id' => $photoAlbum->getId(), 'slug' => $photoAlbum->getSlug()
+            ]);
+
+            $output[] = [
+                'photo'       => $photo,
+                'year'        => $photoAlbum->getDateTaken()->format('Y'),
+                'machineDate' => $photoAlbum->getDateTaken()->format('Y-m-d'),
+                'humanDate'   => $humanDate,
+                'photoCount'  => $photoCount,
+                'title'       => $photoAlbum->getTitle(),
+                'description' => $description,
+                'link'        => $link,
+                'linkTitle'   => $linkTitle,
+            ];
+        }
+
+        return $output;
+    }
+
+    /** END Transform entities for AJAX request */
 }

@@ -41,6 +41,9 @@ services:
 
     # Specific
 
+    app.action_handler:
+        class: AppBundle\Service\ActionHandler
+
     app.subscription:
         class: AppBundle\Service\Subscription
         calls:

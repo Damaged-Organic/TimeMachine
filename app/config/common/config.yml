@@ -67,6 +67,9 @@ doctrine:
         entity_managers:
             default:
                 auto_mapping: true
+                dql:
+                    string_functions:
+                        YEAR: DoctrineExtensions\Query\Mysql\Year
 
 # Swiftmailer Configuration
 swiftmailer:

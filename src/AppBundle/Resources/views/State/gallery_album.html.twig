@@ -1,0 +1,94 @@
+{# src/AppBundle/Resources/views/State/gallery_album.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ photoAlbum.title }} - {{ metadata.title }} - {{ 'common.title'|trans }}
+{% endblock %}
+
+{% block metadata %}
+    {{ parent() }}
+
+    {% set majorPhoto = photoAlbum.photos.0 %}
+
+    <meta name="description" content="{{ metadata.description }}">
+    <meta name="robots" content="{{ metadata.robots }}">
+    {# Open Graph #}
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="{{ url('gallery', { 'id': photoAlbum.id, 'slug': photoAlbum.slug }) }}">
+    <meta property="og:title" content="{{ photoAlbum.title }} - {{ metadata.title }} - {{ 'common.title'|trans }}">
+	<meta property="og:description" content="{{ metadata.description }}">
+    <meta property="og:image" content="{{ absolute_url(vich_uploader_asset(majorPhoto, 'photoFile')) }}">
+    <meta property="og:image:type" content="image/{{ majorPhoto.photoName|split('.')[1] }}">
+    {# Locale reference #}
+    <link rel="canonical" href="{{ url('gallery', { '_locale': "ru", 'id': photoAlbum.id, 'slug': photoAlbum.slug }) }}">
+    <link rel="alternate" href="{{ url('gallery', { '_locale': "ru", 'id': photoAlbum.id, 'slug': photoAlbum.slug }) }}" hreflang="x-default">
+    <link rel="alternate" href="{{ url('gallery', { '_locale': "ru", 'id': photoAlbum.id, 'slug': photoAlbum.slug }) }}" hreflang="ru-ru">
+    <link rel="alternate" href="{{ url('gallery', { '_locale': "en", 'id': photoAlbum.id, 'slug': photoAlbum.slug }) }}" hreflang="en-us">
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/photos.bundle.min.css') }}">
+{% endblock %}
+
+{% block content %}
+    <main id="content">
+        <section class="outer photos-holder">
+            <h1 class="entitled-holder">{{ photoAlbum.title }}</h1>
+            <div class="inner">
+                <div id="photo-list-holder">
+
+                    {% for photo in photoAlbum.photos %}
+                        <div class="photo-item" data-original="{{ vich_uploader_asset(photo, 'photoFile') }}" data-desc="{{ photo.title }}">
+                            <a href="#">
+                                <figure>
+                                    <img src="{{ vich_uploader_asset(photo, 'photoFile')|imagine_filter('photo_thumb') }}" alt="{{ photo.title }}">
+                                </figure>
+                            </a>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </section>
+        <div id="to-top">
+            <span class="arrow arrow-top"></span>
+        </div>
+        <div id="carousel-holder">
+            <div class="close">
+                <span class="line"></span>
+                <span class="line"></span>
+            </div>
+            <div class="photo-holder">
+                <figure id="photo-view-container">
+                    <img src="" alt="">
+                </figure>
+            </div>
+            <div class="info-holder">
+                <div class="inner" id="photo-info-container"></div>
+            </div>
+            <div class="navigation-holder">
+                <span class="arrow left"></span>
+                <span class="arrow right"></span>
+            </div>
+        </div>
+    </main>
+    <div id="bg-circle-overlay">
+        <div class="circle"></div>
+    </div>
+    <div id="ajax-loader">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+{% endblock %}
+
+{% block footer %}
+
+    {% include 'AppBundle:Component:footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/photos.bundle.min.js') }}"></script>
+{% endblock %}
