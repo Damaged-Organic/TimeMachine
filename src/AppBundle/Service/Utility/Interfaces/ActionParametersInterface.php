@@ -7,4 +7,5 @@ interface ActionParametersInterface
     const PARAMETER_TAG  = 'tagId';
     const PARAMETER_YEAR = 'year';
     const PARAMETER_LIFT = 'totalCount';
+    const PARAMETER_SONG = 'songId';
 }

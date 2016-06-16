@@ -38,9 +38,7 @@ class PhotoAlbumRepository extends ExtendedEntityRepository implements ActionPar
         }
 
         if( !empty($requestParameters[self::PARAMETER_LIFT]) )
-        {
             $query->setFirstResult($requestParameters[self::PARAMETER_LIFT]);
-        }
 
         $query = $query
             ->orderBy('pa.dateTaken', 'DESC')

@@ -49,11 +49,7 @@
                                 {{ article.createdAt|date('Y') }}
                             </time>
                             <span class="sub-title">
-                                {% if _locale == 'ru' %}
-                                    {{ article.createdAt|localizeddate('long', 'none', null, null, 'dd MMMM') }}
-                                {% else %}
-                                    {{ article.createdAt|localizeddate('long', 'none', null, null, 'MMMM, dd') }}
-                                {% endif %}
+                                {{ article.getHumanDate(_locale) }}
                             </span>
                         </div>
                         <div class="info-holder">

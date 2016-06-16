@@ -9,7 +9,7 @@ class AlbumsLift extends Lift{
 
     constructor(){
         super(el, {
-            url: "/albums/lift",
+            url: "/music/lift",
             perRequest: 3
         });
 

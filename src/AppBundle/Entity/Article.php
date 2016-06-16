@@ -245,11 +245,7 @@ class Article implements Translatable
         return 'subscription.message.article';
     }
 
-    /** END Custom methods */
-
-    /** Transform entities for AJAX request */
-
-    static private function getHumanDate($article, $_locale)
+    public function getHumanDate($_locale)
     {
         if( $_locale == 'ru' ) {
             $formatterDate = IntlDateFormatter::create(
@@ -261,50 +257,10 @@ class Article implements Translatable
             );
         }
 
-        $date = $formatterDate->format($article->getCreatedAt());
+        $date = $formatterDate->format($this->getCreatedAt());
 
         return $date;
     }
 
-    static public function flattenForXhr(array $articles, $_translator, $_twig, $_router, $_locale, $vichUploaderAsset)
-    {
-        foreach( $articles as $article )
-        {
-            if( !($article instanceof Article) )
-                continue;
-
-            $majorArticleBlock = $article->getArticleBlocks()[0];
-
-            $photo       = $vichUploaderAsset->asset($majorArticleBlock, 'imageFile');
-            $humanDate   = self::getHumanDate($article, $_locale);
-            $viewCount   = $_translator->transChoice(
-                'blog.article.views', $article->getViews(), ['%count%' => $article->getViews()]
-            );
-            $description = call_user_func_array(
-                $_twig->getFilter('truncate')->getCallable(),
-                [$_twig, $majorArticleBlock->getText(), 250]
-            );
-            $linkTitle   = $_translator->trans('blog.article.read_more');
-            $link        = $_router->generate('blog', [
-                'id' => $article->getId(), 'slug' => $article->getSlug()
-            ]);
-
-            $output[] = [
-                'photo'       => $photo,
-                'photoTitle'  => $article->getTitle(),
-                'machineDate' => $article->getCreatedAt()->format('Y-m-d'),
-                'year'        => $article->getCreatedAt()->format('Y'),
-                'humanDate'   => $humanDate,
-                'title'       => $article->getTitle(),
-                'description' => $description,
-                'viewCount'   => $viewCount,
-                'link'        => $link,
-                'linkTitle'   => $linkTitle,
-            ];
-        }
-
-        return $output;
-    }
-
-    /** END Transform entities for AJAX request */
+    /** END Custom methods */
 }

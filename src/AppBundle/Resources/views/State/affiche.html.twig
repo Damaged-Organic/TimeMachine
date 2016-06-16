@@ -40,7 +40,7 @@
                         <div class="photo-holder">
                             <div class="photo">
                                 <figure>
-                                    <img src="{{ vich_uploader_asset(concert, 'posterFile') }}" alt="{{ concert.city }}">
+                                    <img src="{{ vich_uploader_asset(concert, 'posterFile')|imagine_filter('affiche_poster_thumb') }}" alt="{{ concert.city }}">
                                 </figure>
                             </div>
                         </div>
@@ -50,14 +50,7 @@
                         </div>
                         <div class="info-holder">
                             <time class="upper-title" datetime="{{ concert.doorsOpenAt|date('Y-m-d') }}">
-
-                                {% if _locale == 'ru' %}
-                                    {{ concert.doorsOpenAt|localizeddate('long', 'none', null, null, 'd MMMM YYY') }}
-                                {% else %}
-                                    {{ concert.doorsOpenAt|localizeddate('long', 'none') }}
-                                {% endif %}
-
-                                | {{ concert.doorsOpenAt|localizeddate('none', 'short', null, null, 'HH:mm') }}
+                                {{ concert.getHumanDate(_locale) }}
                             </time>
                             <span class="underline"></span>
                             <h2>{{ concert.title }}</h2>

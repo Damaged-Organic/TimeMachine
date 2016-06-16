@@ -5,11 +5,12 @@ namespace AppBundle\Entity\Repository;
 use Doctrine\ORM\Query;
 
 use AppBundle\Entity\Utility\Extended\ExtendedEntityRepository,
+    AppBundle\Service\Utility\Interfaces\ActionParametersInterface,
     AppBundle\Entity\Article;
 
-class ArticleRepository extends ExtendedEntityRepository
+class ArticleRepository extends ExtendedEntityRepository implements ActionParametersInterface
 {
-    public function findNewest($offset = NULL)
+    public function findNewest($requestParameters = NULL)
     {
         $query = $this->createQueryBuilder('a')
             ->select('a')
@@ -18,8 +19,8 @@ class ArticleRepository extends ExtendedEntityRepository
             ->setMaxResults(Article::LIFT_ITEMS)
         ;
 
-        if( $offset )
-            $query->setFirstResult($offset);
+        if( !empty($requestParameters[self::PARAMETER_LIFT]) )
+            $query->setFirstResult($requestParameters[self::PARAMETER_LIFT]);
 
         $query = $query
             ->orderBy('a.createdAt', 'DESC')

@@ -277,44 +277,4 @@ class Album implements Translatable, AlbumConstantsInterface
     }
 
     /** END Custom methods */
-
-    /** Transform entities for AJAX request */
-
-    static public function flattenForXhr(array $albums, $_translator, $_twig, $_router, $vichUploaderAsset)
-    {
-        foreach( $albums as $album )
-        {
-            if( !($album instanceof Album) )
-                continue;
-
-            $songCount = count($album->getSongs());
-
-            $cover       = $vichUploaderAsset->asset($album, 'coverFile');
-            $description = call_user_func_array(
-                $_twig->getFilter('truncate')->getCallable(),
-                [$_twig, $album->getDescription(), 250]
-            );
-            $songCount   = $_translator->transChoice(
-                'music.album.songs', $songCount, ['%count%' => $songCount]
-            );
-            $linkTitle   = $_translator->trans('music.album.details');
-            $link        = $_router->generate('music', [
-                'id' => $album->getId(), 'slug' => $album->getSlug()
-            ]);
-
-            $output[] = [
-                'cover'       => $cover,
-                'year'        => $album->getYearOfRelease(),
-                'title'       => $album->getTitle(),
-                'description' => $description,
-                'songCount'   => $songCount,
-                'link'        => $link,
-                'linkTitle'   => $linkTitle,
-            ];
-        }
-
-        return $output;
-    }
-
-    /** END Transform entities for AJAX request */
 }

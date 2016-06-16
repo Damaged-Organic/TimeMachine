@@ -332,11 +332,7 @@ class Concert implements Translatable, ConcertConstantsInterface
         return 'subscription.message.concert';
     }
 
-    /** END Custom methods */
-
-    /** Transform entities for AJAX request */
-
-    static private function getHumanDate($concert, $_locale)
+    public function getHumanDate($_locale)
     {
         if( $_locale == 'ru' ) {
             $formatterDate = IntlDateFormatter::create(
@@ -352,42 +348,11 @@ class Concert implements Translatable, ConcertConstantsInterface
             $_locale, IntlDateFormatter::NONE, IntlDateFormatter::SHORT, NULL, NULL, 'HH:mm'
         );
 
-        $date = $formatterDate->format($concert->getDoorsOpenAt());
-        $time = $formatterTime->format($concert->getDoorsOpenAt());
+        $date = $formatterDate->format($this->getDoorsOpenAt());
+        $time = $formatterTime->format($this->getDoorsOpenAt());
 
         return "{$date} | {$time}";
     }
 
-    static public function flattenForXhr(array $concerts, $_translator, $_locale, $vichUploaderAsset)
-    {
-        foreach( $concerts as $concert )
-        {
-            if( !($concert instanceof Concert) )
-                continue;
-
-            $photo     = $vichUploaderAsset->asset($concert, 'posterFile');
-            $humanDate = self::getHumanDate($concert, $_locale);
-            $linkTitle = ( $concert->getTicketsLink() )
-                ? $_translator->trans('affiche.tickets.available')
-                : $_translator->trans('affiche.tickets.not_available')
-            ;
-
-            $output[] = [
-                "photo"         => $photo,
-                "photoTitle"    => $concert->getCity(),
-                "location"      => $concert->getCountry() . " " . $concert->getCity(),
-                "street"        => $concert->getPlace(),
-                "machineDate"   => $concert->getDoorsOpenAt()->format('Y-m-d'),
-                "humanDate"     => $humanDate,
-                "title"         => $concert->getTitle(),
-                "description"   => $concert->getDescription(),
-                "link"          => $concert->getTicketsLink(),
-                "linkTitle"     => $linkTitle,
-            ];
-        }
-
-        return $output;
-    }
-
-    /** END Transform entities for AJAX request */
+    /** END Custom methods */
 }

@@ -1,6 +1,6 @@
 "use strict";
 
-const REQUEST_URL = "/app_dev.php/gallery/lift";
+const REQUEST_URL = "/gallery/lift";
 
 class GalleryService{
 

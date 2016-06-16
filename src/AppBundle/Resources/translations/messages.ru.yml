@@ -52,7 +52,7 @@ music:
     song:
         text:   текст песни
         back:   вернуться к списку
-        chords: показать ноты
+        chords: показать аккорды
 
 gallery:
     headline: Галерея

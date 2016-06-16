@@ -10,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
     Symfony\Component\HttpFoundation\Response;
 
 use AppBundle\Controller\Utility\Interfaces\LiftInterface,
-    AppBundle\Controller\Utility\Traits\LiftHelperTrait,
     AppBundle\Entity\Concert,
     AppBundle\Entity\Article,
     AppBundle\Entity\Musician,
@@ -20,8 +19,6 @@ use AppBundle\Controller\Utility\Interfaces\LiftInterface,
 
 class ActionController extends Controller implements LiftInterface
 {
-    use LiftHelperTrait;
-
     /**
      * @Method({"GET"})
      * @Route(
@@ -43,23 +40,22 @@ class ActionController extends Controller implements LiftInterface
      */
     public function afficheLiftAction(Request $request, $_locale)
     {
-        if( !$request->query->has(self::LIFT_PARAMETER) )
-            return FALSE;
+        $_actionHandler = $this->get('app.action_handler');
 
-        $liftParameter = $request->query->get(self::LIFT_PARAMETER);
+        $requestParameters = $_actionHandler->getLiftRequestParameters($request);
 
-        if( !$this->isLiftParameterValid($liftParameter) )
+        if( !$requestParameters )
             throw $this->createNotFoundException();
 
         $_manager = $this->getDoctrine()->getManager();
 
         $concerts = $_manager->getRepository('AppBundle:Concert')
-            ->findNewest($liftParameter)
+            ->findNewest($requestParameters)
         ;
 
         if( !$concerts ) {
             $response = [
-                'data' => $this->composeResponseData($liftParameter, TRUE, NULL),
+                'data' => $_actionHandler->composeLiftResponseData($requestParameters, NULL, NULL),
                 'code' => 200,
             ];
         } else {
@@ -67,17 +63,12 @@ class ActionController extends Controller implements LiftInterface
                 ->countAll()
             ;
 
-            $isLast = $this->isLast($liftParameter, $concertsTotal, $concerts);
+            $_actionEntityManager = $this->get('app.action_entity_manager');
 
-            $concerts = Concert::flattenForXhr(
-                $concerts,
-                $this->get('translator'),
-                $_locale,
-                $this->get('vich_uploader.templating.helper.uploader_helper')
-            );
+            $concerts = $_actionEntityManager->flattenConcerts($concerts);
 
             $response = [
-                'data' => $this->composeResponseData($liftParameter, $isLast, $concerts),
+                'data' => $_actionHandler->composeLiftResponseData($requestParameters, $concertsTotal, $concerts),
                 'code' => 200,
             ];
         }
@@ -106,23 +97,22 @@ class ActionController extends Controller implements LiftInterface
      */
     public function blogLiftAction(Request $request, $_locale)
     {
-        if( !$request->query->has(self::LIFT_PARAMETER) )
-            return FALSE;
+        $_actionHandler = $this->get('app.action_handler');
 
-        $liftParameter = $request->query->get(self::LIFT_PARAMETER);
+        $requestParameters = $_actionHandler->getLiftRequestParameters($request);
 
-        if( !$this->isLiftParameterValid($liftParameter) )
+        if( !$requestParameters )
             throw $this->createNotFoundException();
 
         $_manager = $this->getDoctrine()->getManager();
 
         $articles = $_manager->getRepository('AppBundle:Article')
-            ->findNewest($liftParameter)
+            ->findNewest($requestParameters)
         ;
 
         if( !$articles ) {
             $response = [
-                'data' => $this->composeResponseData($liftParameter, TRUE, NULL),
+                'data' => $_actionHandler->composeLiftResponseData($requestParameters, NULL, NULL),
                 'code' => 200,
             ];
         } else {
@@ -130,19 +120,12 @@ class ActionController extends Controller implements LiftInterface
                 ->countAll()
             ;
 
-            $isLast = $this->isLast($liftParameter, $articlesTotal, $articles);
+            $_actionEntityManager = $this->get('app.action_entity_manager');
 
-            $articles = Article::flattenForXhr(
-                $articles,
-                $this->get('translator'),
-                $this->get('twig'),
-                $this->get('router'),
-                $_locale,
-                $this->get('vich_uploader.templating.helper.uploader_helper')
-            );
+            $articles = $_actionEntityManager->flattenArticles($articles);
 
             $response = [
-                'data' => $this->composeResponseData($liftParameter, $isLast, $articles),
+                'data' => $_actionHandler->composeLiftResponseData($requestParameters, $articlesTotal, $articles),
                 'code' => 200,
             ];
         }
@@ -171,23 +154,22 @@ class ActionController extends Controller implements LiftInterface
      */
     public function bandLiftAction(Request $request, $_locale)
     {
-        if( !$request->query->has(self::LIFT_PARAMETER) )
-            return FALSE;
+        $_actionHandler = $this->get('app.action_handler');
 
-        $liftParameter = $request->query->get(self::LIFT_PARAMETER);
+        $requestParameters = $_actionHandler->getLiftRequestParameters($request);
 
-        if( !$this->isLiftParameterValid($liftParameter) )
+        if( !$requestParameters )
             throw $this->createNotFoundException();
 
         $_manager = $this->getDoctrine()->getManager();
 
         $musicians = $_manager->getRepository('AppBundle:Musician')
-            ->findOldest($liftParameter)
+            ->findOldest($requestParameters)
         ;
 
         if( !$musicians ) {
             $response = [
-                'data' => $this->composeResponseData($liftParameter, TRUE, NULL),
+                'data' => $_actionHandler->composeLiftResponseData($requestParameters, NULL, NULL),
                 'code' => 200,
             ];
         } else {
@@ -195,18 +177,12 @@ class ActionController extends Controller implements LiftInterface
                 ->countAll()
             ;
 
-            $isLast = $this->isLast($liftParameter, $musiciansTotal, $musicians);
+            $_actionEntityManager = $this->get('app.action_entity_manager');
 
-            $musicians = Musician::flattenForXhr(
-                $musicians,
-                $this->get('translator'),
-                $this->get('twig'),
-                $this->get('router'),
-                $this->get('vich_uploader.templating.helper.uploader_helper')
-            );
+            $musicians = $_actionEntityManager->flattenMusicians($musicians);
 
             $response = [
-                'data' => $this->composeResponseData($liftParameter, $isLast, $musicians),
+                'data' => $_actionHandler->composeLiftResponseData($requestParameters, $musiciansTotal, $musicians),
                 'code' => 200,
             ];
         }
@@ -235,23 +211,22 @@ class ActionController extends Controller implements LiftInterface
      */
     public function musicLiftAction(Request $request, $_locale)
     {
-        if( !$request->query->has(self::LIFT_PARAMETER) )
-            return FALSE;
+        $_actionHandler = $this->get('app.action_handler');
 
-        $liftParameter = $request->query->get(self::LIFT_PARAMETER);
+        $requestParameters = $_actionHandler->getLiftRequestParameters($request);
 
-        if( !$this->isLiftParameterValid($liftParameter) )
+        if( !$requestParameters )
             throw $this->createNotFoundException();
 
         $_manager = $this->getDoctrine()->getManager();
 
         $albums = $_manager->getRepository('AppBundle:Album')
-            ->findNewest($liftParameter)
+            ->findNewest($requestParameters)
         ;
 
         if( !$albums ) {
             $response = [
-                'data' => $this->composeResponseData($liftParameter, TRUE, NULL),
+                'data' => $_actionHandler->composeLiftResponseData($requestParameters, NULL, NULL),
                 'code' => 200,
             ];
         } else {
@@ -259,18 +234,12 @@ class ActionController extends Controller implements LiftInterface
                 ->countAll()
             ;
 
-            $isLast = $this->isLast($liftParameter, $albumsTotal, $albums);
+            $_actionEntityManager = $this->get('app.action_entity_manager');
 
-            $albums = Album::flattenForXhr(
-                $albums,
-                $this->get('translator'),
-                $this->get('twig'),
-                $this->get('router'),
-                $this->get('vich_uploader.templating.helper.uploader_helper')
-            );
+            $albums = $_actionEntityManager->flattenAlbums($albums);
 
             $response = [
-                'data' => $this->composeResponseData($liftParameter, $isLast, $albums),
+                'data' => $_actionHandler->composeLiftResponseData($requestParameters, $albumsTotal, $albums),
                 'code' => 200,
             ];
         }
@@ -322,15 +291,9 @@ class ActionController extends Controller implements LiftInterface
                 ->countAllByParameters($requestParameters)
             ;
 
-            $photoAlbums = PhotoAlbum::flattenForXhr(
-                $photoAlbums,
-                $this->get('translator'),
-                $this->get('twig'),
-                $this->get('router'),
-                $this->get('liip_imagine.controller'),
-                $_locale,
-                $this->get('vich_uploader.templating.helper.uploader_helper')
-            );
+            $_actionEntityManager = $this->get('app.action_entity_manager');
+
+            $photoAlbums = $_actionEntityManager->flattenPhotoAlbums($photoAlbums);
 
             $response = [
                 'data' => $_actionHandler->composeGalleryResponseData($requestParameters, $photoAlbumsTotal, $photoAlbums),
@@ -362,18 +325,17 @@ class ActionController extends Controller implements LiftInterface
      */
     public function songLyricsAction(Request $request, $_locale)
     {
-        if( !$request->query->has('songId') )
-            return FALSE;
+        $_actionHandler = $this->get('app.action_handler');
 
-        $songId = $request->query->get('songId');
+        $songParameter = $_actionHandler->getSongRequestParameters($request);
 
-        if( empty($songId) || !is_numeric($songId) )
+        if( !$songParameter )
             throw $this->createNotFoundException();
 
         $_manager = $this->getDoctrine()->getManager();
 
         $song = $_manager->getRepository('AppBundle:Song')
-            ->find($songId)
+            ->find($songParameter)
         ;
 
         if( !$song || !$song->getLyrics() ) {
@@ -387,10 +349,8 @@ class ActionController extends Controller implements LiftInterface
                 'code' => 500,
             ];
         } else {
-            $lyrics = preg_replace('/\h+/', ' ', $song->getLyrics());
-
             $response = [
-                'data' => ['data' => $lyrics],
+                'data' => $_actionHandler->composeSongResponseData($song->getLyrics()),
                 'code' => 200,
             ];
         }

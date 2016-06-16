@@ -28,46 +28,9 @@ class ActionHandler implements ActionParametersInterface
         return ( $this->isNumeric($yearParameter) ) ? $yearParameter : FALSE;
     }
 
-    private function validateGalleryRequest(Request $request)
+    private function validateSongParameter($songParameter)
     {
-        if( !($request->query->has(self::PARAMETER_TAG) && $request->query->has(self::PARAMETER_YEAR)) ) {
-            return FALSE;
-        } else {
-            $tagParameter  = $this->validateTagParameter($request->query->get(self::PARAMETER_TAG));
-            $yearParameter = $this->validateYearParameter($request->query->get(self::PARAMETER_YEAR));
-
-            if( $tagParameter === FALSE && $yearParameter === FALSE )
-                return FALSE;
-        }
-
-        if( !($request->query->has(self::PARAMETER_LIFT)) ) {
-            $liftParameter = NULL;
-        } else {
-            $liftParameter = $this->validateLiftParameter($request->query->get(self::PARAMETER_LIFT));
-
-            if( $liftParameter === FALSE )
-                return FALSE;
-        }
-
-        return [
-            self::PARAMETER_TAG  => $tagParameter,
-            self::PARAMETER_YEAR => $yearParameter,
-            self::PARAMETER_LIFT => $liftParameter,
-        ];
-    }
-
-    public function getGalleryRequestParameters(Request $request)
-    {
-        return $this->validateGalleryRequest($request);
-    }
-
-    public function composeGalleryResponseData($requestParameters, $totalCount = NULL, $collection = NULL)
-    {
-        return [
-            'totalCount' => $requestParameters[self::PARAMETER_LIFT],
-            'isLast'     => $this->isLast($requestParameters, $totalCount, $collection),
-            'data'       => $collection,
-        ];
+        return ( $this->isNumeric($songParameter) ) ? $songParameter : FALSE;
     }
 
     private function isLast($requestParameters, $totalCount, $collection = NULL)
@@ -76,5 +39,100 @@ class ActionHandler implements ActionParametersInterface
             return TRUE;
 
         return ( $totalCount == ($requestParameters[self::PARAMETER_LIFT] + count($collection)) );
+    }
+
+    public function getGalleryRequestParameters(Request $request)
+    {
+        return $this->validateGalleryRequest($request);
+    }
+
+    private function validateGalleryRequest(Request $request)
+    {
+        $tagParameter = ( $request->query->has(self::PARAMETER_TAG) )
+            ? $this->validateTagParameter($request->query->get(self::PARAMETER_TAG))
+            : FALSE;
+
+        if( $tagParameter === FALSE )
+            return FALSE;
+
+        $yearParameter = ( $request->query->has(self::PARAMETER_YEAR) )
+            ? $this->validateYearParameter($request->query->get(self::PARAMETER_YEAR))
+            : FALSE;
+
+        if( $yearParameter === FALSE )
+            return FALSE;
+
+        $liftParameter = ( $request->query->has(self::PARAMETER_LIFT) )
+            ? $this->validateLiftParameter($request->query->get(self::PARAMETER_LIFT))
+            : FALSE;
+
+        return [
+            self::PARAMETER_TAG  => $tagParameter,
+            self::PARAMETER_YEAR => $yearParameter,
+            self::PARAMETER_LIFT => $liftParameter,
+        ];
+    }
+
+    public function composeGalleryResponseData($requestParameters, $totalCount = NULL, $collection = NULL)
+    {
+        return [
+            'totalCount' => $requestParameters[self::PARAMETER_LIFT],
+            'data'       => $collection,
+            'isLast'     => $this->isLast($requestParameters, $totalCount, $collection),
+        ];
+    }
+
+    public function getLiftRequestParameters(Request $request)
+    {
+        return $this->validateLiftRequest($request);
+    }
+
+    private function validateLiftRequest(Request $request)
+    {
+        $liftParameter = ( $request->query->has(self::PARAMETER_LIFT) )
+            ? $this->validateLiftParameter($request->query->get(self::PARAMETER_LIFT))
+            : FALSE;
+
+        if( $liftParameter === FALSE )
+            return FALSE;
+
+        return [
+            self::PARAMETER_LIFT => $liftParameter,
+        ];
+    }
+
+    public function composeLiftResponseData($requestParameters, $totalCount = NULL, $collection = NULL)
+    {
+        return [
+            'current'  => $requestParameters[self::PARAMETER_LIFT],
+            'data'     => $collection,
+            'isLast'   => $this->isLast($requestParameters, $totalCount, $collection),
+        ];
+    }
+
+    public function getSongRequestParameters(Request $request)
+    {
+        return $this->validateSongRequest($request);
+    }
+
+    private function validateSongRequest(Request $request)
+    {
+        $songParameter = ( $request->query->has(self::PARAMETER_SONG) )
+            ? $this->validateSongParameter($request->query->get(self::PARAMETER_SONG))
+            : FALSE;
+
+        if( $songParameter === FALSE )
+            return FALSE;
+
+        return $songParameter;
+    }
+
+    public function composeSongResponseData($lyrics)
+    {
+        $lyrics = preg_replace('/\h+/', ' ', $song->getLyrics());
+
+        return [
+            'data' => $lyrics,
+        ];
     }
 }

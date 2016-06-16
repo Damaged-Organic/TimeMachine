@@ -5,9 +5,10 @@ namespace AppBundle\Entity\Repository;
 use Doctrine\ORM\Query;
 
 use AppBundle\Entity\Utility\Extended\ExtendedEntityRepository,
+    AppBundle\Service\Utility\Interfaces\ActionParametersInterface,
     AppBundle\Entity\Musician;
 
-class MusicianRepository extends ExtendedEntityRepository
+class MusicianRepository extends ExtendedEntityRepository implements ActionParametersInterface
 {
     public function findSingleMainCast($id)
     {
@@ -67,15 +68,15 @@ class MusicianRepository extends ExtendedEntityRepository
         return $query->getResult();
     }
 
-    public function findOldest($offset = NULL)
+    public function findOldest($requestParameters = NULL)
     {
         $query = $this->createQueryBuilder('m')
             ->select('m')
             ->setMaxResults(Musician::LIFT_ITEMS)
         ;
 
-        if( $offset )
-            $query->setFirstResult($offset);
+        if( !empty($requestParameters[self::PARAMETER_LIFT]) )
+            $query->setFirstResult($requestParameters[self::PARAMETER_LIFT]);
 
         $query = $query
             ->orderBy('m.yearOfEntry', 'ASC')

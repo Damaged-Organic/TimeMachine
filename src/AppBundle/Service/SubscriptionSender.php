@@ -2,7 +2,7 @@
 // src/AppBundle/Service/SubscriptionSender.php
 namespace AppBundle\Service;
 
-use Symfony\Component\Translation\DataCollectorTranslator,
+use Symfony\Component\Translation\Translator,
     Symfony\Bundle\TwigBundle\TwigEngine;
 
 use Doctrine\ORM\EntityManager;
@@ -28,7 +28,7 @@ class SubscriptionSender
         $this->_manager = $manager;
     }
 
-    public function setTranslator(DataCollectorTranslator $translator)
+    public function setTranslator(Translator $translator)
     {
         $this->_translator = $translator;
     }

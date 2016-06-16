@@ -44,6 +44,16 @@ services:
     app.action_handler:
         class: AppBundle\Service\ActionHandler
 
+    app.action_entity_manager:
+        class: AppBundle\Service\ActionEntityManager
+        calls:
+            - [setRequestStack, ["@request_stack"]]
+            - [setRouter, ["@router"]]
+            - [setTranslator, ["@translator"]]
+            - [setTwigEngine, ["@twig"]]
+            - [setUploaderHelper, ["@vich_uploader.templating.helper.uploader_helper"]]
+            - [setImagineController, ["@liip_imagine.controller"]]
+
     app.subscription:
         class: AppBundle\Service\Subscription
         calls:

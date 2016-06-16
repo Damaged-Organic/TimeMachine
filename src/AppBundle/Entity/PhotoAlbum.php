@@ -245,11 +245,7 @@ class PhotoAlbum implements Translatable
         return count($this->photos);
     }
 
-    /** END Custom methods */
-
-    /** Transform entities for AJAX request */
-
-    static private function getHumanDate($photoAlbum, $_locale)
+    public function getHumanDate($_locale)
     {
         if( $_locale == 'ru' ) {
             $formatterDate = IntlDateFormatter::create(
@@ -261,53 +257,10 @@ class PhotoAlbum implements Translatable
             );
         }
 
-        $date = $formatterDate->format($photoAlbum->getDateTaken());
+        $date = $formatterDate->format($this->getDateTaken());
 
         return $date;
     }
 
-    static public function flattenForXhr(array $photoAlbums, $_translator, $_twig, $_router, $_liip, $_locale, $vichUploaderAsset)
-    {
-        foreach( $photoAlbums as $photoAlbum )
-        {
-            if( !($photoAlbum instanceof PhotoAlbum) )
-                continue;
-
-            $majorPhoto = $photoAlbum->getPhotos()[0];
-
-            $photo       = $vichUploaderAsset->asset($majorPhoto, 'photoFile');
-
-            $photo       = $_liip->filterAction(new Request, $vichUploaderAsset->asset($majorPhoto, 'photoFile'), 'photo_album_photo_thumb');
-            $photo       = $photo->headers->get('location');
-
-            $humanDate   = self::getHumanDate($photoAlbum, $_locale);
-            $photoCount  = $_translator->transChoice(
-                'gallery.photo.amount', $photoAlbum->getPhotosNumber(), ['%count%' => $photoAlbum->getPhotosNumber()]
-            );
-            $description = call_user_func_array(
-                $_twig->getFilter('truncate')->getCallable(),
-                [$_twig, $photoAlbum->getDescription(), 500]
-            );
-            $linkTitle   = $_translator->trans('gallery.photo.view');
-            $link        = $_router->generate('gallery', [
-                'id' => $photoAlbum->getId(), 'slug' => $photoAlbum->getSlug()
-            ]);
-
-            $output[] = [
-                'photo'       => $photo,
-                'year'        => $photoAlbum->getDateTaken()->format('Y'),
-                'machineDate' => $photoAlbum->getDateTaken()->format('Y-m-d'),
-                'humanDate'   => $humanDate,
-                'photoCount'  => $photoCount,
-                'title'       => $photoAlbum->getTitle(),
-                'description' => $description,
-                'link'        => $link,
-                'linkTitle'   => $linkTitle,
-            ];
-        }
-
-        return $output;
-    }
-
-    /** END Transform entities for AJAX request */
+    /** END Custom methods */
 }
