@@ -1,0 +1,71 @@
+{# src/AppBundle/Resources/views/Fallback/browsers.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ 'error.fallback.title'|trans }} | {{ 'common.title'|trans }}
+{% endblock %}
+
+{% block metadata %}
+    {{ parent() }}
+    <meta name="robots" content="noindex, follow, noarchive">
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/browsers.bundle.min.css') }}">
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+    <div id="logo-holder">
+        <a href="{{ path('index') }}" class="logo">
+            <img src="{{ asset('bundles/app/images/logo.png') }}" alt="{{ 'common.title'|trans }}" title="{{ 'common.title'|trans }}">
+        </a>
+    </div>
+    <main id="content">
+        <section class="outer browsers-holder">
+            <div class="inner">
+                <span class="upper-title">{{ 'error.fallback.title'|trans }}</span>
+                <span class="underline"></span>
+                <h1>{{ 'error.fallback.headline'|trans }}</h1>
+                <ul>
+                    <li>
+                        <h2>Google Chrome</h2>
+                        <span class="sub-title">{{ 'error.fallback.latest'|trans }}</span>
+                    </li>
+                    <li>
+                        <h2>Mozzila Firefox</h2>
+                        <span class="sub-title">{{ 'error.fallback.latest'|trans }}</span>
+                    </li>
+                    <li>
+                        <h2>Opera Foundation</h2>
+                        <span class="sub-title">{{ 'error.fallback.latest'|trans }}</span>
+                    </li>
+                    <li>
+                        <h2>Apple Safari</h2>
+                        <span class="sub-title">{{ 'error.fallback.latest'|trans }}</span>
+                    </li>
+                    <li>
+                        <h2>Internet Explorer</h2>
+                        <span class="sub-title">{{ 'error.fallback.above'|trans }}</span>
+                    </li>
+                </ul>
+                <a href="http://{{ _locale }}.brasst.net.ua" target="_blank">
+                    {{ 'error.fallback.link'|trans }}
+                    <span class="arrow"></span>
+                </a>
+            </div>
+        </section>
+    </main>
+    <div id="bg-circle-overlay">
+        <div class="circle"></div>
+    </div>
+{% endblock %}
+
+{% block landscape %}
+
+    {% include 'AppBundle:Component:landscape.html.twig' %}
+
+{% endblock %}
+
+{% block loader %}{% endblock %}

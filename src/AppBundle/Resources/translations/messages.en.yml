@@ -3,6 +3,45 @@ common:
     title:  Mashina Vremeni
     footer: © Mashina Vremeni, %timeline%. Web Production by %link%.
 
+    landscape:
+        title: To get the full joy
+        text:  just rotate screen back
+
+error:
+    back: back to the site
+
+    403:
+        title:     Access forbidden
+        statement: 403 - Forbidden
+        text: >
+            <p>На любой вопрос готов ответ. Жизнь всегда была послушна силе.</p>
+            <p>Но никто не верит в то, что на свете ветра нет, даже если ветер запретили!</p>
+
+
+    404:
+        title:     Page not found
+        statement: 404 - Not Found
+        text: >
+            <p>Пока ты шел как на красный свет, ты был герой, сомнений нет. Никто не мог тебя с пути свернуть.</p>
+            <p>Но если все открыть пути, куда идти и с кем идти? И как бы ты тогда нашел свой путь?</p>
+
+    500:
+        title:     Server error
+        statement: 500 - Internal Server Error
+        text: >
+            <p>Вот и все. Скоро будет рассвет. Мы пройдем по песку вдоль воды.</p>
+            <p>Может быть, кто-нибудь через тысячу лет разглядит на песке эти следы.</p>
+
+    fallback:
+        title: Your browser is not supported
+
+        headline: Site supports only latest browsers verions
+
+        latest: Latest version
+        above:  10 and above
+
+        link: get the latest version
+
 header:
     menu: menu
 
@@ -10,7 +49,9 @@ index:
     topline:  Rock Band
     headline: Mashina Vremeni
     slogan: >
-        -empty-
+        Just remember that truth will always persist, even if in the battle it will decease.
+        Gently cherish an every day in your life, while you are still alive, and while your angel has wings - sing!
+
     affiche: Affiche
 
     musician:
@@ -40,6 +81,7 @@ band:
         years:       '{0} 1 year in band | {1} %count% year in band | [2,Inf] %count% years in band'
         born:        born
         questionary: Questionary
+        read_more:   read more
 
 music:
     headline: Music

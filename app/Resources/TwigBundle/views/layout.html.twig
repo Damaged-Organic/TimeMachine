@@ -1,0 +1,55 @@
+{# app/Resources/TwigBundle/views/Exception/layout.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{# Fast "_locale" hack for errors #}
+{% set host = app.request.getHost|split(".") %}
+{% if host[0] is defined %}
+    {% set locale = ( host[0] is sameas('en') ) ? 'en' : 'ru' %}
+{% else %}
+    {% set locale = 'ru' %}
+{% endif %}
+
+{% block metadata %}
+    {{ parent() }}
+    <meta name="robots" content="noindex, follow, noarchive">
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/error.bundle.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="page">
+        <div id="logo-holder">
+            <a href="{{ path('index') }}" class="logo">
+                <img src="{{ asset('bundles/app/images/logo.png') }}" alt="{{ 'common.title'|trans }}" title="{{ 'common.title'|trans }}">
+            </a>
+        </div>
+        <main id="content">
+            <section class="outer error-holder">
+                <div class="inner">
+                    <span class="upper-title">
+                        {% block error_title %}{% endblock %}
+                    </span>
+                    <span class="underline"></span>
+                    <h1>
+                        {% block error_statement %}{% endblock %}
+                    </h1>
+                    <p>
+                        {% block error_text %}{% endblock %}
+                    </p>
+                    <a href="{{ path('index') }}">
+                        {{ 'error.back'|trans({}, "messages", locale) }}
+                        <span class="arrow"></span>
+                    </a>
+                </div>
+            </section>
+        </main>
+        <div id="bg-circle-overlay">
+            <div class="circle"></div>
+        </div>
+
+        {% include 'AppBundle:Component:landscape.html.twig' %}
+
+    </div>
+{% endblock %}

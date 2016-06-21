@@ -2,7 +2,7 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block title %}
-    {{ metadata.title }} - {{ 'common.title'|trans }}
+    {{ metadata.title }} | {{ 'common.title'|trans }}
 {% endblock %}
 
 {% block metadata %}
@@ -38,11 +38,11 @@
                 {% for album in albums %}
                     <article class="item lift-item">
                         <div class="photo-holder">
-                            <div class="photo">
+                            <a href="{{ path('music', { 'id': album.id, 'slug': album.slug }) }}" class="photo">
                                 <figure>
                                     <img src="{{ vich_uploader_asset(album, 'coverFile')|imagine_filter('album_cover_thumb') }}" alt="{{ album.title }}">
                                 </figure>
-                            </div>
+                            </a>
                         </div>
                         <div class="stamp-holder">
                             <span class="upper-title">{{ album.yearOfRelease }}</span>

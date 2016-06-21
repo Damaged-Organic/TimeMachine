@@ -82,6 +82,15 @@ class ActionHandler implements ActionParametersInterface
         ];
     }
 
+    public function composeEmptyGalleryResponseData($message)
+    {
+        $data = ['noContent' => $message];
+
+        return [
+            'data' => $data,
+        ];
+    }
+
     public function getLiftRequestParameters(Request $request)
     {
         return $this->validateLiftRequest($request);
@@ -129,7 +138,7 @@ class ActionHandler implements ActionParametersInterface
 
     public function composeSongResponseData($lyrics)
     {
-        $lyrics = preg_replace('/\h+/', ' ', $song->getLyrics());
+        $lyrics = preg_replace('/\h+/', ' ', $lyrics);
 
         return [
             'data' => $lyrics,

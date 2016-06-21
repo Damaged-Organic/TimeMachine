@@ -1,40 +1,18 @@
 {# app/Resources/TwigBundle/views/Exception/error404.html.twig #}
-{% extends '::base.html.twig' %}
-
-{# Fast "_locale" hack for 404 #}
-{% set host = app.request.getHost|split(".") %}
-{% if host[0] is defined %}
-    {% set locale = ( host[0] is sameas('en') ) ? 'en' : 'ru' %}
-{% else %}
-    {% set locale = 'ru' %}
-{% endif %}
+{% extends 'TwigBundle::layout.html.twig' %}
 
 {% block title %}
-    {{ '404.title'|trans({}, "messages", locale) }} - {{ 'common.title'|trans({}, "messages", locale) }}
+    {{ 'error.404.statement'|trans({}, "messages", locale) }} | {{ 'common.title'|trans({}, "messages", locale) }}
 {% endblock %}
 
-{% block meta %}
-    <meta name="robots" content="noindex, follow, noarchive">
+{% block error_title %}
+    {{ 'error.404.title'|trans({}, "messages", locale) }}
 {% endblock %}
 
-{% block favicons %}
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="{{ asset('bundles/app/images/favicons/favicon144x144.png') }}">
-    <link rel="apple-touch-icon-precomposed" href="{{ asset('bundles/app/images/favicons/favicon152x152.png') }}">
-    <link rel="apple-touch-icon-precomposed" href="{{ asset('bundles/app/images/favicons/favicon144x144.png') }}">
-    <link rel="apple-touch-icon-precomposed" href="{{ asset('bundles/app/images/favicons/favicon120x120.png') }}">
-    <link rel="apple-touch-icon-precomposed" href="{{ asset('bundles/app/images/favicons/favicon72x72.png') }}">
-    <link rel="apple-touch-icon-precomposed" href="{{ asset('bundles/app/images/favicons/favicon57x57.png') }}">
-    <link rel="icon" type="image/png" href="{{ asset('bundles/app/images/favicons/favicon128x128.png') }}">
-    <link rel="icon" type="image/png" href="{{ asset('bundles/app/images/favicons/favicon96x96.png') }}">
-    <link rel="icon" type="image/png" href="{{ asset('bundles/app/images/favicons/favicon32x32.png') }}">
-    <link rel="icon" type="image/png" href="{{ asset('bundles/app/images/favicons/favicon16x16.png') }}">
+{% block error_statement %}
+    {{ 'error.404.statement'|trans({}, "messages", locale) }}
 {% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bundles/app/css/404.bundle.min.css') }}">
-{% endblock %}
-
-{% block body %}
-
+{% block error_text %}
+    {{ 'error.404.text'|trans({}, "messages", locale)|raw }}
 {% endblock %}

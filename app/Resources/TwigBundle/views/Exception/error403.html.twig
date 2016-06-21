@@ -1,0 +1,18 @@
+{# app/Resources/TwigBundle/views/Exception/error403.html.twig #}
+{% extends 'TwigBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ 'error.403.statement'|trans({}, "messages", locale) }} | {{ 'common.title'|trans({}, "messages", locale) }}
+{% endblock %}
+
+{% block error_title %}
+    {{ 'error.403.title'|trans({}, "messages", locale) }}
+{% endblock %}
+
+{% block error_statement %}
+    {{ 'error.403.statement'|trans({}, "messages", locale) }}
+{% endblock %}
+
+{% block error_text %}
+    {{ 'error.403.text'|trans({}, "messages", locale)|raw }}
+{% endblock %}

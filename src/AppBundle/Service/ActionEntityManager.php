@@ -89,10 +89,8 @@ class ActionEntityManager
         );
     }
 
-    private function translateCount($collection, $key)
+    private function translateCount($count, $key)
     {
-        $count = count($collection);
-
         return $this->_translator->transChoice(
             $key, $count, ['%count%' => $count]
         );
@@ -126,22 +124,20 @@ class ActionEntityManager
             if( !($album instanceof Album) )
                 continue;
 
+            $cover       = $this->getUploadedImage($album, 'coverFile', 'album_cover_thumb');
+            $description = $this->truncateDescription($album->getDescription(), 250);
+            $songCount   = $this->translateCount($album->getSongsNumber(), 'music.album.songs');
+            $linkTitle   = $this->translate('music.album.details');
+            $link        = $this->getLink($album, 'music');
+
             $output[] = [
-                'cover'       => $this->getUploadedImage(
-                    $album, 'coverFile', 'album_cover_thumb'
-                ),
+                'cover'       => $cover,
                 'year'        => $album->getYearOfRelease(),
                 'title'       => $album->getTitle(),
-                'description' => $this->truncateDescription(
-                    $album->getDescription(), 250
-                ),
-                'songCount'   => $this->translateCount(
-                    $album->getSongs(), 'music.album.songs'
-                ),
-                'link'        => $this->getLink(
-                    $album, 'music'
-                ),
-                'linkTitle'   => $this->translate('music.album.details'),
+                'description' => $description,
+                'songCount'   => $songCount,
+                'linkTitle'   => $linkTitle,
+                'link'        => $link,
             ];
         }
 
@@ -155,22 +151,23 @@ class ActionEntityManager
             if( !($concert instanceof Concert) )
                 continue;
 
+            $photo     = $this->getUploadedImage($concert, 'posterFile', 'affiche_poster_thumb');
+            $linkTitle = ( $concert->getTicketsLink() )
+                ? $this->translate('affiche.tickets.available')
+                : $this->translate('affiche.tickets.not_available')
+            ;
+
             $output[] = [
-                "photo"         => $this->getUploadedImage(
-                    $concert, 'posterFile', 'affiche_poster_thumb'
-                ),
-                "photoTitle"    => $concert->getCity(),
-                "location"      => $concert->getCountry() . " " . $concert->getCity(),
-                "street"        => $concert->getPlace(),
-                "machineDate"   => $concert->getDoorsOpenAt()->format('Y-m-d'),
-                "humanDate"     => $concert->getHumanDate($this->getLocale()),
-                "title"         => $concert->getTitle(),
-                "description"   => $concert->getDescription(),
-                "link"          => $concert->getTicketsLink(),
-                "linkTitle"     => ( $concert->getTicketsLink() )
-                    ? $this->translate('affiche.tickets.available')
-                    : $this->translate('affiche.tickets.not_available')
-                ,
+                "photo"       => $photo,
+                "photoTitle"  => $concert->getCity(),
+                "location"    => $concert->getCountry() . " " . $concert->getCity(),
+                "street"      => $concert->getPlace(),
+                "machineDate" => $concert->getDoorsOpenAt()->format('Y-m-d'),
+                "humanDate"   => $concert->getHumanDate($this->getLocale()),
+                "title"       => $concert->getTitle(),
+                "description" => $concert->getDescription(),
+                "linkTitle"   => $linkTitle,
+                "link"        => $concert->getTicketsLink(),
             ];
         }
 
@@ -186,25 +183,23 @@ class ActionEntityManager
 
             $majorArticleBlock = $article->getArticleBlocks()[0];
 
+            $photo       = $this->getUploadedImage($majorArticleBlock, 'imageFile', 'blog_image_thumb');
+            $description = $this->truncateDescription($majorArticleBlock->getText(), 250);
+            $viewCount   = $this->translateCount($article->getViews(), 'blog.article.views');
+            $linkTitle   = $this->translate('blog.article.read_more');
+            $link        = $this->getLink($article, 'blog');
+
             $output[] = [
-                'photo'       => $this->getUploadedImage(
-                    $majorArticleBlock, 'imageFile', 'blog_image_thumb'
-                ),
+                'photo'       => $photo,
                 'photoTitle'  => $article->getTitle(),
                 'machineDate' => $article->getCreatedAt()->format('Y-m-d'),
                 'year'        => $article->getCreatedAt()->format('Y'),
                 'humanDate'   => $article->getHumanDate(),
                 'title'       => $article->getTitle($this->getLocale()),
-                'description' => $this->truncateDescription(
-                    $majorArticleBlock->getText(), 250
-                ),
-                'viewCount'   => $this->translateCount(
-                    $article->getViews(), 'blog.article.views'
-                ),
-                'link'        => $this->getLink(
-                    $article, 'blog'
-                ),
-                'linkTitle'   => $this->translate('blog.article.read_more'),
+                'description' => $description,
+                'viewCount'   => $viewCount,
+                'linkTitle'   => $linkTitle,
+                'link'        => $link,
             ];
         }
 
@@ -218,20 +213,25 @@ class ActionEntityManager
             if( !($musician instanceof Musician) )
                 continue;
 
+            $photo        = $this->getUploadedImage($musician, 'photoFile', 'musician_photo_thumb');
+            $yearsInGroup = $this->translateCount($musician->getYearsActive(), 'band.musician.years');
+            $description  = $this->truncateDescription($musician->getStory(), 500);
+            $linkTitle    = $this->translate('band.musician.read_more');
+            $link         = ( $musician->getIsMainCast() )
+                ? $this->getLink($musician, 'band')
+                : NULL
+            ;
+
             $output[] = [
-                "photo"         => $this->getUploadedImage(
-                    $musician, 'photoFile', 'musician_photo_thumb'
-                ),
-                "photoTitle"    => $musician->getTitle(),
-                "entryYear"     => $musician->getYearOfEntry(),
-                "yearsInGroup"  => $this->translateCount(
-                    $musician->getYearsActive(), 'band.musician.years'
-                ),
-                "role"          => $musician->getSkill(),
-                "title"         => $musician->getTitle(),
-                "description"   => $this->truncateDescription(
-                    $musician->getStory(), 500
-                ),
+                "photo"        => $photo,
+                "photoTitle"   => $musician->getTitle(),
+                "entryYear"    => $musician->getYearOfEntry(),
+                "yearsInGroup" => $yearsInGroup,
+                "role"         => $musician->getSkill(),
+                "title"        => $musician->getTitle(),
+                "description"  => $description,
+                'linkTitle'    => $linkTitle,
+                'link'         => $link,
             ];
         }
 
@@ -247,27 +247,30 @@ class ActionEntityManager
 
             $majorPhoto = $photoAlbum->getPhotos()[0];
 
+            $photo       = $this->getUploadedImage($majorPhoto, 'photoFile', 'photo_album_photo_thumb');
+            $photoCount  = $this->translateCount($photoAlbum->getPhotosNumber(), 'gallery.photo.amount');
+            $description = $this->truncateDescription($photoAlbum->getDescription(), 500);
+            $linkTitle   = $this->translate('gallery.photo.view');
+            $link        = $this->getLink($photoAlbum, 'gallery');
+
             $output[] = [
-                'photo'       => $this->getUploadedImage(
-                    $majorPhoto, 'photoFile', 'photo_album_photo_thumb'
-                ),
+                'photo'       => $photo,
                 'year'        => $photoAlbum->getDateTaken()->format('Y'),
                 'machineDate' => $photoAlbum->getDateTaken()->format('Y-m-d'),
                 'humanDate'   => $photoAlbum->getHumanDate($this->getLocale()),
-                'photoCount'  => $this->translateCount(
-                    $photoAlbum->getPhotosNumber(), 'gallery.photo.amount'
-                ),
+                'photoCount'  => $photoCount,
                 'title'       => $photoAlbum->getTitle(),
-                'description' => $this->truncateDescription(
-                    $photoAlbum->getDescription(), 500
-                ),
-                'link'        => $this->getLink(
-                    $photoAlbum, 'gallery'
-                ),
-                'linkTitle'   => $this->translate('gallery.photo.view'),
+                'description' => $description,
+                'linkTitle'   => $linkTitle,
+                'link'        => $link,
             ];
         }
 
         return $output;
+    }
+
+    public function emptyPhotoAlbums()
+    {
+        return $this->_translator->trans('common.empty.photo_album', [], 'responses');
     }
 }

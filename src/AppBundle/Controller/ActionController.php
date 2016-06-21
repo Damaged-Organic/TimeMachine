@@ -281,17 +281,19 @@ class ActionController extends Controller implements LiftInterface
             ->findNewest($requestParameters)
         ;
 
+        $_actionEntityManager = $this->get('app.action_entity_manager');
+
         if( !$photoAlbums ) {
+            $message = $_actionEntityManager->emptyPhotoAlbums();
+
             $response = [
-                'data' => $_actionHandler->composeGalleryResponseData($requestParameters, NULL, NULL),
+                'data' => $_actionHandler->composeEmptyGalleryResponseData($message),
                 'code' => 200,
             ];
         } else {
             $photoAlbumsTotal = $_manager->getRepository('AppBundle:PhotoAlbum')
                 ->countAllByParameters($requestParameters)
             ;
-
-            $_actionEntityManager = $this->get('app.action_entity_manager');
 
             $photoAlbums = $_actionEntityManager->flattenPhotoAlbums($photoAlbums);
 

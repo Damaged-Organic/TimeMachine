@@ -2,7 +2,7 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block title %}
-    {{ metadata.title }} - {{ 'common.title'|trans }}
+    {{ metadata.title }} | {{ 'common.title'|trans }}
 {% endblock %}
 
 {% block metadata %}
@@ -39,22 +39,18 @@
 
                     <article class="item lift-item">
                         <div class="photo-holder">
-                            <div class="photo">
+                            <a href="{{ path('gallery', { 'id': photoAlbum.id, 'slug': photoAlbum.slug }) }}" class="photo">
                                 <figure>
                                     <img src="{{ vich_uploader_asset(majorPhoto, 'photoFile')|imagine_filter('photo_album_photo_thumb') }}" alt="{{ photoAlbum.title }}">
                                 </figure>
-                            </div>
+                            </a>
                         </div>
                         <div class="stamp-holder">
                             <time class="upper-title" datetime="{{ photoAlbum.dateTaken|date('Y-m-d') }}">
                                 {{ photoAlbum.dateTaken|date('Y') }}
                             </time>
                             <span class="sub-title">
-                                {% if _locale == 'ru' %}
-                                    {{ photoAlbum.dateTaken|localizeddate('long', 'none', null, null, 'dd MMMM') }}
-                                {% else %}
-                                    {{ photoAlbum.dateTaken|localizeddate('long', 'none', null, null, 'MMMM, dd') }}
-                                {% endif %}
+                                {{ photoAlbum.getHumanDate(_locale) }}
                             </span>
                         </div>
                         <div class="info-holder">

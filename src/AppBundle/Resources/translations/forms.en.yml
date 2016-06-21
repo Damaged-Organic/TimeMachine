@@ -1,7 +1,7 @@
 # src/AppBundle/Resources/translations/forms.en.yml
 subscriber:
     email:
-        label:       Ваш e-mail
+        label:       Your e-mail
         placeholder: Provide an e-mail for subscription
 
     submit:

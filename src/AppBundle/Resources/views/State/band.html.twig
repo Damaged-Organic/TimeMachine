@@ -2,7 +2,7 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block title %}
-    {{ metadata.title }} - {{ 'common.title'|trans }}
+    {{ metadata.title }} | {{ 'common.title'|trans }}
 {% endblock %}
 
 {% block metadata %}
@@ -36,11 +36,23 @@
                 {% for musician in musicians %}
                     <article class="item lift-item">
                         <div class="photo-holder">
-                            <div class="photo">
-                                <figure>
-                                    <img src="{{ vich_uploader_asset(musician, 'photoFile')|imagine_filter('musician_photo_thumb') }}" alt="{{ musician.title }}">
-                                </figure>
-                            </div>
+
+                            {% if musician.isMainCast %}
+                                <a href="{{ path('band', { 'id': musician.id, 'slug': musician.slug }) }}" class="photo">
+                            {% else %}
+                                <div class="photo">
+                            {% endif %}
+
+                            <figure>
+                                <img src="{{ vich_uploader_asset(musician, 'photoFile')|imagine_filter('musician_photo_thumb') }}" alt="{{ musician.title }}">
+                            </figure>
+
+                            {% if musician.isMainCast %}
+                                </a>
+                            {% else %}
+                                </div>
+                            {% endif %}
+
                         </div>
                         <div class="stamp-holder">
                             <span class="upper-title">{{ musician.dateOfBirth|date("Y") }}</span>
@@ -51,6 +63,14 @@
                             <span class="underline"></span>
                             <h2>{{ musician.title }}</h2>
                             <p>{{ musician.story|truncate(500) }}</p>
+
+                            {% if musician.isMainCast %}
+                                <a href="{{ path('band', { 'id': musician.id, 'slug': musician.slug }) }}">
+                                    {{ 'band.musician.read_more'|trans }}
+                                    <span class="arrow"></span>
+                                </a>
+                            {% endif %}
+
                         </div>
                     </article>
                 {% endfor %}

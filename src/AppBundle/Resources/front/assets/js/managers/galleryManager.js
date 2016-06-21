@@ -15,7 +15,7 @@ let dataHolder = $("#lift-holder");
 let isLoading = false;
 let isPressed = false;
 let isLast = false;
-let isScrollable = false;
+let isScrollable = false; 
 
 let isReplaceHTML = false;
 
@@ -58,7 +58,7 @@ class GalleryManager{
 
                 isReplaceHTML = true;
                 isScrollable = true;
-                isLast = response.isLast || false;
+                isLast = response.isLast;
 
                 this.lift.resetTotalCount();
                 this.tags.activateCurrent();
@@ -69,7 +69,7 @@ class GalleryManager{
             })
             .fail((error) => {
                 error = JSON.parse(error.responseText);
-
+                
                 isReplaceHTML = false;
                 new Response(error);
 
@@ -118,10 +118,10 @@ class GalleryManager{
             })
             .done((response) => {
                 response = JSON.parse(response);
-
+                
                 isReplaceHTML = true;
                 isScrollable = true;
-                isLast = response.isLast || false;
+                isLast = response.isLast;
 
                 this.lift.resetTotalCount();
 
@@ -131,7 +131,7 @@ class GalleryManager{
             })
             .fail((error) => {
                 error = JSON.parse(error.responseText);
-
+                
                 isReplaceHTML = false;
                 new Response(error);
 
@@ -211,7 +211,7 @@ class GalleryManager{
         isLoading = false;
         page.removeClass("__loading");
     }
-
+    
 }
 
 export default GalleryManager;

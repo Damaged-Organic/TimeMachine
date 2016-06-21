@@ -7,6 +7,12 @@ redirect_to_default_locale:
         url:    .*
         domain: "%domain%"
 
+access_denied:
+    path: /403
+    defaults :
+        _controller: FrameworkBundle:Template:template
+        template:    'TwigBundle:Exception:error403.html.twig'
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation

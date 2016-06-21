@@ -2,7 +2,7 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block title %}
-    {{ photoAlbum.title }} - {{ metadata.title }} - {{ 'common.title'|trans }}
+    {{ photoAlbum.title }} - {{ metadata.title }} | {{ 'common.title'|trans }}
 {% endblock %}
 
 {% block metadata %}
@@ -38,7 +38,7 @@
                 <div id="photo-list-holder">
 
                     {% for photo in photoAlbum.photos %}
-                        <div class="photo-item" data-original="{{ vich_uploader_asset(photo, 'photoFile') }}" data-desc="{{ photo.title }}">
+                        <div class="photo-item" data-original="{{ vich_uploader_asset(photo, 'photoFile')|imagine_filter('photo_watermark') }}" data-desc="{{ photo.title }}">
                             <a href="#">
                                 <figure>
                                     <img src="{{ vich_uploader_asset(photo, 'photoFile')|imagine_filter('photo_thumb') }}" alt="{{ photo.title }}">

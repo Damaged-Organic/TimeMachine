@@ -25,16 +25,23 @@ security:
             logout:
                 path: /admin/logout
             anonymous: true
+            security:  true
+            access_denied_url: access_denied
 
         main:
             pattern: ^/
             form_login:
                 provider:      fos_userbundle
                 csrf_provider: form.csrf_provider
+                check_path:    access_denied
+                login_path:    access_denied
             logout:    true
             anonymous: true
+            security:  true
+            access_denied_url: access_denied
 
     access_control:
+        - { path: ^/403$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }

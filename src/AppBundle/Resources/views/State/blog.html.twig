@@ -2,7 +2,7 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block title %}
-    {{ metadata.title }} - {{ 'common.title'|trans }}
+    {{ metadata.title }} | {{ 'common.title'|trans }}
 {% endblock %}
 
 {% block metadata %}
@@ -38,11 +38,11 @@
                 {% for article in articles %}
                     <article class="item lift-item">
                         <div class="photo-holder">
-                            <div class="photo">
+                            <a href="{{ path('blog', { 'id': article.id, 'slug': article.slug }) }}" class="photo">
                                 <figure>
                                     <img src="{{ vich_uploader_asset(article.articleBlocks.0, 'imageFile')|imagine_filter('blog_image_thumb') }}" alt="{{ article.title }}">
                                 </figure>
-                            </div>
+                            </a>
                         </div>
                         <div class="stamp-holder">
                             <time class="upper-title" datetime="{{ article.createdAt|date('Y-m-d') }}">

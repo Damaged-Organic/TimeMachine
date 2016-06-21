@@ -119,8 +119,12 @@ class StateController extends AppController implements PageInitInterface
             if( !$article )
                 throw $this->createNotFoundException();
 
+            $viewsCounter = $this->get('app.views_counter');
+
+            $viewsCounter->updateViews($article);
+
             $closestArticles = $_manager->getRepository('AppBundle:Article')
-                ->findClosest($id)
+                ->findClosest($id, $article->getCreatedAt())
             ;
 
             $response = [

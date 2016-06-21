@@ -18,7 +18,7 @@ services:
         tags:
             - { name: twig.extension }
 
-    # Events
+    # Event listeners
 
     app.page_init_listener:
         class:     AppBundle\EventListener\PageInitListener
@@ -26,6 +26,20 @@ services:
         arguments: [ "@request", "@app.metadata" ]
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+    app.listener.fallback.browser:
+        class: AppBundle\EventListener\Fallback\BrowserFallbackListener
+        calls:
+            - [setBrowserFallbackController, [ "@app.browser_fallback_controller" ]]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    # Controller
+
+    app.browser_fallback_controller:
+        class: AppBundle\Controller\Fallback\BrowserFallbackController
+        calls:
+            - [setTemplating, [ "@templating" ]]
 
     # Common
 
@@ -38,6 +52,12 @@ services:
         class: AppBundle\Service\MailerShortcut
         arguments:
             - "@mailer"
+
+    app.views_counter:
+        class: AppBundle\Service\ViewsCounter
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@session"
 
     # Specific
 

@@ -56,13 +56,18 @@ class ArticleRepository extends ExtendedEntityRepository implements ActionParame
         return $query->getOneOrNullResult();
     }
 
-    public function findClosest($id)
+    public function findClosest($id, $createdAt)
     {
         $prev = $this
             ->createQueryBuilder('a')
             ->select('a')
-            ->where('a.id < :id')
-            ->setParameter('id', $id)
+            ->where('a.createdAt <= :createdAt')
+            ->andWhere('a.id < :id')
+            ->setParameters([
+                'createdAt' => $createdAt,
+                'id'        => $id,
+            ])
+            ->orderBy('a.createdAt', 'DESC')
             ->orderBy('a.id', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
@@ -72,8 +77,13 @@ class ArticleRepository extends ExtendedEntityRepository implements ActionParame
         $next = $this
             ->createQueryBuilder('a')
             ->select('a')
-            ->where('a.id > :id')
-            ->setParameter('id', $id)
+            ->where('a.createdAt >= :createdAt')
+            ->andWhere('a.id > :id')
+            ->setParameters([
+                'createdAt' => $createdAt,
+                'id'        => $id,
+            ])
+            ->orderBy('a.createdAt', 'ASC')
             ->orderBy('a.id', 'ASC')
             ->setMaxResults(1)
             ->getQuery()
