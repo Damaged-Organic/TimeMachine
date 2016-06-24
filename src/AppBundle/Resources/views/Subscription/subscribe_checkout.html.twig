@@ -1,7 +1,67 @@
 {# src/AppBundle/Resources/views/Subscription/subscribe_checkout.html.twig #}
-<p>
-    User "{{ subscriber.email }}" is subscribed.
-</p>
-<p>
-    <a href="{{ path('index', { '_locale': _locale }) }}">main</a>
-</p>
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ 'subscription.checkout.subscribe.title'|trans }} | {{ 'common.title'|trans }}
+{% endblock %}
+
+{% block metadata %}
+    {{ parent() }}
+    <meta name="robots" content="noindex, nofollow, noarchive">
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/subscribe.bundle.min.css') }}">
+{% endblock %}
+
+{% block content %}
+    <main id="content">
+        <section class="outer subscribe-holder">
+            <h1 class="entitled-holder">{{ 'subscription.checkout.subscribe.title'|trans }}</h1>
+
+            {% if not subscriber.isActive %}
+
+                {% set link = path('subscribe_checkout', {
+                    '_locale':      _locale,
+                    'email':        subscriber.email,
+                    'checkoutHash': subscriber.inCheckoutHash,
+                    'confirm':      true
+                }) %}
+
+                <p>
+                    {{ 'subscription.checkout.subscribe.pre.text'|trans({ '%email%': subscriber.email }) }}
+                </p>
+
+                <div class="buttons-holder">
+                    <div class="btn btn-small">
+                        <a href="{{ link }}">
+                            <span>{{ 'subscription.checkout.subscribe.pre.button'|trans }}</span>
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+                <p>
+                    {{ 'subscription.checkout.subscribe.post.text'|trans({ '%email%': subscriber.email }) }}
+                </p>
+                <a href="{{ path('index', { '_locale': _locale }) }}">
+                    {{ 'subscription.checkout.subscribe.post.button'|trans }}
+                    <span class="arrow"></span>
+                </a>
+            {% endif %}
+
+        </section>
+    </main>
+    <div id="bg-circle-overlay">
+        <div class="circle"></div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+
+    {% include 'AppBundle:Component:footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/subscribe.bundle.min.js') }}"></script>
+{% endblock %}

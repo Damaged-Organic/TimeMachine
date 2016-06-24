@@ -30,9 +30,7 @@
 {% block content %}
     <main id="content">
         <section class="outer blog-holder">
-            <h1 class="entitled-holder">
-                {{ 'blog.headline'|trans }}
-            </h1>
+            <h1 class="entitled-holder">{{ metadata.title }}</h1>
             <div class="inner grid" id="lift-holder">
 
                 {% for article in articles %}

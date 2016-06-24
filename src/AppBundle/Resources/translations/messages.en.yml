@@ -3,6 +3,8 @@ common:
     title:  Mashina Vremeni
     footer: © Mashina Vremeni, %timeline%. Web Production by %link%.
 
+    subscription: subscription
+
     landscape:
         title: To get the full joy
         text:  just rotate screen back
@@ -59,15 +61,11 @@ index:
         back_band: back to band
 
 affiche:
-    headline: Affiche
-
     tickets:
         available:     tickets
         not_available: no tickets available
 
 blog:
-    headline: Blog
-
     article:
         views:     '{0} no views | {1} %count% view | [2,Inf] %count% views'
         read_more: read more
@@ -75,8 +73,6 @@ blog:
         next:      next
 
 band:
-    headline: Band
-
     musician:
         years:       '{0} 1 year in band | {1} %count% year in band | [2,Inf] %count% years in band'
         born:        born
@@ -84,8 +80,6 @@ band:
         read_more:   read more
 
 music:
-    headline: Music
-
     album:
         songs:         '{0} no songs | {1} %count% song | [2,Inf] %count% songs'
         songs_details: '{0} no songs in album | {1} %count% song in alnum | [2,Inf] %count% songs in album'
@@ -97,8 +91,48 @@ music:
         chords: show chords
 
 gallery:
-    headline: Gallery
-
     photo:
         amount: '{0} no photos | {1} %count% photo | [2,Inf] %count% photos'
         view:   view
+
+subscription:
+    text: >
+        You can subscribe to "Mashina Vremeni" band recent news and upcoming events announcements
+        just by entering your e-mail in the form below
+
+    checkout:
+        subscribe:
+            title: Confirmation
+
+            pre:
+                text: >
+                    E-mail '%email%' awaits for subscription confirmation.
+                    To proceed, please, press the button below
+
+                button: Confirm
+
+            post:
+                text: >
+                    Congratulations! We've added '%email%' to our mailing list.
+                    As of now you will regularly receive band's latest updates.
+
+                button: Home
+
+        unsubscribe:
+            title: Unsubscribe
+
+            pre:
+                text: >
+                    E-mail '%email%' is currently subscribed for notifications.
+                    If you wish to cancel subscription, please, press the confirmation button.
+
+                button:
+                    yes: No, I've changed my mind
+                    no:  Unsubscribe
+
+            post:
+                text: >
+                    E-mail '%email%' was removed from our mailing list.
+                    You won't receive band's updates anymore
+
+                button: Home

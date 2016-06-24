@@ -1,4 +1,4 @@
-{# app/Resources/TwigBundle/views/Exception/layout.html.twig #}
+{# app/Resources/TwigBundle/views/Exception/layout_exception.html.twig #}
 {% extends 'AppBundle::layout.html.twig' %}
 
 {# Fast "_locale" hack for errors #}
@@ -11,7 +11,7 @@
 
 {% block metadata %}
     {{ parent() }}
-    <meta name="robots" content="noindex, follow, noarchive">
+    <meta name="robots" content="noindex, nofollow, noarchive">
 {% endblock %}
 
 {% block stylesheets %}

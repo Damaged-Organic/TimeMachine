@@ -30,7 +30,7 @@
 {% block content %}
     <main id="content">
         <section class="outer band-holder">
-            <h1 class="entitled-holder">{{ 'band.headline'|trans }}</h1>
+            <h1 class="entitled-holder">{{ metadata.title }}</h1>
             <div class="inner grid" id="lift-holder">
 
                 {% for musician in musicians %}

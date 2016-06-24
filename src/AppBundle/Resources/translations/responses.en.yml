@@ -8,7 +8,10 @@ common:
         photo_album: No photo albums found by selected tag and date... At least, for now
 
 subscribe:
-    success:  "Thank you for your attention! We've sent a letter with confirmation link on specified e-mail."
-    failure:  Unfortunately, something went wrong. Please, make another attempt later.
+    success:  Thank you for your attention! We've sent a letter with a confirmation link to your e-mail
+    failure:  Unfortunately, something went wrong. Please, make another attempt later
     existing: You're already subscribed!
-    pending:  This e-mail awaits for confirmation.
+    pending:  This e-mail awaits for confirmation
+
+    error:
+        title: Subscription error

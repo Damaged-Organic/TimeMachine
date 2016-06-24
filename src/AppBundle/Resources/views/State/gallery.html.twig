@@ -30,7 +30,7 @@
 {% block content %}
     <main id="content">
         <section class="outer gallery-holder">
-            <h1 class="entitled-holder">{{ 'gallery.headline'|trans }}</h1>
+            <h1 class="entitled-holder">{{ metadata.title }}</h1>
             <div class="inner grid" id="lift-holder">
 
                 {% for photoAlbum in photoAlbums %}

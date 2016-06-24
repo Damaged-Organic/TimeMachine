@@ -386,7 +386,10 @@ class ActionController extends Controller implements LiftInterface
         if( !$subscriber || $_subscription->isSubscriberValid($subscriber) )
             throw $this->createNotFoundException();
 
-        $subscriber = $_subscription->activateSubscriber($subscriber, $checkoutHash);
+        if( $request->query->has('confirm') )
+        {
+            $subscriber = $_subscription->activateSubscriber($subscriber, $checkoutHash);
+        }
 
         if( !$subscriber )
             throw $this->createNotFoundException();

@@ -21,6 +21,7 @@
     "glob": "^7.0.0",
     "gulp": "^3.9.1",
     "gulp-imagemin": "^2.4.0",
+    "gulp-mjml": "^1.0.1",
     "imagemin-pngquant": "^4.2.2",
     "jspm": "^0.16.30"
   },
@@ -32,6 +33,7 @@
       "handlebars": "github:components/handlebars.js@^4.0.5",
       "hbs": "github:davis/plugin-hbs@^1.2.1",
       "jquery": "npm:jquery@^2.2.1",
+      "jquery-validation": "github:jzaefferer/jquery-validation@^1.15.0",
       "mediaelement": "npm:mediaelement@^2.21.2",
       "social-likes": "npm:social-likes@^3.1.0"
     },

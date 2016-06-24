@@ -1,23 +1,67 @@
 {# src/AppBundle/Resources/views/Subscription/unsubscribe_checkout.html.twig #}
-<p>
-    {% if subscriber.isActive %}
-        Unsubscribe?
-    {% else %}
-        User "{{ subscriber.email }}" is unsubscribed.
-    {% endif %}
-</p>
-<p>
-    {% if subscriber.isActive %}
+{% extends 'AppBundle::layout.html.twig' %}
 
-        {% set link = path('unsubscribe_checkout', {
-            '_locale':      _locale,
-            'email':        subscriber.email,
-            'checkoutHash': subscriber.outCheckoutHash,
-            'confirm':      true
-        }) %}
+{% block title %}
+    {{ 'subscription.checkout.unsubscribe.title'|trans }} | {{ 'common.title'|trans }}
+{% endblock %}
 
-        <a href="{{ link }}">unsubscribe</a>
-    {% endif %}
+{% block metadata %}
+    {{ parent() }}
+    <meta name="robots" content="noindex, nofollow, noarchive">
+{% endblock %}
 
-    <a href="{{ path('index', { '_locale': _locale }) }}">main</a>
-</p>
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/subscribe.bundle.min.css') }}">
+{% endblock %}
+
+{% block content %}
+    <main id="content">
+        <section class="outer subscribe-holder">
+            <h1 class="entitled-holder">{{ 'subscription.checkout.unsubscribe.title'|trans }}</h1>
+
+            {% if subscriber.isActive %}
+
+                {% set link = path('unsubscribe_checkout', {
+                    '_locale':      _locale,
+                    'email':        subscriber.email,
+                    'checkoutHash': subscriber.outCheckoutHash,
+                    'confirm':      true
+                }) %}
+
+                <p>
+                    {{ 'subscription.checkout.unsubscribe.pre.text'|trans({ '%email%': subscriber.email }) }}
+                </p>
+                <div class="buttons-holder">
+                    <a href="{{ path('index') }}">{{ 'subscription.checkout.unsubscribe.pre.button.yes'|trans }}</a>
+                    <div class="btn btn-small">
+                        <a href="{{ link }}">
+                            <span>{{ 'subscription.checkout.unsubscribe.pre.button.no'|trans }}</span>
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+                <p>
+                    {{ 'subscription.checkout.unsubscribe.post.text'|trans({ '%email%': subscriber.email }) }}
+                </p>
+                <a href="{{ path('index', { '_locale': _locale }) }}">
+                    {{ 'subscription.checkout.unsubscribe.post.button'|trans }}
+                    <span class="arrow"></span>
+                </a>
+            {% endif %}
+
+        </section>
+    </main>
+    <div id="bg-circle-overlay">
+        <div class="circle"></div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+
+    {% include 'AppBundle:Component:footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/subscribe.bundle.min.js') }}"></script>
+{% endblock %}

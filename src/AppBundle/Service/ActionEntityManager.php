@@ -7,7 +7,7 @@ use Twig_Environment;
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\RequestStack,
     Symfony\Component\Routing\Router,
-    Symfony\Component\Translation\Translator;
+    Symfony\Component\Translation\TranslatorInterface;
 
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
@@ -43,7 +43,7 @@ class ActionEntityManager
         $this->_router = $router;
     }
 
-    public function setTranslator(Translator $translator)
+    public function setTranslator(TranslatorInterface $translator)
     {
         $this->_translator = $translator;
     }

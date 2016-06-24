@@ -9,8 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,
     Symfony\Component\HttpFoundation\Request,
-    Symfony\Component\HttpFoundation\Response,
-    Symfony\Component\HttpFoundation\JsonResponse;
+    Symfony\Component\HttpFoundation\Response;
 
 use AppBundle\Controller\Utility\Traits\FormErrorHandlerTrait;
 
@@ -23,7 +22,9 @@ class FormController extends Controller
 
     public function subscriberFormAction($_locale)
     {
-        $subscriberForm = $this->createForm(new SubscriberType, new Subscriber, [
+        $subscriberType = new SubscriberType($this->get('translator'));
+
+        $subscriberForm = $this->createForm($subscriberType, new Subscriber, [
             'action' => "/subscribe",
         ]);
 
@@ -52,17 +53,23 @@ class FormController extends Controller
      */
     public function subscribeAction(Request $request, $_locale)
     {
-        $subscriberForm = $this->createForm(new SubscriberType, ($subscriber = new Subscriber));
+        $subscriberType = new SubscriberType($this->get('translator'));
+
+        $subscriberForm = $this->createForm($subscriberType, ($subscriber = new Subscriber));
 
         $subscriberForm->handleRequest($request);
 
+        $_translator = $this->get('translator');
+
         if( !($subscriberForm->isValid()) ) {
             $response = [
-                'data' => ['message' => $this->stringifyFormErrors($subscriberForm)],
+                'data' => [
+                    'title'   => $_translator->trans("subscribe.error.title", [], 'responses'),
+                    'message' => $this->stringifyFormErrors($subscriberForm),
+                ],
                 'code' => 500,
             ];
         } else {
-            $_translator   = $this->get('translator');
             $_subscription = $this->get('app.subscription');
 
             $caught = FALSE;
@@ -73,7 +80,10 @@ class FormController extends Controller
                 $caught = TRUE;
 
                 $response = [
-                    'data' => ['message' => $_translator->trans($ex->getMessage(), [], 'responses')],
+                    'data' => [
+                        'title'   => $_translator->trans("subscribe.error.title", [], 'responses'),
+                        'message' => $_translator->trans($ex->getMessage(), [], 'responses'),
+                    ],
                     'code' => 500,
                 ];
             }
@@ -103,13 +113,16 @@ class FormController extends Controller
                     ];
                 } else {
                     $response = [
-                        'data' => ['message' => $_translator->trans("subscribe.failure", [], 'responses')],
+                        'data' => [
+                            'title'   => $_translator->trans("subscribe.error.title", [], 'responses'),
+                            'message' => $_translator->trans("subscribe.failure", [], 'responses'),
+                        ],
                         'code' => 500,
                     ];
                 }
             }
         }
 
-        return new JsonResponse($response['data'], $response['code']);
+        return new Response(json_encode($response['data']), $response['code']);
     }
 }

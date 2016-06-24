@@ -1,7 +1,7 @@
 # app/config/common/config_vich.yml
 twig:
     form_themes:
-        - 'VichUploaderBundle:Form:fields.html.twig'
+        - 'ApplicationSonataUserBundle:Form:fields.html.twig'
 
 vich_uploader:
     db_driver: orm

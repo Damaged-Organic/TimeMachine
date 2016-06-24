@@ -15,6 +15,12 @@
         'AppBundle:Component:locale'
     )) }}
 
+    <div class="subscribe-button">
+        <a href="{{ path('subscription') }}">
+            {{ 'common.subscription'|trans }}
+        </a>
+    </div>
+
     {{ render(controller(
         'AppBundle:Component:menu'
     )) }}

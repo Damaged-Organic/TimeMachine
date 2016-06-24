@@ -298,4 +298,30 @@ class StateController extends AppController implements PageInitInterface
 
         return $this->render($response['view'], $response['data']);
     }
+
+    /**
+     * @Method({"GET"})
+     * @Route(
+     *      "/subscription",
+     *      name="subscription",
+     *      host="{_locale}.{domain}",
+     *      defaults={"_locale" = "%locale%", "domain" = "%domain%"},
+     *      requirements={"_locale" = "%locale%|en", "domain" = "%domain%"}
+     * )
+     * @Route(
+     *      "/subscription",
+     *      name="subscription_default",
+     *      host="{domain}",
+     *      defaults={"_locale" = "%locale%", "domain" = "%domain%"},
+     *      requirements={"domain" = "%domain%"}
+     * )
+     */
+    public function subscriptionAction(Request $request)
+    {
+        $response = [
+            'view' => 'AppBundle:State:subscription.html.twig',
+        ];
+
+        return $this->render($response['view']);
+    }
 }

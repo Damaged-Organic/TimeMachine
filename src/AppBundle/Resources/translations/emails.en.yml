@@ -1,20 +1,31 @@
 # src/AppBundle/Resources/translations/emails.en.yml
 common:
-    from: \"Mashina Vremeni\" Rock Band
+    from: "\"Mashina Vremeni\" Rock Band"
+    link: Website
+
+    title: Subscription
+    text: >
+        You have received this message because you've subscribed to
+        "Mashina Vremeni" Rock Band updates
+
     body:
         date: Message sent at
 
 subscribe:
-    confirmation: \"Mashina Vremeni\" Rock Band subscription confirmation
+    subject: "\"Mashina Vremeni\" Rock Band subscription confirmation"
 
     body:
-        headline: "You've subscribed to \"Mashina Vremeni\" Rock Band news!"
-        follow:   Please, follow this link to confirm your subscription:
-        link:     Confirm
+        title: Subscription confirmation
+        text: >
+            You've subscribed to "Mashina Vremeni" Rock Band news!
+            Please, follow this link to confirm your subscription:
+        link: Confirm
 
 subscription:
-    subject: \"Mashina Vremeni\" Rock Band news
+    subject: "\"Mashina Vremeni\" Rock Band news"
 
     message:
-        article: "\"Mashina Vremeni\" Rock Band has published a new blog post!"
-        concert: "\"Mashina Vremeni\" Rock Band has announced a new event!"
+        article:     New blog post
+        concert:     New event announcement
+        link:        Read
+        unsubscribe: Unsubscribe from notifications

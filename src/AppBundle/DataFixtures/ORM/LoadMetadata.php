@@ -107,6 +107,22 @@ class LoadMetadata extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
 
         // ---
+
+        $metadata = (new Metadata)
+            ->setRoute("subscription")
+            ->setRobots("index, follow")
+            ->setTitle("Подписка")
+            ->setDescription("");
+        $manager->persist($metadata);
+        $manager->flush();
+
+        $metadata->setTitle("Subscription")
+            ->setDescription("")
+            ->setTranslatableLocale('en');
+        $manager->persist($metadata);
+        $manager->flush();
+
+        // ---
     }
 
     public function getOrder()
