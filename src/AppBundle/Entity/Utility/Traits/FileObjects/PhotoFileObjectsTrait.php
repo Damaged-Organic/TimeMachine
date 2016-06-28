@@ -4,7 +4,8 @@ namespace AppBundle\Entity\Utility\Traits\FileObjects;
 
 use DateTime;
 
-use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\File,
+    Symfony\Component\Validator\Constraints as Assert;
 
 trait PhotoFileObjectsTrait
 {
@@ -36,6 +37,8 @@ trait PhotoFileObjectsTrait
 
         if( $photoFile instanceof File )
             $this->updatedAt = new DateTime;
+
+        return $this;
     }
 
     public function getPhotoFile()

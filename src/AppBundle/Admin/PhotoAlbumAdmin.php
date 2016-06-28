@@ -9,6 +9,8 @@ use Sonata\AdminBundle\Admin\Admin,
     Sonata\AdminBundle\Datagrid\DatagridMapper,
     Sonata\AdminBundle\Form\FormMapper;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 use AppBundle\Admin\Utility\Traits\BandYearsRangeTrait,
     AppBundle\Entity\Tag,
     AppBundle\Entity\PhotoAlbum;
@@ -112,12 +114,25 @@ class PhotoAlbumAdmin extends Admin
                 ->end()
             ->end()
             ->tab('Список фотографий')
+                ->with('Фотоальбом - массовая загрузка')
+                    ->add('photos_batch', 'file', [
+                        'label'        => 'Выберите фотографии, которые вы хотели бы загрузить:',
+                        'mapped'       => FALSE,
+                        'required'     => FALSE,
+                        'multiple'     => TRUE,
+                        'by_reference' => FALSE,
+                        'attr'         => [
+                            'style' => 'padding: 15px 0 0 15px; height: 55px;',
+                        ],
+                        'help' => 'Можно выбрать несколько фотографий одновременно, и они будут добавлены к текущему списку!',
+                    ])
+                ->end()
                 ->with('Фотоальбом - фотографии')
                     ->add('photos', 'sonata_type_collection', [
                         'label'        => FALSE,
                         'by_reference' => FALSE,
                         'required'     => TRUE,
-                        'btn_add'      => 'Добавить фотографию'
+                        'btn_add'      => 'Добавить фотографию',
                     ], [
                         'edit'     => 'inline',
                         'inline'   => 'table',

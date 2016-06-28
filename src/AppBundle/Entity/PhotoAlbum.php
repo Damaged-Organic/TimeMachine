@@ -4,7 +4,8 @@ namespace AppBundle\Entity;
 
 use DateTime, IntlDateFormatter;
 
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Request,
+    Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM,
     Doctrine\Common\Collections\ArrayCollection;
@@ -43,6 +44,7 @@ class PhotoAlbum implements Translatable
     /**
      * @ORM\OneToMany(targetEntity="Photo", mappedBy="photoAlbum", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"position" = "ASC"})
+     * @Assert\Valid()
      */
     protected $photos;
 

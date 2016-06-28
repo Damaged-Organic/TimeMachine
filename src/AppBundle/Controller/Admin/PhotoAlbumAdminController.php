@@ -2,10 +2,15 @@
 // src/AppBundle/Controller/Admin/PhotoAlbumAdminController.php
 namespace AppBundle\Controller\Admin;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use DateTime;
+
+use Symfony\Component\HttpFoundation\RedirectResponse,
+    Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use Sonata\AdminBundle\Controller\CRUDController as Controller,
     Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
+
+use AppBundle\Entity\Photo;
 
 class PhotoAlbumAdminController extends Controller
 {
@@ -32,9 +37,10 @@ class PhotoAlbumAdminController extends Controller
             $isFormValid = $form->isValid();
 
             // Restrict photo album without photos
-            $photos = $object->getPhotos();
+            $photos      = $object->getPhotos();
+            $photosBatch = $form->get('photos_batch')->getData();
 
-            if( count($photos) == 0 ) {
+            if( count($photos) == 0 && count($photosBatch) == 0 ) {
                 $this->addFlash(
                     'sonata_flash_error',
                     'В фотоальбоме должна быть хотя бы одна фотография!'
@@ -49,6 +55,8 @@ class PhotoAlbumAdminController extends Controller
                     }
 
                     try {
+                        $this->handlePhotosBatchUpload($photosBatch, $object);
+
                         $object = $this->admin->create($object);
 
                         if ($this->isXmlHttpRequest()) {
@@ -136,9 +144,10 @@ class PhotoAlbumAdminController extends Controller
             $isFormValid = $form->isValid();
 
             // Restrict photo album without photos
-            $photos = $object->getPhotos();
+            $photos      = $object->getPhotos();
+            $photosBatch = $form->get('photos_batch')->getData();
 
-            if( count($photos) == 0 ) {
+            if( count($photos) == 0 && count($photosBatch) == 0 ) {
                 $this->addFlash(
                     'sonata_flash_error',
                     'В фотоальбоме должна быть хотя бы одна фотография!'
@@ -149,6 +158,8 @@ class PhotoAlbumAdminController extends Controller
                 // persist if the form was valid and if in preview mode the preview was approved
                 if ($isFormValid && (!$this->isInPreviewMode() || $this->isPreviewApproved())) {
                     try {
+                        $this->handlePhotosBatchUpload($photosBatch, $object);
+
                         $object = $this->admin->update($object);
 
                         if ($this->isXmlHttpRequest()) {
@@ -206,5 +217,27 @@ class PhotoAlbumAdminController extends Controller
             'form'   => $view,
             'object' => $object,
         ));
+    }
+
+    private function handlePhotosBatchUpload($photosBatch, $object)
+    {
+        foreach($photosBatch as $file)
+        {
+            if( $file === NULL || !($file instanceof UploadedFile) )
+                continue;
+
+            $photo = (new Photo)
+                ->setPhotoFile($file)
+                ->setPhotoAlbum($object)
+                ->setDateTaken(new DateTime)
+            ;
+
+            $errors = $this->get('validator')->validate($photo);
+
+            if( count($errors) > 0 )
+                continue;
+
+            $this->getDoctrine()->getManager()->persist($photo);
+        }
     }
 }
