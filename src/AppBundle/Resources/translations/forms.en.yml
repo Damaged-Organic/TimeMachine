@@ -1,7 +1,22 @@
 # src/AppBundle/Resources/translations/forms.en.yml
+feedback:
+    name:
+        placeholder: Type your name
+
+    email:
+        placeholder: Type your e-mail
+
+    subject:
+        placeholder: Specify subject
+
+    message:
+        placeholder: Leave message here
+
+    submit:
+        label: Send
+
 subscriber:
     email:
-        label:       Your e-mail
         placeholder: Provide an e-mail for subscription
 
     submit:

@@ -7,6 +7,13 @@ common:
     empty:
         photo_album: No photo albums found by selected tag and date... At least, for now
 
+feedback:
+    success: Thank you for your letter! Мы прочтем его в ближайшее время
+    failure: Unfortunately, something went wrong. Please, make another attempt later
+
+    error:
+        title: Feedback error
+
 subscribe:
     success:  Thank you for your attention! We've sent a letter with a confirmation link to your e-mail
     failure:  Unfortunately, something went wrong. Please, make another attempt later

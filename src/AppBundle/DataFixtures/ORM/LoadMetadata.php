@@ -109,6 +109,22 @@ class LoadMetadata extends AbstractFixture implements OrderedFixtureInterface
         // ---
 
         $metadata = (new Metadata)
+            ->setRoute("contacts")
+            ->setRobots("index, follow")
+            ->setTitle("Контакты")
+            ->setDescription("");
+        $manager->persist($metadata);
+        $manager->flush();
+
+        $metadata->setTitle("Contacts")
+            ->setDescription("")
+            ->setTranslatableLocale('en');
+        $manager->persist($metadata);
+        $manager->flush();
+
+        // ---
+
+        $metadata = (new Metadata)
             ->setRoute("subscription")
             ->setRobots("index, follow")
             ->setTitle("Подписка")
@@ -121,8 +137,6 @@ class LoadMetadata extends AbstractFixture implements OrderedFixtureInterface
             ->setTranslatableLocale('en');
         $manager->persist($metadata);
         $manager->flush();
-
-        // ---
     }
 
     public function getOrder()

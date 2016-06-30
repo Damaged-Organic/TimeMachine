@@ -1,4 +1,25 @@
 # src/AppBundle/Resources/translations/validators.en.yml
+feedback:
+    name:
+        not_blank: Please, name yourself
+        length:
+            min: This name is too short. Maybe you've made a mistake?
+            max: This name is too long. Maybe you've made a mistake?
+
+    email:
+        not_blank: You've forgotten to specify an e-mail
+        valid:     Please, provide a valid email address
+
+    subject:
+        length_min: Please, be more specific on your subject, or just leave the field blank
+        length_max: Subject is too long. Please, shorten it to at least 200 symbols
+
+    message:
+        not_blank:  Please, enter your message
+        length:
+            min: Message is too short
+            max: Message is too long. Please, shorten it to at least 1500 symbols
+
 subscriber:
     email:
         not_blank: You've forgotten to specify an e-mail

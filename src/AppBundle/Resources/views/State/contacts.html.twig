@@ -1,0 +1,64 @@
+{# src/AppBundle/Resources/views/State/contacts.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ metadata.title }} | {{ 'common.title'|trans }}
+{% endblock %}
+
+{% block metadata %}
+    {{ parent() }}
+    <meta name="description" content="{{ metadata.description }}">
+    <meta name="robots" content="{{ metadata.robots }}">
+    {# Open Graph #}
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="{{ url('contacts') }}">
+    <meta property="og:title" content="{{ metadata.title }} - {{ 'common.title'|trans }}">
+	<meta property="og:description" content="{{ metadata.description }}">
+    <meta property="og:image" content="{{ absolute_url(asset('bundles/app/images/logo.png')) }}">
+    <meta property="og:image:type" content="image/png">
+    {# Locale reference #}
+    <link rel="canonical" href="{{ url('contacts', { '_locale': "ru" }) }}">
+    <link rel="alternate" href="{{ url('contacts', { '_locale': "ru" }) }}" hreflang="x-default">
+    <link rel="alternate" href="{{ url('contacts', { '_locale': "ru" }) }}" hreflang="ru-ru">
+    <link rel="alternate" href="{{ url('contacts', { '_locale': "en" }) }}" hreflang="en-us">
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/contacts.bundle.min.css') }}">
+{% endblock %}
+
+{% block content %}
+    <main id="content">
+        <section class="outer contacts-holder">
+            <h1 class="entitled-holder">{{ metadata.title }}</h1>
+            <p>{{ 'contacts.text'|trans }}</p>
+            <div class="inner">
+
+                {{ render(controller(
+                    'AppBundle:Form:feedbackForm'
+                )) }}
+
+            </div>
+        </section>
+    </main>
+    <div id="bg-circle-overlay">
+        <div class="circle"></div>
+    </div>
+    <div id="ajax-response-holder"></div>
+    <div id="ajax-loader">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+{% endblock %}
+
+{% block footer %}
+
+    {% include 'AppBundle:Component:footer.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/contacts.bundle.min.js') }}"></script>
+{% endblock %}

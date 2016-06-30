@@ -87,6 +87,19 @@ class LoadMenu extends AbstractFixture implements OrderedFixtureInterface
             ->setTranslatableLocale('en');
         $manager->persist($menuItem);
         $manager->flush();
+
+        // ---
+
+        $menuItem = (new Menu)
+            ->setTitle("Контакты")
+            ->setRoute("contacts");
+        $manager->persist($menuItem);
+        $manager->flush();
+
+        $menuItem->setTitle("Contacts")
+            ->setTranslatableLocale('en');
+        $manager->persist($menuItem);
+        $manager->flush();
     }
 
     public function getOrder()

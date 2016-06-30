@@ -9,7 +9,14 @@ common:
         "Mashina Vremeni" Rock Band updates
 
     body:
-        date: Message sent at
+        date: Message was sent at
+
+feedback:
+    subject: New letter from website's user!
+
+    body:
+        no_subject:   no subject
+        sent_message: sent a new feedback message
 
 subscribe:
     subject: "\"Mashina Vremeni\" Rock Band subscription confirmation"

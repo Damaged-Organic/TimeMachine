@@ -21,7 +21,6 @@ class SubscriberType extends AbstractType
         $builder
             ->add("email", 'email', [
                 'required' => FALSE,
-                'label'    => "subscriber.email.label",
                 'attr'     => [
                     'placeholder'        => "subscriber.email.placeholder",
                     'data-rule-required' => "true",

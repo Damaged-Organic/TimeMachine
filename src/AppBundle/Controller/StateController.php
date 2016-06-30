@@ -302,6 +302,32 @@ class StateController extends AppController implements PageInitInterface
     /**
      * @Method({"GET"})
      * @Route(
+     *      "/contacts",
+     *      name="contacts",
+     *      host="{_locale}.{domain}",
+     *      defaults={"_locale" = "%locale%", "domain" = "%domain%"},
+     *      requirements={"_locale" = "%locale%|en", "domain" = "%domain%"}
+     * )
+     * @Route(
+     *      "/contacts",
+     *      name="contacts_default",
+     *      host="{domain}",
+     *      defaults={"_locale" = "%locale%", "domain" = "%domain%"},
+     *      requirements={"domain" = "%domain%"}
+     * )
+     */
+    public function contactsAction(Request $request)
+    {
+        $response = [
+            'view' => 'AppBundle:State:contacts.html.twig',
+        ];
+
+        return $this->render($response['view']);
+    }
+
+    /**
+     * @Method({"GET"})
+     * @Route(
      *      "/subscription",
      *      name="subscription",
      *      host="{_locale}.{domain}",

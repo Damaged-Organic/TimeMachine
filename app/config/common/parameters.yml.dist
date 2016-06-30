@@ -19,6 +19,7 @@ parameters:
     # Emails
     emails:
         no_reply: no-reply@time-machine.ru
+        feedback: feedback@time-machine.ru
     # Social
     social:
         facebook: https://www.facebook.com/mashinavremeni1969

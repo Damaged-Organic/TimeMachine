@@ -95,6 +95,12 @@ gallery:
         amount: '{0} нет фотографий | %count% фотография | %count% фотографии | %count% фотографий'
         view:   смотреть
 
+contacts:
+    text: >
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui, facilis
+        repellat accusamus! Odio veritatis, voluptate voluptates aut eveniet
+        quae a saepe pariatur fugiat, incidunt officiis adipisci cumque quas illum harum.
+
 subscription:
     text: >
         Чтобы всегда быть в курсе последний событий и запланированных мероприятий группы "Машина Времени",

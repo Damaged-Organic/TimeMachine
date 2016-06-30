@@ -1,0 +1,31 @@
+{# src/AppBundle/Resources/views/Form/feedbackForm.html.twig #}
+<form action="{{ path('feedback', { '_locale': _locale }) }}" method="POST" {{ form_enctype(feedbackForm) }} id="feedback-form">
+    <div class="success-holder"></div>
+
+    <div class="field-holder">
+
+        {{ form_widget(feedbackForm.name, { required: false }) }}
+
+    </div>
+    <div class="field-holder">
+
+        {{ form_widget(feedbackForm.email, { required: false }) }}
+
+    </div>
+    <div class="field-holder">
+
+        {{ form_widget(feedbackForm.subject) }}
+
+    </div>
+    <div class="field-holder">
+
+        {{ form_widget(feedbackForm.message, { required: false }) }}
+
+    </div>
+
+    {{ form_widget(feedbackForm._token) }}
+
+    <button type="submit">
+        <span>{{ 'feedback.submit.label'|trans({}, "forms") }}</span>
+    </button>
+</form>

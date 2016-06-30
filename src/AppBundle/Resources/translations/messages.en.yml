@@ -95,6 +95,12 @@ gallery:
         amount: '{0} no photos | {1} %count% photo | [2,Inf] %count% photos'
         view:   view
 
+contacts:
+    text: >
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui, facilis
+        repellat accusamus! Odio veritatis, voluptate voluptates aut eveniet
+        quae a saepe pariatur fugiat, incidunt officiis adipisci cumque quas illum harum.
+
 subscription:
     text: >
         You can subscribe to "Mashina Vremeni" band recent news and upcoming events announcements

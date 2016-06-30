@@ -1,7 +1,22 @@
 # src/AppBundle/Resources/translations/forms.ru.yml
+feedback:
+    name:
+        placeholder: Введите ваше имя
+
+    email:
+        placeholder: Введите ваш электронный адрес
+
+    subject:
+        placeholder: Укажите тему сообщения
+
+    message:
+        placeholder: Оставьте сообщение здесь
+
+    submit:
+        label: Отправить
+
 subscriber:
     email:
-        label:       Ваш e-mail
         placeholder: Укажите e-mail для подписки
 
     submit:
