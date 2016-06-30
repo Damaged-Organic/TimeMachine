@@ -2,6 +2,8 @@
 // src/AppBundle/Entity/Repository/ConcertRepository.php
 namespace AppBundle\Entity\Repository;
 
+use DateTime;
+
 use Doctrine\ORM\Query;
 
 use AppBundle\Entity\Utility\Extended\ExtendedEntityRepository,
@@ -12,10 +14,16 @@ class ConcertRepository extends ExtendedEntityRepository implements ActionParame
 {
     public function findNewest($requestParameters = NULL)
     {
+        $currentDateTime = new DateTime;
+
         $query = $this->createQueryBuilder('c')
             ->select('c')
-            ->where('c.isActive = :isActive')
-            ->setParameter(':isActive', TRUE)
+            ->where('c.doorsOpenAt >= :doorsOpenAt')
+            ->andWhere('c.isActive = :isActive')
+            ->setParameters([
+                ':doorsOpenAt' => $currentDateTime,
+                ':isActive'    => TRUE,
+            ])
             ->setMaxResults(Concert::LIFT_ITEMS)
         ;
 
@@ -23,7 +31,7 @@ class ConcertRepository extends ExtendedEntityRepository implements ActionParame
             $query->setFirstResult($requestParameters[self::PARAMETER_LIFT]);
 
         $query = $query
-            ->orderBy('c.doorsOpenAt', 'DESC')
+            ->orderBy('c.doorsOpenAt', 'ASC')
             ->getQuery()
         ;
 

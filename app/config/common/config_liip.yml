@@ -42,12 +42,11 @@ liip_imagine:
         photo_thumb:
             quality: 100
             filters:
-                relative_resize: { widen: 300 }
+                relative_resize: { widen: 500 }
 
         photo_watermark:
             quality: 100
             filters:
                 watermark:
                     image:    ../www/bundles/app/images/logo-wm.png
-                    #size:     1
                     position: bottomleft

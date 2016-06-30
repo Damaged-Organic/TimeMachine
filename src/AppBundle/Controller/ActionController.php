@@ -164,7 +164,7 @@ class ActionController extends Controller implements LiftInterface
         $_manager = $this->getDoctrine()->getManager();
 
         $musicians = $_manager->getRepository('AppBundle:Musician')
-            ->findOldest($requestParameters)
+            ->findSorted($requestParameters)
         ;
 
         if( !$musicians ) {
@@ -281,20 +281,25 @@ class ActionController extends Controller implements LiftInterface
             ->findNewest($requestParameters)
         ;
 
+        $photoAlbumsTotal = $_manager->getRepository('AppBundle:PhotoAlbum')
+            ->countAllByParameters($requestParameters)
+        ;
+
         $_actionEntityManager = $this->get('app.action_entity_manager');
 
-        if( !$photoAlbums ) {
+        if( !$photoAlbumsTotal ) {
             $message = $_actionEntityManager->emptyPhotoAlbums();
 
             $response = [
                 'data' => $_actionHandler->composeEmptyGalleryResponseData($message),
                 'code' => 200,
             ];
+        } elseif( !$photoAlbums ) {
+            $response = [
+                'data' => $_actionHandler->composeGalleryResponseData($requestParameters, NULL, NULL),
+                'code' => 200,
+            ];
         } else {
-            $photoAlbumsTotal = $_manager->getRepository('AppBundle:PhotoAlbum')
-                ->countAllByParameters($requestParameters)
-            ;
-
             $photoAlbums = $_actionEntityManager->flattenPhotoAlbums($photoAlbums);
 
             $response = [

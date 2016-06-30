@@ -10,7 +10,7 @@ common:
         text:  just rotate screen back
 
 error:
-    back: back to the site
+    back: homepage
 
     403:
         title:     Access forbidden
@@ -58,7 +58,7 @@ index:
 
     musician:
         read_more: read more
-        back_band: back to band
+        back_band: back to homepage
 
 affiche:
     tickets:
@@ -116,7 +116,7 @@ subscription:
                     Congratulations! We've added '%email%' to our mailing list.
                     As of now you will regularly receive band's latest updates.
 
-                button: Home
+                button: homepage
 
         unsubscribe:
             title: Unsubscribe
@@ -135,4 +135,4 @@ subscription:
                     E-mail '%email%' was removed from our mailing list.
                     You won't receive band's updates anymore
 
-                button: Home
+                button: homepage

@@ -15,12 +15,18 @@ parameters:
     # Specific
     domain: time-machine.ru
     locale: ru
+    locales: [ru, en]
     # Emails
     emails:
         no_reply: no-reply@time-machine.ru
+    # Social
+    social:
+        facebook: https://www.facebook.com/mashinavremeni1969
+        twitter:  https://twitter.com/mashina_vremeni
+        youtube:  https://www.youtube.com/user/mashinavremeniru
     # Developers
-    developers_agency:
-        name: CHEERS! Unlimited
+    developers:
+        name: CHEERS - Unlimited Web Production
         link: http://cheersunlimited.com.ua
     # Token
     secret: ThisTokenIsNotSoSecretChangeIt

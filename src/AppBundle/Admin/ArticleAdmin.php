@@ -123,12 +123,20 @@ class ArticleAdmin extends Admin
         }
     }
 
-    public function getFormTheme()
+    public function prePersist($article)
     {
-        return array_merge(
-            parent::getFormTheme(),
-            array('ApplicationSonataUserBundle:Admin/Form:form_admin_fields.html.twig')
-        );
+        if( !($article instanceof Article) )
+            return;
+
+        $this->stripDangerousTags($article);
+    }
+
+    public function preUpdate($article)
+    {
+        if( !($article instanceof Article) )
+            return;
+
+        $this->stripDangerousTags($article);
     }
 
     public function postPersist($article)
@@ -156,6 +164,16 @@ class ArticleAdmin extends Admin
         if( $this->getForm()->get('sendSubscription')->getData() &&
             !$article->getIsSubscriptionSent() ) {
             $this->sendSubscriptionMessage($article);
+        }
+    }
+
+    private function stripDangerousTags(Article $article)
+    {
+        foreach( $article->getArticleBlocks() as $articleBlock )
+        {
+            $articleBlock->setText(
+                strip_tags($articleBlock->getText(), '<p><strong><em><u><a>')
+            );
         }
     }
 
@@ -190,5 +208,13 @@ class ArticleAdmin extends Admin
             $article->setIsSubscriptionSent(TRUE)
         );
         $_manager->flush();
+    }
+
+    public function getFormTheme()
+    {
+        return array_merge(
+            parent::getFormTheme(),
+            array('ApplicationSonataUserBundle:Admin/Form:form_admin_fields.html.twig')
+        );
     }
 }

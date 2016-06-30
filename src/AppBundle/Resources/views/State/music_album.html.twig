@@ -41,11 +41,11 @@
                     <ul class="buy-holder">
 
                         {% if album.iTunesLink %}
-                            <li><a href="{{ album.iTunesLink }}">iTunes</a></li>
+                            <li><a href="{{ album.iTunesLink }}" target="_blank">iTunes</a></li>
                         {% endif %}
 
                         {% if album.googlePlayLink %}
-                            <li><a href="{{ album.googlePlayLink }}">Google Play</a></li>
+                            <li><a href="{{ album.googlePlayLink }}" target="_blank">Google Play</a></li>
                         {% endif %}
 
                     </ul>
@@ -71,6 +71,7 @@
 
                         </ul>
                     </div>
+
                     <div class="song-text-holder">
                         <span class="close-text">{{ 'music.song.back'|trans }}</span>
                         <div class="btn btn-small show-notes touchable">

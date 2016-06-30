@@ -53,14 +53,16 @@
                             <span class="underline"></span>
                             <h2>{{ concert.title }}</h2>
                             <p>{{ concert.description }}</p>
+
                             {% if concert.ticketsLink %}
-                                <a href="{{ concert.ticketsLink }}">
+                                <a href="{{ concert.ticketsLink }}" target="_blank">
                                     {{ 'affiche.tickets.available'|trans }}
                                     <span class="arrow"></span>
                                 </a>
                             {% else %}
                                 {{ 'affiche.tickets.not_available'|trans }}
                             {% endif %}
+
                         </div>
                     </article>
                 {% endfor %}

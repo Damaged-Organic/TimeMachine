@@ -36,10 +36,10 @@ class PhotoAlbum implements Translatable
     protected $translations;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tag", inversedBy="photoAlbums")
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="photoAlbums")
      * @ORM\JoinColumn(name="tag_id", referencedColumnName="id", onDelete="cascade")
      */
-    protected $tag;
+    protected $tags;
 
     /**
      * @ORM\OneToMany(targetEntity="Photo", mappedBy="photoAlbum", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -184,26 +184,36 @@ class PhotoAlbum implements Translatable
     }
 
     /**
-     * Set tag
+     * Add tag
      *
      * @param \AppBundle\Entity\Tag $tag
      * @return PhotoAlbum
      */
-    public function setTag(\AppBundle\Entity\Tag $tag = null)
+    public function addTag(\AppBundle\Entity\Tag $tag)
     {
-        $this->tag = $tag;
+        $this->tags[] = $tag;
 
         return $this;
     }
 
     /**
+     * Remove tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
      * Get tag
      *
-     * @return \AppBundle\Entity\Tag
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getTag()
+    public function getTags()
     {
-        return $this->tag;
+        return $this->tags;
     }
 
     /**

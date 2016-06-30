@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use DateTime, IntlDateFormatter;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 use Doctrine\ORM\Mapping as ORM,
     Doctrine\Common\Collections\ArrayCollection;
 
@@ -33,6 +35,7 @@ class Article implements Translatable
 
     /**
      * @ORM\OneToMany(targetEntity="ArticleBlock", mappedBy="article", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     protected $articleBlocks;
 

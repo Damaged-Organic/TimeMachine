@@ -32,9 +32,6 @@ class PhotoAlbumAdmin extends Admin
                 'label'    => "Дата съемки",
                 'dateType' => IntlDateFormatter::LONG,
             ])
-            ->add('getTagOrDefault', NULL, [
-                'label' => "Тэг",
-            ])
             ->add('getPhotosNumber', 'number', [
                 'label' => "Количество фотографий",
             ])
@@ -104,12 +101,13 @@ class PhotoAlbumAdmin extends Admin
                         'label'    => "Отображается",
                     ])
                 ->end()
-                ->with('Фотоальбом - Тэг')
-                    ->add('tag', 'entity', [
-                        'required'    => FALSE,
-                        'label'       => FALSE,
-                        'class'       => 'AppBundle\Entity\Tag',
-                        'placeholder' => Tag::getDefaultTag(),
+                ->with('Фотоальбом - Тэги')
+                    ->add('tags', 'sonata_type_model', [
+                        'required'     => FALSE,
+                        'label'        => 'Дополнительные тэги',
+                        'by_reference' => FALSE,
+                        'multiple'     => TRUE,
+                        'help'         => 'Персонифицированные тэги для фотоальбома',
                     ])
                 ->end()
             ->end()

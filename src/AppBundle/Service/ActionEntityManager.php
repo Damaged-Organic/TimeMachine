@@ -183,11 +183,10 @@ class ActionEntityManager
 
             $majorArticleBlock = $article->getArticleBlocks()[0];
 
-            $photo       = $this->getUploadedImage($majorArticleBlock, 'imageFile', 'blog_image_thumb');
-            $description = $this->truncateDescription($majorArticleBlock->getText(), 250);
-            $viewCount   = $this->translateCount($article->getViews(), 'blog.article.views');
-            $linkTitle   = $this->translate('blog.article.read_more');
-            $link        = $this->getLink($article, 'blog');
+            $photo     = $this->getUploadedImage($majorArticleBlock, 'imageFile', 'blog_image_thumb');
+            $viewCount = $this->translateCount($article->getViews(), 'blog.article.views');
+            $linkTitle = $this->translate('blog.article.read_more');
+            $link      = $this->getLink($article, 'blog');
 
             $output[] = [
                 'photo'       => $photo,
@@ -196,7 +195,7 @@ class ActionEntityManager
                 'year'        => $article->getCreatedAt()->format('Y'),
                 'humanDate'   => $article->getHumanDate(),
                 'title'       => $article->getTitle($this->getLocale()),
-                'description' => $description,
+                'description' => $majorArticleBlock->getTextShort(250),
                 'viewCount'   => $viewCount,
                 'linkTitle'   => $linkTitle,
                 'link'        => $link,

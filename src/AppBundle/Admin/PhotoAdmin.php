@@ -61,9 +61,6 @@ class PhotoAdmin extends Admin
                 'label'    => "Дата съемки",
                 'dateType' => IntlDateFormatter::LONG,
             ])
-            ->add('tag', 'entity', [
-                'label' => "Тэг",
-            ])
             ->add('_action', 'actions', [
                 'actions' => [
                     'move' => [
@@ -94,7 +91,7 @@ class PhotoAdmin extends Admin
 
         // Sonata mega-kludge to get parent value from embeded admin for new child entities
         if( $this->getSubject() ) {
-            $tag       = ( $photo->getTag() ) ?: NULL;
+            $tags      = ( count($photo->getTags()) > 0 ) ? $photo->getTags() : NULL;
             $dateTaken = $this->getSubject()->getDateTaken();
 
             $session = $this->getRequest()->getSession();
@@ -102,10 +99,10 @@ class PhotoAdmin extends Admin
             if( !$dateTaken )
                 $dateTaken = $session->get('photo_admin_date_taken');
 
-            if( !$tag )
-                $tag = $session->get('photo_admin_tag');
+            if( !$tags )
+                $tags = $session->get('photo_admin_tags');
         } else {
-            $tag       = $this->getParentFieldDescription()->getAdmin()->getSubject()->getTag();
+            $tags      = $this->getParentFieldDescription()->getAdmin()->getSubject()->getTags();
             $dateTaken = $this->getParentFieldDescription()->getAdmin()->getSubject()->getDateTaken();
 
             $session = $this->getRequest()->getSession();
@@ -116,16 +113,11 @@ class PhotoAdmin extends Admin
                 $dateTaken = $session->get('photo_admin_date_taken');
             }
 
-            if( $tag ) {
-                $session->set('photo_admin_tag', $tag);
+            if( count($tags) > 0 ) {
+                $session->set('photo_admin_tags', $tags);
             } else {
-                $tag = $session->get('photo_admin_tag');
+                $tags = $session->get('photo_admin_tags');
             }
-        }
-
-        if( $tag ) {
-            // Entity from session becomes detached, so merging it back to avoid exception
-            $tag = $this->getConfigurationPool()->getContainer()->get('doctrine.orm.entity_manager')->merge($tag);
         }
 
         $formMapper
@@ -198,12 +190,13 @@ class PhotoAdmin extends Admin
                 'dp_default_date' => $dateTaken,
                 'data'            => $dateTaken,
             ])
-            ->add('tag', 'entity', [
-                'required'    => FALSE,
-                'label'       => "Тэг",
-                'class'       => 'AppBundle\Entity\Tag',
-                'placeholder' => Tag::getDefaultTag(),
-                'data'        => $tag,
+            ->add('tags', 'sonata_type_model', [
+                'required'     => FALSE,
+                'label'        => 'Дополнительные тэги',
+                'by_reference' => FALSE,
+                'multiple'     => TRUE,
+                'help'         => 'Персонифицированные тэги для фотоальбома',
+                'data'         => $tags,
             ])
         ;
     }

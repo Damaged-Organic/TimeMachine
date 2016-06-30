@@ -40,10 +40,10 @@ class Photo implements Translatable, PhotoConstantsInterface
     protected $translations;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tag", inversedBy="photos")
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="photos")
      * @ORM\JoinColumn(name="tag_id", referencedColumnName="id", onDelete="cascade")
      */
-    protected $tag;
+    protected $tags;
 
     /**
      * @Gedmo\SortableGroup
@@ -155,26 +155,36 @@ class Photo implements Translatable, PhotoConstantsInterface
     }
 
     /**
-     * Set tag
+     * Add tag
      *
      * @param \AppBundle\Entity\Tag $tag
      * @return Photo
      */
-    public function setTag(\AppBundle\Entity\Tag $tag = null)
+    public function addTag(\AppBundle\Entity\Tag $tag)
     {
-        $this->tag = $tag;
+        $this->tags[] = $tag;
 
         return $this;
     }
 
     /**
+     * Remove tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
      * Get tag
      *
-     * @return \AppBundle\Entity\Tag
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getTag()
+    public function getTags()
     {
-        return $this->tag;
+        return $this->tags;
     }
 
     /**

@@ -2,9 +2,13 @@
 ivory_ck_editor:
     default_config: standard_config
     configs:
-        base_config:
+        minimal_config:
             language: '%locale%'
             toolbar:  [ ['Bold','Italic','Underline'], ['Cut','Copy','Paste','-','Undo','Redo'], ['Maximize'] ]
+
+        base_config:
+            language: '%locale%'
+            toolbar:  [ ['Bold','Italic','Underline'], ['Link','Unlink'], ['Cut','Copy','Paste','-','Undo','Redo'], ['Maximize'] ]
 
         standard_config:
             language: '%locale%'

@@ -56,7 +56,7 @@
                             </span>
                             <span class="underline"></span>
                             <h2>{{ article.title }}</h2>
-                            <p>{{ article.articleBlocks.0.text|truncate(250) }}</p>
+                            <p>{{ article.articleBlocks.0.getTextShort(250) }}</p>
                             <a href="{{ path('blog', { 'id': article.id, 'slug': article.slug }) }}">
                                 {{ 'blog.article.read_more'|trans }}
                                 <span class="arrow"></span>

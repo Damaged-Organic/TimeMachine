@@ -166,7 +166,7 @@
                 }
                 a{
                     display: block;
-                    width: 160px;
+                    width: 180px;
                     height: 20px;
                     position: relative;
                     z-index: 10;
@@ -389,55 +389,19 @@
 }
 
 @media only screen and @mobileM{
+    
+    #toggle-menu{
+        top: 40px;
+        right: 40px;
+        &.active{
+            top: 40px;
+        }
+    }
 
     #menu-holder{
         .lang{
             top: 0;
-            left: 0; 
-        }
-        .menu{
-            .entitled{
-                font-size: 1em;
-                padding-left: 40px;
-                &:before{ width: 40px; }
-            }
-            & > nav{
-                margin: 40px 0 0;
-                li{
-                    width: 240px;
-                    padding-left: 80px;
-                }
-            }
-        }
-        .social-holder{
-            height: auto;
-            bottom: 40px;
-            padding-left: 40px;
-            li{
-                display: block;
-                width: 100%;
-                line-height: 20px;
-                a{
-                    display: block;
-                    width: 100%;
-                    margin-right: 0;
-                    &:before{
-                        width: 20px;
-                    }
-                }
-            }
-        }
-    }
-
-}
-
-@media only screen and @mobileS{
-    
-    #toggle-menu{
-        top: 20px;
-        right: 20px;
-        &.active{
-            top: 20px;
+            left: 0;
         }
     }
 
@@ -483,6 +447,18 @@
                     }
                 }
             }
+        }
+    }
+
+}
+
+@media only screen and @mobileS{
+
+    #toggle-menu{
+        top: 20px;
+        right: 20px;
+        &.active{
+            top: 20px;
         }
     }
 

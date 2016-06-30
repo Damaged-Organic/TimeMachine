@@ -54,11 +54,13 @@
                                 {{ article.createdAt|date('Y') }}
                             </time>
                             <span class="sub-title">
+
                                 {% if _locale == 'ru' %}
                                     {{ article.createdAt|localizeddate('long', 'none', null, null, 'dd MMMM') }}
                                 {% else %}
                                     {{ article.createdAt|localizeddate('long', 'none', null, null, 'MMMM, dd') }}
                                 {% endif %}
+
                             </span>
                         </div>
                         <span class="upper-title">
@@ -66,9 +68,7 @@
                         </span>
                         <span class="underline"></span>
 
-                        {% for paragraph in majorArticleBlock.getTextByNewline %}
-                            <p>{{ paragraph }}</p>
-                        {% endfor %}
+                        {{ majorArticleBlock.getText|striptags('<p><strong><em><u><a>')|raw }}
 
                     </div>
                 </div>
@@ -109,12 +109,9 @@
 
                         <div class="info">
 
-                            {% for paragraph in articleBlock.getTextByNewline %}
-                                <p>{{ paragraph }}</p>
-                            {% endfor %}
+                            {{ articleBlock.text|striptags('<p><strong><em><u><a>')|raw }}
 
                         </div>
-
                     </div>
 
                     {% if articleBlock.quote %}
@@ -152,6 +149,7 @@
     <div id="social-like-holder">
         <ul class="social-likes">
             <li class="facebook">facebook</li>
+            <li class="vkontakte">vkontakte</li>
             <li class="twitter">twitter</li>
         </ul>
     </div>

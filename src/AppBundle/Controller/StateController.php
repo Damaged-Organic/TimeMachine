@@ -183,7 +183,7 @@ class StateController extends AppController implements PageInitInterface
             ];
         } else {
             $musicians = $_manager->getRepository('AppBundle:Musician')
-                ->findOldest()
+                ->findSorted()
             ;
 
             $response = [

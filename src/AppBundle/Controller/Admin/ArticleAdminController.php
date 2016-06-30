@@ -2,6 +2,8 @@
 // src/AppBundle/Controller/Admin/ArticleAdminController.php
 namespace AppBundle\Controller\Admin;
 
+use Exception;
+
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 use Sonata\AdminBundle\Controller\CRUDController as Controller,
@@ -41,7 +43,7 @@ class ArticleAdminController extends Controller
                 );
 
                 $isFormValid = false;
-            } elseif( !($articleBlocks[0]->getImageFile()) ) {
+            } elseif( $articleBlocks[0]->getImageFile() == FALSE ) {
                 $this->addFlash(
                     'sonata_flash_error',
                     'Для первого блока статьи должно быть загружено изображение!'

@@ -68,7 +68,7 @@ class MusicianRepository extends ExtendedEntityRepository implements ActionParam
         return $query->getResult();
     }
 
-    public function findOldest($requestParameters = NULL)
+    public function findSorted($requestParameters = NULL)
     {
         $query = $this->createQueryBuilder('m')
             ->select('m')
@@ -79,7 +79,9 @@ class MusicianRepository extends ExtendedEntityRepository implements ActionParam
             $query->setFirstResult($requestParameters[self::PARAMETER_LIFT]);
 
         $query = $query
+            ->orderBy('m.isMainCast', 'ASC')
             ->orderBy('m.yearOfEntry', 'ASC')
+            ->orderBy('m.yearOfExit', 'ASC')
             ->getQuery()
         ;
 

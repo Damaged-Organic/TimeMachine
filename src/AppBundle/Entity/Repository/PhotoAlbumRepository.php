@@ -24,7 +24,7 @@ class PhotoAlbumRepository extends ExtendedEntityRepository implements ActionPar
         if( !empty($requestParameters[self::PARAMETER_TAG]) &&
             ($requestParameters[self::PARAMETER_TAG] !== 0) ) {
             $query
-                ->andWhere('pa.tag = :tag')
+                ->andWhere(':tag MEMBER OF pa.tags')
                 ->setParameter(':tag', $requestParameters[self::PARAMETER_TAG])
             ;
         }
@@ -99,7 +99,7 @@ class PhotoAlbumRepository extends ExtendedEntityRepository implements ActionPar
         if( !empty($requestParameters[self::PARAMETER_TAG]) &&
             ($requestParameters[self::PARAMETER_TAG] !== 0) ) {
             $query
-                ->andWhere('pa.tag = :tag')
+                ->andWhere(':tag MEMBER OF pa.tags')
                 ->setParameter(':tag', $requestParameters[self::PARAMETER_TAG])
             ;
         }

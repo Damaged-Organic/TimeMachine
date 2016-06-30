@@ -69,16 +69,26 @@
                                         {% else %}
 
                                             {% if nested_group_field.children.photoPath.vars.attr.empty is not defined %}
+                                                <!-- DIRTY HACK #1 - Mark file as a required field if empty -->
                                                 <script>
                                                     var vichFileInput = $(".vich-file").find("input:file").last();
                                                     vichFileInput.attr("required", true);
                                                 </script>
+                                                <!-- END / DIRTY HACK #1 -->
                                             {% endif %}
 
                                         {% endif %}
                                     {% endif %}
                                 </tr>
                             {% endfor %}
+
+                            <!-- DIRTY HACK #2 - Remove delete button from first object in list -->
+                            <script>
+                                var vichFileInput = $(".vich-file").find(".vich-buttons").first();
+                                vichFileInput.remove();
+                            </script>
+                            <!-- END / DIRTY HACK #2 -->
+
                             </tbody>
                         </table>
                     {% endif %}

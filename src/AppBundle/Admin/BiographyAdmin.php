@@ -2,6 +2,8 @@
 // src/AppBundle/Admin/BiographyAdmin.php
 namespace AppBundle\Admin;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 use Sonata\AdminBundle\Admin\Admin,
     Sonata\AdminBundle\Datagrid\ListMapper,
     Sonata\AdminBundle\Datagrid\DatagridMapper,
@@ -82,12 +84,23 @@ class BiographyAdmin extends Admin
                     'text' => [
                         'locale_options' => [
                             'ru' => [
-                                'required' => TRUE,
-                                'label'    => "Текст блока",
+                                'required'    => TRUE,
+                                'label'       => "Текст блока",
+                                'field_type'  => 'ckeditor',
+                                'config_name' => 'minimal_config',
+                                'constraints' => [
+                                    new Assert\NotBlank,
+                                    new Assert\Length(['max' => 2000]),
+                                ],
                             ],
                             'en' => [
-                                'required' => FALSE,
-                                'label'    => "Block text",
+                                'required'    => FALSE,
+                                'label'       => "Block text",
+                                'field_type'  => 'ckeditor',
+                                'config_name' => 'minimal_config',
+                                'constraints' => [
+                                    new Assert\Length(['max' => 2000]),
+                                ],
                             ],
                         ],
                         'attr' => [

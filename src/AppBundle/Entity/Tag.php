@@ -34,12 +34,12 @@ class Tag implements Translatable
     protected $musician;
 
     /**
-     * @ORM\OneToMany(targetEntity="PhotoAlbum", mappedBy="tag", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="PhotoAlbum", mappedBy="tags", cascade={"persist", "remove"})
      */
     protected $photoAlbums;
 
     /**
-     * @ORM\OneToMany(targetEntity="Photo", mappedBy="tag", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="Photo", mappedBy="tags", cascade={"persist", "remove"})
      */
     protected $photos;
 
@@ -168,16 +168,29 @@ class Tag implements Translatable
         return $this->musician;
     }
 
+    /** Custom methods */
+
+    static public function getDefaultTag()
+    {
+        return "#" . self::DEFAULT_TAG;
+    }
+
+    public function getFormattedTag()
+    {
+        return "#{$this->title}";
+    }
+
+    /** END Custom methods */
+
     /**
-     * Add photoAlbum
+     * Add photoAlbums
      *
-     * @param \AppBundle\Entity\PhotoAlbum $photoAlbum
+     * @param \AppBundle\Entity\PhotoAlbum $photoAlbums
      * @return Tag
      */
-    public function addPhotoAlbum(\AppBundle\Entity\PhotoAlbum $photoAlbum)
+    public function addPhotoAlbum(\AppBundle\Entity\PhotoAlbum $photoAlbums)
     {
-        $photoAlbum->setTag($this);
-        $this->photoAlbums[] = $photoAlbum;
+        $this->photoAlbums[] = $photoAlbums;
 
         return $this;
     }
@@ -203,15 +216,14 @@ class Tag implements Translatable
     }
 
     /**
-     * Add photo
+     * Add photos
      *
-     * @param \AppBundle\Entity\Photo $photo
+     * @param \AppBundle\Entity\Photo $photos
      * @return Tag
      */
-    public function addPhoto(\AppBundle\Entity\Photo $photo)
+    public function addPhoto(\AppBundle\Entity\Photo $photos)
     {
-        $photo->setTag($this);
-        $this->photos[] = $photo;
+        $this->photos[] = $photos;
 
         return $this;
     }
@@ -235,18 +247,4 @@ class Tag implements Translatable
     {
         return $this->photos;
     }
-
-    /** Custom methods */
-
-    static public function getDefaultTag()
-    {
-        return "#" . self::DEFAULT_TAG;
-    }
-
-    public function getFormattedTag()
-    {
-        return "#{$this->title}";
-    }
-
-    /** END Custom methods */
 }

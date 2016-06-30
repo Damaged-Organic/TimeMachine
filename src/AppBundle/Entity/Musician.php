@@ -49,6 +49,7 @@ class Musician implements Translatable, MusicianConstantsInterface
 
     /**
      * @ORM\OneToMany(targetEntity="Biography", mappedBy="musician", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     protected $biographies;
 

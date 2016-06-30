@@ -48,23 +48,25 @@ class ArticleBlockAdmin extends Admin
                     'text' => [
                         'locale_options' => [
                             'ru' => [
-                                'required' => TRUE,
-                                'label'    => "Текст",
+                                'required'    => TRUE,
+                                'label'       => "Текст",
+                                'field_type'  => 'ckeditor',
+                                'config_name' => 'base_config',
                                 'constraints' => [
+                                    new Assert\NotBlank,
                                     new Assert\Length(['max' => 2000]),
                                 ],
                             ],
                             'en' => [
-                                'required' => FALSE,
-                                'label'    => "Text",
+                                'required'    => FALSE,
+                                'label'       => "Text",
+                                'field_type'  => 'ckeditor',
+                                'config_name' => 'base_config',
+                                'constraints' => [
+                                    new Assert\Length(['max' => 2000]),
+                                ],
                             ],
                         ],
-                        'field_type' => 'textarea',
-                        'attr'       => [
-                            'rows' => '10',
-                            'style' => 'min-width: 600px;',
-                        ],
-
                     ],
                     'quote' => [
                         'locale_options' => [
@@ -98,8 +100,8 @@ class ArticleBlockAdmin extends Admin
             ->add('imageFile', 'vich_file', [
                 'required'      => FALSE,
                 'label'         => "Изображение",
-                'allow_delete'  => FALSE,
-                'download_link' => FALSE,
+                'allow_delete'  => TRUE,
+                'download_link' => TRUE,
                 'help'          => $imageHelpOption,
                 'attr'          => [
                     'style' => 'min-width: 200px; padding: 5px 0 0 5px;',

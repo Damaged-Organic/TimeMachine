@@ -18,8 +18,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
     AppBundle\Entity\Utility\Traits\DoctrineMapping\TranslationMapper,
     AppBundle\Entity\Utility\Interfaces\ArticleBlockConstantsInterface,
-    AppBundle\Entity\Utility\Traits\FileObjects\ArticleBlockFileObjectsTrait,
-    AppBundle\Entity\Utility\Traits\TextFormatter;
+    AppBundle\Entity\Utility\Traits\FileObjects\ArticleBlockFileObjectsTrait;
 
 /**
  * @ORM\Table(name="articles_blocks")
@@ -31,7 +30,7 @@ use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
  */
 class ArticleBlock implements Translatable, ArticleBlockConstantsInterface
 {
-    use IdMapper, TranslationMapper, ArticleBlockFileObjectsTrait, TextFormatter;
+    use IdMapper, TranslationMapper, ArticleBlockFileObjectsTrait;
 
     /**
      * @ORM\OneToMany(targetEntity="ArticleBlockTranslation", mappedBy="object", cascade={"persist", "remove"})
@@ -50,6 +49,16 @@ class ArticleBlock implements Translatable, ArticleBlockConstantsInterface
      * @Gedmo\Translatable
      */
     protected $text;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $rawText;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $textFormatter;
 
     /**
      * @ORM\Column(type="string", length=250, nullable=true)
@@ -107,9 +116,58 @@ class ArticleBlock implements Translatable, ArticleBlockConstantsInterface
         return $this->text;
     }
 
-    public function getTextByNewline()
+    public function getTextShort($length)
     {
-        return $this->explodeByNewline($this->text);
+        $stripped = strip_tags($this->text);
+        $stripped = preg_replace('/&#?[a-z0-9]+;/i', ' ', $stripped);
+
+        return explode('#', wordwrap($stripped, $length, '#'))[0] . '...';
+    }
+
+    /**
+     * Set rawText
+     *
+     * @param string $rawText
+     * @return ArticleBlock
+     */
+    public function setRawText($rawText)
+    {
+        $this->rawText = $rawText;
+
+        return $this;
+    }
+
+    /**
+     * Get rawText
+     *
+     * @return string
+     */
+    public function getRawText()
+    {
+        return $this->rawText;
+    }
+
+    /**
+     * Set textFormatter
+     *
+     * @param string $textFormatter
+     * @return ArticleBlock
+     */
+    public function setTextFormatter($textFormatter)
+    {
+        $this->textFormatter = $textFormatter;
+
+        return $this;
+    }
+
+    /**
+     * Get textFormatter
+     *
+     * @return string
+     */
+    public function getTextFormatter()
+    {
+        return $this->textFormatter;
     }
 
     /**

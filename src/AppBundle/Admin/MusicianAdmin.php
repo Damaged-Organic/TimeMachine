@@ -9,7 +9,8 @@ use Sonata\AdminBundle\Admin\Admin,
     Sonata\AdminBundle\Datagrid\DatagridMapper,
     Sonata\AdminBundle\Form\FormMapper;
 
-use AppBundle\Entity\Tag,
+use AppBundle\Entity\Musician,
+    AppBundle\Entity\Tag,
     AppBundle\Admin\Utility\Traits\BandYearsRangeTrait;
 
 class MusicianAdmin extends Admin
@@ -189,6 +190,32 @@ class MusicianAdmin extends Admin
                     ->end()
                 ->end()
             ;
+        }
+    }
+
+    public function prePersist($musician)
+    {
+        if( !($musician instanceof Musician) )
+            return;
+
+        $this->stripDangerousTags($musician);
+    }
+
+    public function preUpdate($musician)
+    {
+        if( !($musician instanceof Musician) )
+            return;
+
+        $this->stripDangerousTags($musician);
+    }
+
+    private function stripDangerousTags(Musician $musician)
+    {
+        foreach( $musician->getBiographies() as $biography )
+        {
+            $biography->setText(
+                strip_tags($biography->getText(), '<p><strong><em><u>')
+            );
         }
     }
 

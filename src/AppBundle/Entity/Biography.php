@@ -68,6 +68,16 @@ class Biography implements Translatable, BiographyConstantsInterface
     protected $text;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $rawText;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $textFormatter;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -173,6 +183,60 @@ class Biography implements Translatable, BiographyConstantsInterface
     public function getText()
     {
         return $this->text;
+    }
+
+    public function getTextShort($length)
+    {
+        $stripped = strip_tags($this->text);
+        $stripped = preg_replace('/&#?[a-z0-9]+;/i', ' ', $stripped);
+
+        return explode('#', wordwrap($stripped, $length, '#'))[0] . '...';
+    }
+
+    /**
+     * Set rawText
+     *
+     * @param string $rawText
+     * @return Biography
+     */
+    public function setRawText($rawText)
+    {
+        $this->rawText = $rawText;
+
+        return $this;
+    }
+
+    /**
+     * Get rawText
+     *
+     * @return string
+     */
+    public function getRawText()
+    {
+        return $this->rawText;
+    }
+
+    /**
+     * Set textFormatter
+     *
+     * @param string $textFormatter
+     * @return Biography
+     */
+    public function setTextFormatter($textFormatter)
+    {
+        $this->textFormatter = $textFormatter;
+
+        return $this;
+    }
+
+    /**
+     * Get textFormatter
+     *
+     * @return string
+     */
+    public function getTextFormatter()
+    {
+        return $this->textFormatter;
     }
 
     /**
