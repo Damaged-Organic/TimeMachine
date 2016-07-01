@@ -64,6 +64,10 @@
                             </a>
                         </div>
                     </article>
+                {% else %}
+                    <div class="empty-holder">
+                        <p>{{ 'common.empty.photo_album'|trans({}, 'responses') }}</p>
+                    </div>
                 {% endfor %}
 
             </div>

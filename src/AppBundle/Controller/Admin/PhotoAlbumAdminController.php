@@ -4,6 +4,8 @@ namespace AppBundle\Controller\Admin;
 
 use DateTime;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Symfony\Component\HttpFoundation\RedirectResponse,
     Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -16,6 +18,8 @@ class PhotoAlbumAdminController extends Controller
 {
     public function createAction()
     {
+        $this->clearPhotoAdminSession();
+
         // the key used to lookup the template
         $templateKey = 'edit';
 
@@ -40,7 +44,7 @@ class PhotoAlbumAdminController extends Controller
             $photos      = $object->getPhotos();
             $photosBatch = $form->get('photos_batch')->getData();
 
-            if( count($photos) == 0 && count($photosBatch) == 0 ) {
+            if( count($photos) == 0 && count(array_filter($photosBatch)) == 0 ) {
                 $this->addFlash(
                     'sonata_flash_error',
                     'В фотоальбоме должна быть хотя бы одна фотография!'
@@ -118,6 +122,8 @@ class PhotoAlbumAdminController extends Controller
 
     public function editAction($id = null)
     {
+        $this->clearPhotoAdminSession();
+
         // the key used to lookup the template
         $templateKey = 'edit';
 
@@ -125,7 +131,7 @@ class PhotoAlbumAdminController extends Controller
         $object = $this->admin->getObject($id);
 
         if (!$object) {
-            throw new \NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+            throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
         }
 
         if (false === $this->admin->isGranted('EDIT', $object)) {
@@ -147,7 +153,7 @@ class PhotoAlbumAdminController extends Controller
             $photos      = $object->getPhotos();
             $photosBatch = $form->get('photos_batch')->getData();
 
-            if( count($photos) == 0 && count($photosBatch) == 0 ) {
+            if( count($photos) == 0 && count(array_filter($photosBatch)) == 0 ) {
                 $this->addFlash(
                     'sonata_flash_error',
                     'В фотоальбоме должна быть хотя бы одна фотография!'
@@ -212,11 +218,19 @@ class PhotoAlbumAdminController extends Controller
         // set the theme for the current Admin Form
         $this->get('twig')->getExtension('form')->renderer->setTheme($view, $this->admin->getFormTheme());
 
-        return $this->render($this->admin->getTemplate($templateKey), array(
+        return $this->render($this->admin->getTemplate($templateKey), [
             'action' => 'edit',
             'form'   => $view,
             'object' => $object,
-        ));
+        ]);
+    }
+
+    private function clearPhotoAdminSession()
+    {
+        $_session = $this->get('session');
+
+        $_session->remove('photo_admin_date_taken');
+        $_session->remove('photo_admin_tags');
     }
 
     private function handlePhotosBatchUpload($photosBatch, $object)
@@ -231,6 +245,12 @@ class PhotoAlbumAdminController extends Controller
                 ->setPhotoAlbum($object)
                 ->setDateTaken(new DateTime)
             ;
+
+            if( $object->getTags() )
+            {
+                foreach( $object->getTags() as $tag )
+                    $photo->addTag($tag);
+            }
 
             $errors = $this->get('validator')->validate($photo);
 

@@ -6,6 +6,16 @@
 {% else %}
 
     <div id="field_container_{{ id }}" class="field-container">
+
+        <!-- DIRTY HACK #0 - Massacre the duplicated CKEditor blocks (from fuck knows where) -->
+        <script>
+            $(function() {
+                // No more xZibit for you today!
+                $('.cke_browser_quirks').detach();
+            });
+        </script>
+        <!-- END / DIRTY HACK #0 -->
+
         <span id="field_widget_{{ id }}" >
             {% if sonata_admin.edit == 'inline' %}
 

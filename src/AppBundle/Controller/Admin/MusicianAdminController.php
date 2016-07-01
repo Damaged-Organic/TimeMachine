@@ -4,6 +4,8 @@ namespace AppBundle\Controller\Admin;
 
 use Exception;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 use Sonata\AdminBundle\Controller\CRUDController as Controller,
@@ -21,7 +23,7 @@ class MusicianAdminController extends Controller
         $musician = $this->admin->getObject($id);
 
         if( !$musician )
-            throw new \NotFoundHttpException(sprintf('unable to find the Musician with id : %s', $id));
+            throw new NotFoundHttpException(sprintf('unable to find the Musician with id : %s', $id));
 
         // Restrict deletion of main cast musician
         if( $musician->getIsMainCast() )

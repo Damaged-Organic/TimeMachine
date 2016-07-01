@@ -63,6 +63,10 @@
                             </a>
                         </div>
                     </article>
+                {% else %}
+                    <div class="empty-holder">
+                        <p>{{ 'common.empty.blog'|trans({}, 'responses') }}</p>
+                    </div>
                 {% endfor %}
 
             </div>

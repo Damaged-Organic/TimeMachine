@@ -44,7 +44,7 @@
                     <div class="photo-holder">
                         <div class="photo">
                             <figure>
-                                <img src="{{ vich_uploader_asset(majorArticleBlock, 'imageFile') }}" alt="{{ article.title }}">
+                                <img src="{{ vich_uploader_asset(majorArticleBlock, 'imageFile')|imagine_filter('blog_article_thumb') }}" alt="{{ article.title }}">
                             </figure>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                     {% if not articleBlock.imageName and not articleBlock.youTubeLink %}
                         {% set infoHolderClass = 'text-only' %}
                     {% else %}
-                        {% set infoHolderClass = ( loop.index is divisible by(2) ) ? 'reversed' %}
+                        {% set infoHolderClass = ( loop.index is divisible by(1) ) ? 'reversed' %}
                     {% endif %}
 
                     <div class="info-holder {{ infoHolderClass }}">
@@ -95,7 +95,7 @@
                             <div class="photo-holder">
                                 <div class="photo">
                                     <figure>
-                                        <img src="{{ vich_uploader_asset(articleBlock, 'imageFile') }}" alt="{{ article.title }}">
+                                        <img src="{{ vich_uploader_asset(articleBlock, 'imageFile')|imagine_filter('blog_article_thumb') }}" alt="{{ article.title }}">
                                     </figure>
                                 </div>
                             </div>

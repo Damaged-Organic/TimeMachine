@@ -5,6 +5,10 @@ common:
         text:  Something went wrong...
 
     empty:
+        affiche:     No tours planned for now
+        blog:        No posts for now
+        band:        No musicians for now... And this is very strange
+        music:       No albums for now
         photo_album: No photo albums found by selected tag and date... At least, for now
 
 feedback:

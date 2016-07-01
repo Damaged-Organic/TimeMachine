@@ -184,6 +184,17 @@ services:
             - [ setTranslationDomain, [AppBundle] ]
             - [ setPositionService, [ "@pix_sortable_behavior.position" ]]
 
+    sonata.admin.contact:
+        class: AppBundle\Admin\ContactAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Группа", label: "Контакты" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Contact
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]
+
     sonata.admin.album:
         class: AppBundle\Admin\AlbumAdmin
         tags:

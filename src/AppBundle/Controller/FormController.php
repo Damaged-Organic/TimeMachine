@@ -187,7 +187,7 @@ class FormController extends Controller
                 'to' => $this->getParameter('emails')['feedback'],
             ];
 
-            $subject = $_translator->trans("feedback.subject", [], 'emails');
+            $subject = $_translator->trans("feedback.title", [], 'emails');
 
             $body = $this->renderView('AppBundle:Email:feedback.html.twig', [
                 '_locale'  => $_locale,

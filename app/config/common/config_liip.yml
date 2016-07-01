@@ -24,6 +24,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [500, 500], mode: outbound }
 
+        blog_article_thumb:
+            quality: 100
+            filters:
+                thumbnail: { size: [1200, 1200], mode: outbound }
+
         album_cover_thumb:
             quality: 100
             filters:

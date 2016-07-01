@@ -34,6 +34,29 @@
             <p>{{ 'contacts.text'|trans }}</p>
             <div class="inner">
 
+                <div class="info-holder">
+
+                    {% for contact in contacts %}
+                        <div class="item">
+                            <h2>{{ contact.role }}</h2>
+                            <p>{{ contact.person }}</p>
+                            <div>
+                                <a href="tel:{{ contact.phone|replace({
+                                    '(': null, ')': null, '-': null, ' ': null
+                                }) }}">{{ contact.phone }}</a>
+                            </div>
+
+                            {% if contact.email %}
+                                <div>
+                                    <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    {% endfor %}
+
+                </div>
+
                 {{ render(controller(
                     'AppBundle:Form:feedbackForm'
                 )) }}

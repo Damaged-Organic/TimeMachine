@@ -2,6 +2,8 @@
 // src/AppBundle/Controller/Admin/AlbumAdminController.php
 namespace AppBundle\Controller\Admin;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 use Sonata\AdminBundle\Controller\CRUDController as Controller,
@@ -117,7 +119,7 @@ class AlbumAdminController extends Controller
         $object = $this->admin->getObject($id);
 
         if (!$object) {
-            throw new \NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+            throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
         }
 
         if (false === $this->admin->isGranted('EDIT', $object)) {

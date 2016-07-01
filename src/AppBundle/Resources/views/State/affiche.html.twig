@@ -65,6 +65,10 @@
 
                         </div>
                     </article>
+                {% else %}
+                    <div class="empty-holder">
+                        <p>{{ 'common.empty.affiche'|trans({}, 'responses') }}</p>
+                    </div>
                 {% endfor %}
 
             </div>

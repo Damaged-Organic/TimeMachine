@@ -44,7 +44,11 @@
                             {% endif %}
 
                             <figure>
-                                <img src="{{ vich_uploader_asset(musician, 'photoFile')|imagine_filter('musician_photo_thumb') }}" alt="{{ musician.title }}">
+
+                                {% if musician.photoName %}
+                                    <img src="{{ vich_uploader_asset(musician, 'photoFile')|imagine_filter('musician_photo_thumb') }}" alt="{{ musician.title }}">
+                                {% endif %}
+                                
                             </figure>
 
                             {% if musician.isMainCast %}
@@ -73,6 +77,10 @@
 
                         </div>
                     </article>
+                {% else %}
+                    <div class="empty-holder">
+                        <p>{{ 'common.empty.band'|trans({}, 'responses') }}</p>
+                    </div>
                 {% endfor %}
 
             </div>

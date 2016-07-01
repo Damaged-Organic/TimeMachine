@@ -1,4 +1,12 @@
 # src/AppBundle/Resources/translations/emails.en.yml
+feedback:
+    title: New letter from website's user!
+    text: >
+        %name% (%email%) sent a new feedback message, at %date%.
+
+    body:
+        no_subject: no subject
+
 common:
     from: "\"Mashina Vremeni\" Rock Band"
     link: Website
@@ -10,13 +18,6 @@ common:
 
     body:
         date: Message was sent at
-
-feedback:
-    subject: New letter from website's user!
-
-    body:
-        no_subject:   no subject
-        sent_message: sent a new feedback message
 
 subscribe:
     subject: "\"Mashina Vremeni\" Rock Band subscription confirmation"

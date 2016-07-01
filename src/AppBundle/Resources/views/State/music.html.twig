@@ -58,6 +58,10 @@
                             </a>
                         </div>
                     </article>
+                {% else %}
+                    <div class="empty-holder">
+                        <p>{{ 'common.empty.music'|trans({}, 'responses') }}</p>
+                    </div>
                 {% endfor %}
 
             </div>

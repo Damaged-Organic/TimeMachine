@@ -318,11 +318,18 @@ class StateController extends AppController implements PageInitInterface
      */
     public function contactsAction(Request $request)
     {
+        $_manager = $this->getDoctrine()->getManager();
+
+        $contacts = $_manager->getRepository('AppBundle:Contact')
+            ->findAll()
+        ;
+
         $response = [
             'view' => 'AppBundle:State:contacts.html.twig',
+            'data' => ['contacts' => $contacts],
         ];
 
-        return $this->render($response['view']);
+        return $this->render($response['view'], $response['data']);
     }
 
     /**

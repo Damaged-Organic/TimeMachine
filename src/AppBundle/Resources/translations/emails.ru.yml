@@ -1,4 +1,12 @@
 # src/AppBundle/Resources/translations/emails.ru.yml
+feedback:
+    title: Новое письмо от пользователя сайта!
+    text: >
+        %name% (%email%) отправил сообщение обратной связи, в %date%.
+
+    body:
+        no_subject: тема не указана
+
 common:
     from: "Группа \"Машина Времени\""
     link: На сайт
@@ -10,13 +18,6 @@ common:
 
     body:
         date: Сообщение было отправлено в
-
-feedback:
-    subject: Новое письмо от пользователя сайта!
-
-    body:
-        no_subject:   тема не указана
-        sent_message: отправил новое сообщение обратной связи
 
 subscribe:
     subject: "Подтверждение подписки на обновления группы \"Машина Времени\""

@@ -81,7 +81,7 @@ class MusicianAdmin extends Admin
                                         'label'    => "Имя и фамилия",
                                     ],
                                     'en' => [
-                                        'required' => TRUE,
+                                        'required' => $isMainCast,
                                         'label'    => "Full name",
                                     ],
                                 ],
@@ -93,7 +93,7 @@ class MusicianAdmin extends Admin
                                         'label'    => "Роль в группе",
                                     ],
                                     'en' => [
-                                        'required' => TRUE,
+                                        'required' => $isMainCast,
                                         'label'    => "Role in a band",
                                     ],
                                 ],
@@ -105,7 +105,7 @@ class MusicianAdmin extends Admin
                                         'label'    => "История от музыканта",
                                     ],
                                     'en' => [
-                                        'required' => TRUE,
+                                        'required' => $isMainCast,
                                         'label'    => "Musicians story",
                                     ],
                                 ],

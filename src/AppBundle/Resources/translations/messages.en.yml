@@ -50,9 +50,10 @@ header:
 index:
     topline:  Rock Band
     headline: Mashina Vremeni
-    slogan: >
-        Just remember that truth will always persist, even if in the battle it will decease.
-        Gently cherish an every day in your life, while you are still alive, and while your angel has wings - sing!
+    slogan:   ""
+    # slogan: >
+    #     Just remember that truth will always persist, even if in the battle it will decease.
+    #     Gently cherish an every day in your life, while you are still alive, and while your angel has wings - sing!
 
     affiche: Affiche
 
@@ -97,9 +98,10 @@ gallery:
 
 contacts:
     text: >
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui, facilis
-        repellat accusamus! Odio veritatis, voluptate voluptates aut eveniet
-        quae a saepe pariatur fugiat, incidunt officiis adipisci cumque quas illum harum.
+        You can contact the band directly - just compose and send a letter through
+        the feedback form. It's desirable that you specify the subject - it would be
+        easier this way for band to understand your intentions.
+
 
 subscription:
     text: >
