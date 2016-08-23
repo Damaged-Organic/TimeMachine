@@ -190,14 +190,14 @@ class PhotoAdmin extends Admin
                 'dp_default_date' => $dateTaken,
                 'data'            => $dateTaken,
             ])
-            ->add('tags', 'sonata_type_model', [
-                'required'     => FALSE,
-                'label'        => 'Дополнительные тэги',
-                'by_reference' => FALSE,
-                'multiple'     => TRUE,
-                'help'         => 'Персонифицированные тэги для фотоальбома',
-                'data'         => $tags,
-            ])
+            // ->add('tags', 'sonata_type_model', [
+            //     'required'     => FALSE,
+            //     'label'        => 'Дополнительные тэги',
+            //     'by_reference' => FALSE,
+            //     'multiple'     => TRUE,
+            //     'help'         => 'Персонифицированные тэги для фотоальбома',
+            //     'data'         => $tags,
+            // ])
         ;
     }
 }

@@ -13,8 +13,8 @@ class MusicianRepository extends ExtendedEntityRepository implements ActionParam
     public function findSingleMainCast($id)
     {
         $query = $this->createQueryBuilder('m')
-            ->select('m, t')
-            ->leftJoin('m.tag', 't')
+            ->select('m')
+            //->leftJoin('m.tag', 't')
             ->where('m.id = :id')
             ->andWhere('m.isMainCast = :isMainCast')
             ->setParameters([
@@ -35,8 +35,8 @@ class MusicianRepository extends ExtendedEntityRepository implements ActionParam
     public function findMainCast()
     {
         $query = $this->createQueryBuilder('m')
-            ->select('m, t')
-            ->leftJoin('m.tag', 't')
+            ->select('m')
+            //->leftJoin('m.tag', 't')
             ->where('m.isMainCast = :isMainCast')
             ->setParameter(':isMainCast', TRUE)
             ->getQuery()
@@ -53,8 +53,8 @@ class MusicianRepository extends ExtendedEntityRepository implements ActionParam
     public function findSecondaryCast()
     {
         $query = $this->createQueryBuilder('m')
-            ->select('m, t')
-            ->leftJoin('m.tag', 't')
+            ->select('m')
+            //->leftJoin('m.tag', 't')
             ->where('m.isMainCast = :isMainCast')
             ->setParameter(':isMainCast', FALSE)
             ->getQuery()

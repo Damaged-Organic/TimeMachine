@@ -35,7 +35,7 @@
 
                 {% for photoAlbum in photoAlbums %}
 
-                    {% set majorPhoto = photoAlbum.photos.0 %}
+                    {% set majorPhoto = photoAlbum.getCoverPhoto() %}
 
                     <article class="item lift-item">
                         <div class="photo-holder">

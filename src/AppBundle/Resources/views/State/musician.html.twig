@@ -99,24 +99,28 @@
                 {% endfor %}
 
             </div>
-            <aside class="questionary-holder">
-                <h2 class="questionary-entitled">
-                    {{ 'band.musician.questionary'|trans }}
-                </h2>
 
-                {% for questionary in musician.questionnaires %}
-                    <article class="questionary-item">
-                        <div class="square-num">
-                            <span class="num">{{ loop.index }}</span>
-                        </div>
-                        <div class="info-holder">
-                            <h3>{{ questionary.question }}</h3>
-                            <p>{{ questionary.answer }}</p>
-                        </div>
-                    </article>
-                {% endfor %}
+            {% if musician.questionnaires|length %}
+                <aside class="questionary-holder">
+                    <h2 class="questionary-entitled">
+                        {{ 'band.musician.questionary'|trans }}
+                    </h2>
 
-            </aside>
+                    {% for questionary in musician.questionnaires %}
+                        <article class="questionary-item">
+                            <div class="square-num">
+                                <span class="num">{{ loop.index }}</span>
+                            </div>
+                            <div class="info-holder">
+                                <h3>{{ questionary.question }}</h3>
+                                <p>{{ questionary.answer }}</p>
+                            </div>
+                        </article>
+                    {% endfor %}
+
+                </aside>
+            {% endif %}
+
         </section>
         <div id="to-top">
             <span class="arrow arrow-top"></span>

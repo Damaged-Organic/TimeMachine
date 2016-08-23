@@ -51,7 +51,8 @@ liip_imagine:
 
         photo_watermark:
             quality: 100
-            filters:
-                watermark:
-                    image:    ../www/bundles/app/images/logo-wm.png
-                    position: bottomleft
+            # filters:
+            #     watermark:
+            #         image:    ../www/bundles/app/images/logo-wm.png
+            #         size:     0.1
+            #         position: bottomleft

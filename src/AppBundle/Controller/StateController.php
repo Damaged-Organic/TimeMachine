@@ -44,19 +44,19 @@ class StateController extends AppController implements PageInitInterface
         if( !$musicians )
             throw $this->createNotFoundException();
 
-        $indexByTagTitle = function($musicians)
+        $indexBySid = function($musicians)
         {
             $output = [];
 
             foreach( $musicians as $musician ) {
-                $output[$musician->getTag()->getName()] = $musician;
+                $output[$musician->getSid()] = $musician;
             }
 
             return $output;
         };
 
         return $this->render('AppBundle:State:index.html.twig', [
-            'musicians' => $indexByTagTitle($musicians),
+            'musicians' => $indexBySid($musicians),
         ]);
     }
 

@@ -257,6 +257,15 @@ class PhotoAlbum implements Translatable
         return count($this->photos);
     }
 
+    public function getCoverPhoto()
+    {
+        foreach( $this->photos as $photo )
+        {
+            if( $photo->getIsCover() )
+                return $photo;
+        }
+    }
+
     public function getHumanDate($_locale)
     {
         if( $_locale == 'ru' ) {

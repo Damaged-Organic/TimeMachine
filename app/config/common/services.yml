@@ -12,6 +12,16 @@ services:
         tags:
             - { name: twig.extension }
 
+    twig.extension.routing:
+        class:  AppBundle\Twig\AppRoutingExtension
+        public: false
+        arguments:
+            - "@router"
+            - "@request_stack"
+            - "%locale%"
+        tags:
+            - { name: twig.extension }
+
     app.twig_extension:
         class: AppBundle\Twig\AppExtension
         public: false

@@ -19,5 +19,6 @@
 /www/bundles/
 /www/uploads/
 /www/media/
+/www/*.html
 
 /composer.lock

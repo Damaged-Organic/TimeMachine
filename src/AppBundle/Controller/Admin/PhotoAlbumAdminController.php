@@ -42,7 +42,7 @@ class PhotoAlbumAdminController extends Controller
 
             // Restrict photo album without photos
             $photos      = $object->getPhotos();
-            $photosBatch = $form->get('photos_batch')->getData();
+            $photosBatch = ( $form->get('photos_batch')->getData() ) ?: [];
 
             if( count($photos) == 0 && count(array_filter($photosBatch)) == 0 ) {
                 $this->addFlash(
@@ -151,7 +151,7 @@ class PhotoAlbumAdminController extends Controller
 
             // Restrict photo album without photos
             $photos      = $object->getPhotos();
-            $photosBatch = $form->get('photos_batch')->getData();
+            $photosBatch = ( $form->get('photos_batch')->getData() ) ?: [];
 
             if( count($photos) == 0 && count(array_filter($photosBatch)) == 0 ) {
                 $this->addFlash(
@@ -235,7 +235,7 @@ class PhotoAlbumAdminController extends Controller
 
     private function handlePhotosBatchUpload($photosBatch, $object)
     {
-        foreach($photosBatch as $file)
+        foreach($photosBatch as $key => $file)
         {
             if( $file === NULL || !($file instanceof UploadedFile) )
                 continue;
@@ -245,6 +245,9 @@ class PhotoAlbumAdminController extends Controller
                 ->setPhotoAlbum($object)
                 ->setDateTaken(new DateTime)
             ;
+
+            if( count($object->getPhotos()) == 0 && $key == 0 )
+                $photo->setIsCover(TRUE);
 
             if( $object->getTags() )
             {

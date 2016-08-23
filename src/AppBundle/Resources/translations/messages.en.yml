@@ -1,7 +1,7 @@
 # src/AppBundle/Resources/translations/messages.en.yml
 common:
-    title:  Mashina Vremeni
-    footer: © Mashina Vremeni, %timeline%. Web Production by %link%.
+    title:  Time Machine
+    footer: © Time Machine, %timeline%. Web Production by %link%.
 
     subscription: subscription
 
@@ -49,7 +49,7 @@ header:
 
 index:
     topline:  Rock Band
-    headline: Mashina Vremeni
+    headline: Time Machine
     slogan:   ""
     # slogan: >
     #     Just remember that truth will always persist, even if in the battle it will decease.
@@ -105,7 +105,7 @@ contacts:
 
 subscription:
     text: >
-        You can subscribe to "Mashina Vremeni" band recent news and upcoming events announcements
+        You can subscribe to the "Time Machine" band recent news and upcoming events announcements
         just by entering your e-mail in the form below
 
     checkout:

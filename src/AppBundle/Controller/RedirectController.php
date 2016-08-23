@@ -12,14 +12,20 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RedirectController extends Controller
 {
+    /**
+     * Redirects to URL without subdomain prefix in case of default locale
+     */
     public function redirectToDefaultLocaleAction(Request $request)
     {
         $path = $request->getRequestUri();
 
+        $domain = $this->container->getParameter('domain');
+        $locale = $this->container->getParameter('locale');
+
+        $prefixed = implode('.', [$locale, $domain]);
+
         $uri = str_replace(
-            $this->container->getParameter('domain'),
-            $this->container->getParameter('locale').'.'.$this->container->getParameter('domain'),
-            $request->getSchemeAndHttpHost()
+            $prefixed, $domain, $request->getSchemeAndHttpHost()
         );
 
         return $this->redirect($uri.$path, 307);

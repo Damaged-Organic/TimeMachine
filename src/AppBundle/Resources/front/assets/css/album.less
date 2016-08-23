@@ -316,7 +316,7 @@
                         padding: 0 40px;
                         margin-bottom: 20px;
                         color: @white;
-                        white-space: pre;
+                        white-space: pre-wrap;
                         .note{
                             display: none;
                             vertical-align: middle;
@@ -325,13 +325,12 @@
                             color: @white;
                             background: @grey;
                             padding: 3px 5px;
-                            text-transform: uppercase;
                             box-sizing: border-box;
                         }
                         &:last-child{ margin-bottom: 0; }
                     }
                 }
-                
+
             }
             &.active{
                 .track-list-holder{ display: none; }
@@ -353,12 +352,12 @@
 @media only screen and @tablet{
 
     #content .outer{ padding: 200px 0 0 16.66666666666667%; }
-    
+
     #bg-circle-overlay{ display: block; }
     #visualize-holder{ display: none; }
     #play-button{ display: none; }
-    
-    
+
+
     .album-holder{
         .inner{
             & > .photo-holder,
@@ -426,7 +425,7 @@
                     .song-text{
                         margin-top: 40px;
                     }
-                    
+
                 }
             }
         }
@@ -435,7 +434,7 @@
 }
 
 @media only screen and @mobileL{
-    
+
     #content .outer{ padding: 160px 0 0 16.66666666666667%; }
 
     .album-holder{
@@ -541,7 +540,7 @@
 @media only screen and @mobileS{
 
     #content .outer{ padding: 80px 0 0 16.66666666666667%; }
-    
+
     .album-holder{
         .inner{
             .info-holder{

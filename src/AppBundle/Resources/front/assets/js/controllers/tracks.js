@@ -38,6 +38,7 @@ class Tracks{
             el.addClass("active");
 
             let paragraphs = this.splitByDBLNewLine(response.data);
+
             this.render(paragraphs);
         })
         .fail((error) => {

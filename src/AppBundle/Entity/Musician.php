@@ -18,7 +18,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
     AppBundle\Entity\Utility\Traits\DoctrineMapping\TranslationMapper,
     AppBundle\Entity\Utility\Traits\DoctrineMapping\SlugMapper,
-    AppBundle\Entity\Utility\Traits\TagTrait,
     AppBundle\Entity\Utility\Interfaces\MusicianConstantsInterface,
     AppBundle\Entity\Utility\Traits\FileObjects\MusicianFileObjectsTrait;
 
@@ -32,7 +31,7 @@ use AppBundle\Entity\Utility\Traits\DoctrineMapping\IdMapper,
  */
 class Musician implements Translatable, MusicianConstantsInterface
 {
-    use IdMapper, TranslationMapper, SlugMapper, TagTrait, MusicianFileObjectsTrait;
+    use IdMapper, TranslationMapper, SlugMapper, MusicianFileObjectsTrait;
 
     const LIFT_ITEMS = 4;
 
@@ -41,11 +40,11 @@ class Musician implements Translatable, MusicianConstantsInterface
      */
     protected $translations;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Tag", inversedBy="musician")
-     * @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
-     */
-    protected $tag;
+    // /**
+    //  * @ORM\OneToOne(targetEntity="Tag", inversedBy="musician")
+    //  * @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
+    //  */
+    // protected $tag;
 
     /**
      * @ORM\OneToMany(targetEntity="Biography", mappedBy="musician", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -57,6 +56,11 @@ class Musician implements Translatable, MusicianConstantsInterface
      * @ORM\OneToMany(targetEntity="Questionary", mappedBy="musician", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $questionnaires;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    protected $sid;
 
     /**
      * @ORM\Column(type="string", length=250)
@@ -130,6 +134,29 @@ class Musician implements Translatable, MusicianConstantsInterface
     public function __toString()
     {
         return ( $this->title ) ?: "Музыкант";
+    }
+
+    /**
+     * Set sid
+     *
+     * @param string $sid
+     * @return Musician
+     */
+    public function setSid($sid = NULL)
+    {
+        $this->sid = $sid;
+
+        return $this;
+    }
+
+    /**
+     * Get sid
+     *
+     * @return string
+     */
+    public function getSid()
+    {
+        return $this->sid;
     }
 
     /**
@@ -362,28 +389,28 @@ class Musician implements Translatable, MusicianConstantsInterface
         return $this->photoMenu;
     }
 
-    /**
-     * Set tag
-     *
-     * @param \AppBundle\Entity\Tag $tag
-     * @return Musician
-     */
-    public function setTag(\AppBundle\Entity\Tag $tag = null)
-    {
-        $this->tag = $tag;
-
-        return $this;
-    }
-
-    /**
-     * Get tag
-     *
-     * @return \AppBundle\Entity\Tag
-     */
-    public function getTag()
-    {
-        return $this->tag;
-    }
+    // /**
+    //  * Set tag
+    //  *
+    //  * @param \AppBundle\Entity\Tag $tag
+    //  * @return Musician
+    //  */
+    // public function setTag(\AppBundle\Entity\Tag $tag = null)
+    // {
+    //     $this->tag = $tag;
+    //
+    //     return $this;
+    // }
+    //
+    // /**
+    //  * Get tag
+    //  *
+    //  * @return \AppBundle\Entity\Tag
+    //  */
+    // public function getTag()
+    // {
+    //     return $this->tag;
+    // }
 
     /**
      * Add biography

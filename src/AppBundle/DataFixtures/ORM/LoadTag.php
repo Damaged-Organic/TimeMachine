@@ -13,8 +13,8 @@ class LoadTag extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $tag_makarevich = (new Tag)
-            ->setTitle("Макаревич")
-            ->setName("makarevich")
+            ->setTitle("Концерты")
+            ->setName("concerts")
             ->setPriority(1)
         ;
         $manager->persist($tag_makarevich);
@@ -22,7 +22,7 @@ class LoadTag extends AbstractFixture implements OrderedFixtureInterface
 
         $tag_makarevich
             ->setTranslatableLocale('en')
-            ->setTitle("Makarevich")
+            ->setTitle("Concerts")
         ;
         $manager->persist($tag_makarevich);
         $manager->flush();
@@ -30,8 +30,8 @@ class LoadTag extends AbstractFixture implements OrderedFixtureInterface
         // ---
 
         $tag_kutikov = (new Tag)
-            ->setTitle("Кутиков")
-            ->setName("kutikov")
+            ->setTitle("Фотосессии")
+            ->setName("photoshoots")
             ->setPriority(2)
         ;
         $manager->persist($tag_kutikov);
@@ -39,7 +39,7 @@ class LoadTag extends AbstractFixture implements OrderedFixtureInterface
 
         $tag_kutikov
             ->setTranslatableLocale('en')
-            ->setTitle("Kutikov")
+            ->setTitle("Photoshoots")
         ;
         $manager->persist($tag_kutikov);
         $manager->flush();
@@ -47,8 +47,8 @@ class LoadTag extends AbstractFixture implements OrderedFixtureInterface
         // ---
 
         $tag_efremov = (new Tag)
-            ->setTitle("Ефремов")
-            ->setName("efremov")
+            ->setTitle("Рабочие будни")
+            ->setName("dailyroutine")
             ->setPriority(3)
         ;
         $manager->persist($tag_efremov);
@@ -56,7 +56,7 @@ class LoadTag extends AbstractFixture implements OrderedFixtureInterface
 
         $tag_efremov
             ->setTranslatableLocale('en')
-            ->setTitle("Efremov")
+            ->setTitle("Daily routine")
         ;
         $manager->persist($tag_efremov);
         $manager->flush();
@@ -64,8 +64,8 @@ class LoadTag extends AbstractFixture implements OrderedFixtureInterface
         // ---
 
         $tag_derzhavin = (new Tag)
-            ->setTitle("Державин")
-            ->setName("derzhavin")
+            ->setTitle("Вдохновение")
+            ->setName("inspiration")
             ->setPriority(4)
         ;
         $manager->persist($tag_derzhavin);
@@ -73,17 +73,17 @@ class LoadTag extends AbstractFixture implements OrderedFixtureInterface
 
         $tag_derzhavin
             ->setTranslatableLocale('en')
-            ->setTitle("Derzhavin")
+            ->setTitle("Inspiration")
         ;
         $manager->persist($tag_derzhavin);
         $manager->flush();
 
         // ---
 
-        $this->addReference('tag_makarevich', $tag_makarevich);
-        $this->addReference('tag_kutikov', $tag_kutikov);
-        $this->addReference('tag_efremov', $tag_efremov);
-        $this->addReference('tag_derzhavin', $tag_derzhavin);
+        // $this->addReference('tag_makarevich', $tag_makarevich);
+        // $this->addReference('tag_kutikov', $tag_kutikov);
+        // $this->addReference('tag_efremov', $tag_efremov);
+        // $this->addReference('tag_derzhavin', $tag_derzhavin);
     }
 
     public function getOrder()

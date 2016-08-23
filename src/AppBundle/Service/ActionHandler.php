@@ -138,8 +138,6 @@ class ActionHandler implements ActionParametersInterface
 
     public function composeSongResponseData($lyrics)
     {
-        $lyrics = preg_replace('/\h+/', ' ', $lyrics);
-
         return [
             'data' => $lyrics,
         ];

@@ -18,10 +18,10 @@ gulp.task("js", function(){
     fileList.map(function(entry){
 
         fileName = /\w+(?=\.js)/gi.exec(entry)[0];
-        bundle = exec('jspm bundle-sfx '+ entry +' '+ cfg.build + '/js/'+ fileName +'.bundle.min.js --minify --skip-source-maps')
+        bundle = exec('jspm bundle-sfx '+ entry +' '+ cfg.build + '/js/'+ fileName +'.bundle.min.js --minify --skip-source-maps');
 
         return bundle;
-    })
+    });
 
 });
 
@@ -65,7 +65,7 @@ gulp.task("letters", function(){
 
     gulp.src(cfg.letters +"/*.mjml")
         .pipe(mjml())
-        .pipe(gulp.dest(cfg.build +"/letters/"))
+        .pipe(gulp.dest(cfg.build +"/letters/"));
 });
 
 gulp.task("watcher", function(){

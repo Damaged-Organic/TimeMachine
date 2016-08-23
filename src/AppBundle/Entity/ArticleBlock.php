@@ -61,7 +61,7 @@ class ArticleBlock implements Translatable, ArticleBlockConstantsInterface
     protected $textFormatter;
 
     /**
-     * @ORM\Column(type="string", length=250, nullable=true)
+     * @ORM\Column(type="string", length=500, nullable=true)
      *
      * @Gedmo\Translatable
      */

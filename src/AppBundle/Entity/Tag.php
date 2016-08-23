@@ -28,10 +28,10 @@ class Tag implements Translatable
      */
     protected $translations;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Musician", mappedBy="tag")
-     */
-    protected $musician;
+    // /**
+    //  * @ORM\OneToOne(targetEntity="Musician", mappedBy="tag")
+    //  */
+    // protected $musician;
 
     /**
      * @ORM\ManyToMany(targetEntity="PhotoAlbum", mappedBy="tags", cascade={"persist", "remove"})
@@ -145,28 +145,28 @@ class Tag implements Translatable
         return $this->priority;
     }
 
-    /**
-     * Set musician
-     *
-     * @param \AppBundle\Entity\Musician $musician
-     * @return Tag
-     */
-    public function setMusician(\AppBundle\Entity\Musician $musician = null)
-    {
-        $this->musician = $musician;
-
-        return $this;
-    }
-
-    /**
-     * Get musician
-     *
-     * @return \AppBundle\Entity\Musician
-     */
-    public function getMusician()
-    {
-        return $this->musician;
-    }
+    // /**
+    //  * Set musician
+    //  *
+    //  * @param \AppBundle\Entity\Musician $musician
+    //  * @return Tag
+    //  */
+    // public function setMusician(\AppBundle\Entity\Musician $musician = null)
+    // {
+    //     $this->musician = $musician;
+    //
+    //     return $this;
+    // }
+    //
+    // /**
+    //  * Get musician
+    //  *
+    //  * @return \AppBundle\Entity\Musician
+    //  */
+    // public function getMusician()
+    // {
+    //     return $this->musician;
+    // }
 
     /** Custom methods */
 

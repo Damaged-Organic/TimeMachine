@@ -36,9 +36,9 @@ class MusicianAdmin extends Admin
             ->add('yearOfEntry', 'number', [
                 'label' => "Год вступления в группу",
             ])
-            ->add('getTagOrDefault', NULL, [
-                'label' => "Тэг",
-            ])
+            // ->add('getTagOrDefault', NULL, [
+            //     'label' => "Тэг",
+            // ])
             ->add('isMainCast', 'boolean', [
                 'label' => "В основном составе",
             ])
@@ -78,10 +78,12 @@ class MusicianAdmin extends Admin
                                 'locale_options' => [
                                     'ru' => [
                                         'required' => TRUE,
+                                        'disabled' => $isMainCast,
                                         'label'    => "Имя и фамилия",
                                     ],
                                     'en' => [
                                         'required' => $isMainCast,
+                                        'disabled' => $isMainCast,
                                         'label'    => "Full name",
                                     ],
                                 ],
@@ -148,15 +150,15 @@ class MusicianAdmin extends Admin
                         'placeholder' => "состоит в группе по текущее время",
                     ])
                 ->end()
-                ->with('Музыкант - Тэг')
-                    ->add('tag', 'entity', [
-                        'required'    => FALSE,
-                        'disabled'    => TRUE,
-                        'label'       => FALSE,
-                        'class'       => 'AppBundle\Entity\Tag',
-                        'placeholder' => Tag::getDefaultTag(),
-                    ])
-                ->end()
+                // ->with('Музыкант - Тэг')
+                //     ->add('tag', 'entity', [
+                //         'required'    => FALSE,
+                //         'disabled'    => TRUE,
+                //         'label'       => FALSE,
+                //         'class'       => 'AppBundle\Entity\Tag',
+                //         'placeholder' => Tag::getDefaultTag(),
+                //     ])
+                // ->end()
             ->end()
         ;
 
