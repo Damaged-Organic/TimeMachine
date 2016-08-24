@@ -1,4 +1,9 @@
-/.idea/
+*~
+*.ca-bundle
+*.crt
+*.csr
+*.key
+*.zip
 
 /app/bootstrap.php.cache
 /app/phpunit.xml
@@ -20,5 +25,7 @@
 /www/uploads/
 /www/media/
 /www/*.html
+/www/*.xml
+/www/*.txt
 
 /composer.lock

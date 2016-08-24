@@ -99,6 +99,11 @@ class Musician implements Translatable, MusicianConstantsInterface
     protected $yearOfExit;
 
     /**
+     * @ORM\Column(type="integer", length=4, nullable=true)
+     */
+    protected $yearsInactive;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     protected $isMainCast = FALSE;
@@ -298,6 +303,29 @@ class Musician implements Translatable, MusicianConstantsInterface
     }
 
     /**
+     * Set yearsInactive
+     *
+     * @param integer $yearsInactive
+     * @return Musician
+     */
+    public function setYearsInactive($yearsInactive)
+    {
+        $this->yearsInactive = $yearsInactive;
+
+        return $this;
+    }
+
+    /**
+     * Get yearsInactive
+     *
+     * @return integer
+     */
+    public function getYearsInactive()
+    {
+        return $this->yearsInactive;
+    }
+
+    /**
      * Set isMainCast
      *
      * @param boolean $isMainCast
@@ -492,6 +520,9 @@ class Musician implements Translatable, MusicianConstantsInterface
         $yearRelevant = ( $this->yearOfExit ) ?: (new DateTime())->format('Y');
 
         $activeYears = $yearRelevant - $this->yearOfEntry;
+
+        if( $this->yearsInactive )
+            $activeYears -= $this->yearsInactive;
 
         return $activeYears;
     }

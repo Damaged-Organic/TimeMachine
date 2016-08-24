@@ -160,7 +160,7 @@ class ActionEntityManager
             $output[] = [
                 "photo"       => $photo,
                 "photoTitle"  => $concert->getCity(),
-                "location"    => $concert->getCountry() . " " . $concert->getCity(),
+                "location"    => $concert->getCountry() . ", " . $concert->getCity(),
                 "street"      => $concert->getPlace(),
                 "machineDate" => $concert->getDoorsOpenAt()->format('Y-m-d'),
                 "humanDate"   => $concert->getHumanDate($this->getLocale()),

@@ -156,6 +156,12 @@
                     text-align: left;
                     padding: 0 40px 20px;
                     &:first-child{ margin-top: 40px; }
+                    & > a{
+                        display: inline-block;
+                        vertical-align: baseline;
+                        color: @white;
+                        text-decoration: underline;
+                    }
                 }
             }
             &.reversed{
@@ -221,7 +227,7 @@
                 float: right;
                 margin-right: 80px;
             }
-        }        
+        }
     }
 }
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -281,7 +287,7 @@
 /*  adaptive start                            */
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 @media only screen and @tablet{
-    
+
     #content{
         .outer{
             padding-top: 200px;
@@ -436,7 +442,7 @@
             .btn{
                 &.left{ margin-left: 0px; }
                 &.right{ margin-right: 0px; }
-            }        
+            }
         }
     }
 
@@ -456,7 +462,7 @@
 }
 
 @media only screen and @mobileS{
-    
+
     #content .outer{ padding-top: 80px; }
 
     .post-holder{

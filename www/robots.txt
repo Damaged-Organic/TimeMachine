@@ -1,1 +1,6 @@
 User-agent: *
+
+Allow: /
+
+Host: mashina.ru
+Sitemap: https://mashina.ru/sitemap.xml

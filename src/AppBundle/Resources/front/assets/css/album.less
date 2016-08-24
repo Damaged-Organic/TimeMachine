@@ -229,11 +229,8 @@
                 }
                 ul{ margin-top: 40px; }
                 li{
-                    height: 30px;
                     position: relative;
                     margin-top: 10px;
-                    padding-left: 40px;
-                    box-sizing: border-box;
                     cursor: pointer;
                     overflow: hidden;
                     &:first-child{ margin-top: 0; }
@@ -243,7 +240,6 @@
                     & > span{
                         display: block;
                         width: 100%;
-                        height: 20px;
                         position: relative;
                         background: transparent;
                     }
@@ -251,32 +247,36 @@
                         z-index: 5;
                         color: @white;
                         text-align: left;
-                        line-height: 20px;
-                        & > span{
-                            display: inline-block;
-                            float: right;
-                            color: @white;
-                            font-size: .875em;
-                            padding-right: 20px;
-                        }
-                    }
-                    & > .lane{
-                        position: absolute;
-                        top: 10px;
-                        left: 0;
-                        background: @grey;
-                        transform: translateX(-100%);
-                        transition: all .5s @easing 0s;
-                        color: @black;
-                        line-height: 20px;
-                        font-size: .875em;
-                        text-align: right;
-                        padding-right: 120px;
+                        padding: 0 40px 25px;
                         box-sizing: border-box;
                     }
+                    & > .song-time{
+                        width: 40px;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        z-index: 5;
+                        color: @white;
+                        font-size: .875em;
+                    }
+                    & > .song-btn{
+                        display: inline-block;
+                        width: auto;
+                        position: absolute;
+                        right: 0;
+                        bottom: 0;
+                        background: @grey;
+                        transition: all .5s @easing 0s;
+                        color: @white;
+                        opacity: 0;
+                        visibility: hidden;
+                        font-size: .875em;
+                        padding: 5px 20px;
+                    }
                     &:hover{
-                        & > .lane{
-                            transform: translateX(0%);
+                        & > .song-btn{
+                            opacity: 1;
+                            visibility: visible;
                         }
                     }
                 }
@@ -392,10 +392,16 @@
                     .underline{ margin-left: -40px; }
                     li{
                         &.touch-end{
-                            & > .lane{ transform: translateX(-100%); }
+                            & > .song-btn{
+                                opacity: 0;
+                                visibility: hidden;
+                            }
                         }
                         &.touch-start{
-                            & > .lane{ transform: translateX(0%); }
+                            & > .song-btn{
+                                opacity: 1;
+                                visibility: visible;
+                            }
                         }
                     }
                 }
@@ -462,7 +468,9 @@
                     .underline{ width: 40px; }
                     ul{
                         margin-top: 20px;
-                        li{ padding: 0; }
+                        li{
+                            .song-title{ padding: 0 50px 25px 0; }
+                        }
                     }
                 }
                 .song-text-holder{
@@ -526,7 +534,10 @@
                         li{
                             .song-title{
                                 font-size: .875em;
-                                & > span{ padding-right: 0; }
+                            }
+                            .song-time,
+                            .song-btn{
+                                font-size: .75em;
                             }
                         }
                     }
@@ -546,27 +557,7 @@
             .info-holder{
                 margin-top: -120px;
                 .track-list-holder{
-                    .stamp-holder{ display: none; }
-                    ul{
-                        li{
-                            height: auto;
-                            .song-title{
-                                height: auto;
-                                position: relative;
-                                line-height: 16px;
-                                padding-right: 40px;
-                                box-sizing: border-box;
-                                & > span{
-                                    position: absolute;
-                                    top: 50%;
-                                    right: 0;
-                                    transform: translateY(-50%);
-                                    font-size: .75em;
-                                }
-                            }
-                            .lane{ display: none; }
-                        }
-                    }
+                    .stamp-holder{ display: none; }        
                 }
             }
         }

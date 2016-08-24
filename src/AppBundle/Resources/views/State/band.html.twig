@@ -14,7 +14,7 @@
 	<meta property="og:url" content="{{ url('band') }}">
     <meta property="og:title" content="{{ metadata.title }} - {{ 'common.title'|trans }}">
 	<meta property="og:description" content="{{ metadata.description }}">
-    <meta property="og:image" content="{{ absolute_url(asset('bundles/app/images/logo.png')) }}">
+    <meta property="og:image" content="{{ absolute_url(asset('bundles/app/images/logo-social.png')) }}">
     <meta property="og:image:type" content="image/png">
     {# Locale reference #}
     <link rel="canonical" href="{{ url('band', { '_locale': "ru" }) }}">
@@ -48,7 +48,7 @@
                                 {% if musician.photoName %}
                                     <img src="{{ vich_uploader_asset(musician, 'photoFile')|imagine_filter('musician_photo_thumb') }}" alt="{{ musician.title }}">
                                 {% endif %}
-                                
+
                             </figure>
 
                             {% if musician.isMainCast %}
@@ -59,7 +59,7 @@
 
                         </div>
                         <div class="stamp-holder">
-                            <span class="upper-title">{{ musician.dateOfBirth|date("Y") }}</span>
+                            <span class="upper-title">{{ musician.yearOfEntry }}</span>
                             <p class="sub-title">{{ 'band.musician.years'|transchoice(musician.getYearsActive()) }}</p>
                         </div>
                         <div class="info-holder">

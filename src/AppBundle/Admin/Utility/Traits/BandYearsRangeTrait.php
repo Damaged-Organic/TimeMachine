@@ -8,18 +8,22 @@ trait BandYearsRangeTrait
 {
     public function getYearsRangeChoice()
     {
-        $years = range('1969', (new DateTime())->format('Y'));
-
-        $yearsRange = array_reverse(
-            array_combine($years, $years), TRUE
-        );
-
-        return $yearsRange;
+        return $this->combineYearsChoice(1969, (new DateTime())->format('Y'));
     }
 
     public function getFullYearsRangeChoice()
     {
-        $years = range('1900', (new DateTime())->format('Y'));
+        return $this->combineYearsChoice(1900, (new DateTime())->format('Y'));
+    }
+
+    public function getLifeYearsRangeChoice()
+    {
+        return $this->combineYearsChoice(100, 1);
+    }
+
+    private function combineYearsChoice($from, $to)
+    {
+        $years = range($from, $to);
 
         $yearsRange = array_reverse(
             array_combine($years, $years), TRUE

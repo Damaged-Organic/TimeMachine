@@ -10,13 +10,13 @@
 
     {% set majorArticleBlock = article.articleBlocks.0 %}
 
-    <meta name="description" content="{{ majorArticleBlock.text|truncate(250) }}">
+    <meta name="description" content="{{ majorArticleBlock.text|striptags|truncate(250) }}">
     <meta name="robots" content="{{ metadata.robots }}">
     {# Open Graph #}
 	<meta property="og:type" content="article">
 	<meta property="og:url" content="{{ url('blog', { 'id': article.id, 'slug': article.slug }) }}">
     <meta property="og:title" content="{{ article.title }} - {{ metadata.title }} - {{ 'common.title'|trans }}">
-	<meta property="og:description" content="{{ majorArticleBlock.text|truncate(250) }}">
+	<meta property="og:description" content="{{ majorArticleBlock.text|striptags|truncate(250) }}">
     <meta property="og:image" content="{{ absolute_url(vich_uploader_asset(majorArticleBlock, 'imageFile')) }}">
     <meta property="og:image:type" content="image/{{ majorArticleBlock.imageName|split('.')[1] }}">
     {# Locale reference #}

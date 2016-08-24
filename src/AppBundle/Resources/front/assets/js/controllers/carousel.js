@@ -1,5 +1,8 @@
 "use strict";
 
+const KEY_LEFT = 37;
+const KEY_RIGHT = 39;
+
 let carouselHolder = $("#carousel-holder");
 
 let photoListHolder = $("#photo-list-holder");
@@ -22,25 +25,18 @@ class Carousel{
 
         carouselHolder.on("click", ".arrow", (e) => { this._handleArrow(e) })
                       .on("click", ".close", (e) => { this._handleClose(e) });
+
+        $(document).on("keyup", (e) => { this._handleKeyUp(e) });
     }
     _handlePhoto(e){
         e.preventDefault();
         let target = $(e.currentTarget);
-        let originalUrl = target.data("original");
-        let photoDesc = target.data("desc");
 
         this.current = target.index();
 
-        this._preloadPhoto(originalUrl, (img) => {
-            let orientation = this._recognizeOrientation(img);
-            
-            carouselHolder.addClass("active");
-            photoView
-                .removeClass("landscape portrait")
-                .addClass(orientation);
+        let photoData = this.getPhotoData();
 
-            this.render(img, photoDesc);
-        });
+        this.render(photoData);
 
         return false;
     }
@@ -49,25 +45,25 @@ class Carousel{
         let target = $(e.currentTarget);
         let direction = target.hasClass("left") ? "left" : "right";
 
-        (direction === "left") ? this.current-- : this.current++;
+        this.updateCurrentBasedOnDirection(direction);
+        this.checkBoundaries();
 
-        if(this.current < 0) this.current = photoCount - 1;
-        if(this.current > photoCount - 1) this.current = 0;
+        let photoData = this.getPhotoData();
 
-        let photoItem = photoList.eq(this.current);
-        let originalUrl = photoItem.data("original");
-        let photoDesc = photoItem.data("desc");
+        this.render(photoData);
 
-        this._preloadPhoto(originalUrl, (img) => {
-            let orientation = this._recognizeOrientation(img);
-            
-            carouselHolder.addClass("active");
-            photoView
-                .removeClass("landscape portrait")
-                .addClass(orientation);
+        return false;
+    }
+    _handleKeyUp(e){
+        if(e.keyCode !== KEY_LEFT && e.keyCode !== KEY_RIGHT) return;
+        let direction = e.keyCode === KEY_LEFT ? "left" : "right";
 
-            this.render(img, photoDesc);
-        });
+        this.updateCurrentBasedOnDirection(direction);
+        this.checkBoundaries();
+
+        let photoData = this.getPhotoData();
+
+        this.render(photoData);
 
         return false;
     }
@@ -76,13 +72,25 @@ class Carousel{
 
         return false;
     }
+    updateCurrentBasedOnDirection(direction){
+        (direction === "left") ? this.current-- : this.current++;
+    }
+    checkBoundaries(){
+        if(this.current < 0) this.current = photoCount - 1;
+        if(this.current > photoCount - 1) this.current = 0;
+    }
+    getPhotoData(){
+        let photo = photoList.eq(this.current);
+
+        return {
+            originalUrl: photo.data("original"),
+            description: photo.data("desc")
+        }
+    }
     _preloadPhoto(url, cb){
         let image = new Image();
 
-        image.onload = () => {
-            cb(image);
-        };
-
+        image.onload = () => cb(image);
         image.src = url;
     }
     _recognizeOrientation(img){
@@ -91,14 +99,23 @@ class Carousel{
 
         return (width > height) ? "landscape" : "portrait";
     }
-    render(img, desc){
-        photoView.html(img);
+    render(photoData){
+        this._preloadPhoto(photoData.originalUrl, (img) => {
+            let orientation = this._recognizeOrientation(img);
 
-        photoInfo.html(`
-            <span class="upper-title">${ this.current + 1 } / ${ photoCount }</span>
-            <span class="underline"></span>
-            <p>${ desc }</p>
-        `);
+            carouselHolder.addClass("active");
+            photoView
+                .removeClass("landscape portrait")
+                .addClass(orientation);
+
+            photoView.html(img);
+
+            photoInfo.html(`
+                <span class="upper-title">${ this.current + 1 } / ${ photoCount }</span>
+                <span class="underline"></span>
+                <p>${ photoData.description }</p>
+            `);
+        });
     }
 }
 

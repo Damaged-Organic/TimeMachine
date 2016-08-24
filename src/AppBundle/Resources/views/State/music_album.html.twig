@@ -61,11 +61,9 @@
 
                             {% for song in album.songs %}
                                 <li class="song touchable {{ ( not song.lyrics ) ? 'no-text' }}" data-song-id="{{ song.id }}">
-                                    <span class="song-title">
-                                        {{ song.title }}
-                                        <span>{{ song.getFormattedSongDuration() }}</span>
-                                    </span>
-                                    <span class="lane">{{ 'music.song.text'|trans }}</span>
+                                    <span class="song-title">{{ song.title }}</span>
+                                    <span class="song-time">{{ song.getFormattedSongDuration() }}</span>
+                                    <span class="song-btn">{{ 'music.song.text'|trans }}</span>
                                 </li>
                             {% endfor %}
 

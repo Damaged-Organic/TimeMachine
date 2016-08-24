@@ -36,6 +36,9 @@ class MusicianAdmin extends Admin
             ->add('yearOfEntry', 'number', [
                 'label' => "Год вступления в группу",
             ])
+            ->add('getYearsActive', 'number', [
+                'label' => "Лет в группе",
+            ])
             // ->add('getTagOrDefault', NULL, [
             //     'label' => "Тэг",
             // ])
@@ -50,7 +53,8 @@ class MusicianAdmin extends Admin
 
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $yearsRange = $this->getYearsRangeChoice();
+        $yearsRange     = $this->getYearsRangeChoice();
+        $lifeYearsRange = $this->getLifeYearsRangeChoice();
 
         if( $musician = $this->getSubject() ) {
             $photoRequired   = ( $musician->getPhotoName() ) ? FALSE : TRUE;
@@ -148,6 +152,12 @@ class MusicianAdmin extends Admin
                         'label'       => "Год выхода из группы",
                         'choices'     => $yearsRange,
                         'placeholder' => "состоит в группе по текущее время",
+                    ])
+                    ->add('yearsInactive', 'choice', [
+                        'required'    => FALSE,
+                        'label'       => "Не участвовал в деятельности группы",
+                        'choices'     => $lifeYearsRange,
+                        'placeholder' => "он всегда был с ней",
                     ])
                 ->end()
                 // ->with('Музыкант - Тэг')
