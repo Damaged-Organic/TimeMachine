@@ -244,7 +244,7 @@ class ActionEntityManager
             if( !($photoAlbum instanceof PhotoAlbum) )
                 continue;
 
-            $majorPhoto = $photoAlbum->getPhotos()[0];
+            $majorPhoto = $photoAlbum->getCoverPhoto();
 
             $photo       = $this->getUploadedImage($majorPhoto, 'photoFile', 'photo_album_photo_thumb');
             $photoCount  = $this->translateCount($photoAlbum->getPhotosNumber(), 'gallery.photo.amount');

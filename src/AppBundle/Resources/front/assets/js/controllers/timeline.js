@@ -9,18 +9,19 @@ let yearHolder = $("#year-holder");
 let timelineHeight = 0;
 let timelineOffset = {};
 
-let yearStart = timeline.data("year-start");
-let yearEnd = timeline.data("year-end");
+// let yearStart = timeline.data("year-start");
+// let yearEnd = timeline.data("year-end");
+let years = timeline.data("years");
 let yearsData = [];
 
-let totalYears = yearEnd - yearStart + 1;
+let totalYears = years.length;
 
 let transform = getVendor("transform");
 
 class Timeline{
 
     constructor(){
-        this.year = yearEnd;
+        this.year = years[0];
         this.mouse = {
             x: 0,
             y: 0,
@@ -39,7 +40,7 @@ class Timeline{
 
         for(let i = 0; i < totalYears; i++){
             yearsData[i] = {
-                year: yearEnd - i,
+                year: years[i],
                 position: range * i,
                 reached: false,
                 number: i

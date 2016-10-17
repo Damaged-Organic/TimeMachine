@@ -19,6 +19,11 @@ class PhotoAlbumAdmin extends Admin
 {
     use BandYearsRangeTrait;
 
+    protected $datagridValues = [
+        '_sort_by'    => 'dateTaken',
+        '_sort_order' => 'DESC',
+    ];
+
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
@@ -122,7 +127,10 @@ class PhotoAlbumAdmin extends Admin
                         'attr'         => [
                             'style' => 'padding: 15px 0 0 15px; height: 55px;',
                         ],
-                        'help' => 'Можно выбрать несколько фотографий одновременно, и они будут добавлены к текущему списку!',
+                        'help' => implode('', [
+                            '<p>Можно выбрать несколько фотографий одновременно, и они будут добавлены к текущему списку.</p>',
+                            '<p>Максимальный размер единовременной загрузки составляет <span style="color:red;">20</span> фотографий общим объемом не более <span style="color:red;">16MB</span></p>'
+                        ]),
                     ])
                 ->end()
                 ->with('Фотоальбом - фотографии')

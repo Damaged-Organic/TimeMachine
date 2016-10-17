@@ -70,6 +70,8 @@ doctrine:
                 dql:
                     string_functions:
                         YEAR: DoctrineExtensions\Query\Mysql\Year
+                hydrators:
+                    ColumnHydrator: AppBundle\Hydrators\ColumnHydrator
 
 # Swiftmailer Configuration
 swiftmailer:

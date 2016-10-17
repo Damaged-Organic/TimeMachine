@@ -284,7 +284,9 @@ class StateController extends AppController implements PageInitInterface
                 ->findAll()
             ;
 
-            $years = $this->getYearsRangeChoice();
+            $years = $_manager->getRepository('AppBundle:PhotoAlbum')
+                ->findExistingDateTaken()
+            ;
 
             $response = [
                 'view' => 'AppBundle:State:gallery.html.twig',

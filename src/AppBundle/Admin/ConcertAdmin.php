@@ -13,6 +13,11 @@ use AppBundle\Entity\Concert;
 
 class ConcertAdmin extends Admin
 {
+    protected $datagridValues = [
+        '_sort_by'    => 'doorsOpenAt',
+        '_sort_order' => 'DESC',
+    ];
+
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper

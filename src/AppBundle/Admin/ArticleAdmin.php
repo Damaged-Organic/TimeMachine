@@ -15,6 +15,11 @@ use AppBundle\Entity\Article;
 
 class ArticleAdmin extends Admin
 {
+    protected $datagridValues = [
+        '_sort_by'    => 'createdAt',
+        '_sort_order' => 'DESC',
+    ];
+
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper

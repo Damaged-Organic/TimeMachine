@@ -83,7 +83,7 @@
             </ul>
         </div>
         <div id="timeline-holder">
-            <div id="timeline" data-year-start="{{ years|last }}" data-year-end="{{ years|first }}">
+            <div id="timeline" data-years="{{ years|json_encode() }}">
                 <div id="dragger"></div>
                 <span id="year-holder"></span>
                 <div class="lane"></div>

@@ -74,6 +74,21 @@ class PhotoAlbumRepository extends ExtendedEntityRepository implements ActionPar
         return $query->getOneOrNullResult();
     }
 
+    public function findExistingDateTaken()
+    {
+        $query = $this
+            ->createQueryBuilder('pa')
+            ->select('YEAR(pa.dateTaken)')
+            ->where('pa.isActive = :isActive')
+            ->setParameter(':isActive', TRUE)
+            ->orderBy('pa.dateTaken', 'DESC')
+            ->distinct()
+            ->getQuery()
+        ;
+
+        return $query->getResult('ColumnHydrator');
+    }
+
     public function countAll()
     {
         $query = $this
