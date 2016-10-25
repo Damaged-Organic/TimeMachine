@@ -39,7 +39,23 @@
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /*  adaptive start                            */
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
+@media only screen and @tablet{
+    .affiche-holder{
+        .grid{
+            .item{
+                .stamp-holder{
+                    width: 100%;
+                }
+                &:nth-child(even){
+                    .stamp-holder{
+                        left: auto;
+                        right: 0;
+                    }
+                }
+            }
+        }
+    }
+}
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /*  adaptive end                              */
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
