@@ -193,7 +193,7 @@ class ActionEntityManager
                 'photoTitle'  => $article->getTitle(),
                 'machineDate' => $article->getCreatedAt()->format('Y-m-d'),
                 'year'        => $article->getCreatedAt()->format('Y'),
-                'humanDate'   => $article->getHumanDate(),
+                'humanDate'   => $article->getHumanDate($this->getLocale()),
                 'title'       => $article->getTitle($this->getLocale()),
                 'description' => $majorArticleBlock->getTextShort(250),
                 'viewCount'   => $viewCount,
