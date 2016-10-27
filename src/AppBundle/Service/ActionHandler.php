@@ -48,22 +48,16 @@ class ActionHandler implements ActionParametersInterface
 
     private function validateGalleryRequest(Request $request)
     {
+        $liftParameter = ( $request->query->has(self::PARAMETER_LIFT) )
+            ? $this->validateLiftParameter($request->query->get(self::PARAMETER_LIFT))
+            : FALSE;
+
         $tagParameter = ( $request->query->has(self::PARAMETER_TAG) )
             ? $this->validateTagParameter($request->query->get(self::PARAMETER_TAG))
             : FALSE;
 
-        if( $tagParameter === FALSE )
-            return FALSE;
-
         $yearParameter = ( $request->query->has(self::PARAMETER_YEAR) )
             ? $this->validateYearParameter($request->query->get(self::PARAMETER_YEAR))
-            : FALSE;
-
-        if( $yearParameter === FALSE )
-            return FALSE;
-
-        $liftParameter = ( $request->query->has(self::PARAMETER_LIFT) )
-            ? $this->validateLiftParameter($request->query->get(self::PARAMETER_LIFT))
             : FALSE;
 
         return [
