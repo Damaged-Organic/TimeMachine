@@ -1,7 +1,7 @@
 # src/AppBundle/Resources/translations/messages.en.yml
 common:
     title:  Time Machine
-    footer: © Time Machine, %timeline%. Web Production by %link%.
+    footer: © Time Machine, %timeline%. Web Production by %link%
 
     subscription: subscription
 

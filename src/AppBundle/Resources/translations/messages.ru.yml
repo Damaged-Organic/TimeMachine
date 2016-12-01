@@ -1,7 +1,7 @@
 # src/AppBundle/Resources/translations/messages.ru.yml
 common:
     title:  Машина Времени
-    footer: © Машина Времени, %timeline%. Web Production by %link%.
+    footer: © Машина Времени, %timeline%. Web Production by %link%
 
     subscription: подписка
 
