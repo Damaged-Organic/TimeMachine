@@ -44,6 +44,9 @@ class PhotoAlbumAdmin extends Admin
                 'label'    => "Отображается",
                 'editable' => TRUE,
             ])
+            ->add('isSubscriptionSent', 'boolean', [
+                'label' => "Письма отправлены",
+            ])
         ;
     }
 
@@ -147,6 +150,24 @@ class PhotoAlbumAdmin extends Admin
                 ->end()
             ->end()
         ;
+
+        if( $photoAlbum = $this->getSubject() )
+        {
+            if( $photoAlbum->getId() && !$photoAlbum->getIsSubscriptionSent() )
+            {
+                $formMapper
+                    ->tab('Фотоальбом')
+                        ->with('Подписка - Отправка писем подписчикам')
+                            ->add('sendSubscription', 'checkbox', [
+                                'mapped'   => FALSE,
+                                'required' => FALSE,
+                                'label'    => "Отправить письма подписчикам",
+                            ])
+                        ->end()
+                    ->end()
+                ;
+            }
+        }
     }
 
     public function prePersist($photoAlbum)
@@ -163,6 +184,34 @@ class PhotoAlbumAdmin extends Admin
             return;
 
         $this->setPhotoAlbumCover($photoAlbum);
+    }
+
+    public function postPersist($photoAlbum)
+    {
+        if( !($photoAlbum instanceof PhotoAlbum) )
+            return;
+
+        if( !$this->getForm()->has('sendSubscription') )
+            return;
+
+        if( $this->getForm()->get('sendSubscription')->getData() &&
+            !$photoAlbum->getIsSubscriptionSent() ) {
+            $this->sendSubscriptionMessage($photoAlbum);
+        }
+    }
+
+    public function postUpdate($photoAlbum)
+    {
+        if( !($photoAlbum instanceof PhotoAlbum) )
+            return;
+
+        if( !$this->getForm()->has('sendSubscription') )
+            return;
+
+        if( $this->getForm()->get('sendSubscription')->getData() &&
+            !$photoAlbum->getIsSubscriptionSent() ) {
+            $this->sendSubscriptionMessage($photoAlbum);
+        }
     }
 
     private function setPhotoAlbumCover(PhotoAlbum $photoAlbum)
@@ -192,6 +241,39 @@ class PhotoAlbumAdmin extends Admin
                 $photo->setIsCover($isCover);
             }
         }
+    }
+
+    public function sendSubscriptionMessage(PhotoAlbum $photoAlbum)
+    {
+        $_router = $this->getConfigurationPool()->getContainer()
+            ->get('router')
+        ;
+
+        $message = [
+            'title' => $photoAlbum->getTitle(),
+            'text'  => $photoAlbum->getSubscriptionMessage(),
+            'link'  => $_router->generate('gallery', [
+                'id'   => $photoAlbum->getId(),
+                'slug' => $photoAlbum->getSlug(),
+            ], TRUE),
+        ];
+
+        $_subscriptionSender = $this->getConfigurationPool()->getContainer()
+            ->get('app.subscription_sender')
+        ;
+
+        $_subscriptionSender->sendSubscriptionMessages(
+            $message['title'], $message['text'], $message['link']
+        );
+
+        $_manager = $this->getConfigurationPool()->getContainer()
+            ->get('Doctrine')->getManager()
+        ;
+
+        $_manager->persist(
+            $photoAlbum->setIsSubscriptionSent(TRUE)
+        );
+        $_manager->flush();
     }
 
     public function getFormTheme()

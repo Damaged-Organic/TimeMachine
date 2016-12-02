@@ -35,5 +35,6 @@ subscription:
     message:
         article:     New blog post
         concert:     New event announcement
-        link:        Read
+        photo_album: New photo album
+        link:        Follow
         unsubscribe: Unsubscribe from notifications

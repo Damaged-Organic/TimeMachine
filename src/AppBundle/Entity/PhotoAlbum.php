@@ -73,6 +73,11 @@ class PhotoAlbum implements Translatable
     protected $isActive = TRUE;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $isSubscriptionSent = FALSE;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -184,6 +189,29 @@ class PhotoAlbum implements Translatable
     }
 
     /**
+     * Set isSubscriptionSent
+     *
+     * @param boolean $isSubscriptionSent
+     * @return PhotoAlbum
+     */
+    public function setIsSubscriptionSent($isSubscriptionSent)
+    {
+        $this->isSubscriptionSent = $isSubscriptionSent;
+
+        return $this;
+    }
+
+    /**
+     * Get isSubscriptionSent
+     *
+     * @return boolean
+     */
+    public function getIsSubscriptionSent()
+    {
+        return $this->isSubscriptionSent;
+    }
+
+    /**
      * Add tag
      *
      * @param \AppBundle\Entity\Tag $tag
@@ -264,6 +292,11 @@ class PhotoAlbum implements Translatable
             if( $photo->getIsCover() )
                 return $photo;
         }
+    }
+
+    public function getSubscriptionMessage()
+    {
+        return 'subscription.message.photo_album';
     }
 
     public function getHumanDate($_locale)

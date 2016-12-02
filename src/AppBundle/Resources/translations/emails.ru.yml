@@ -35,5 +35,6 @@ subscription:
     message:
         article:     Новая запись в блоге
         concert:     Анонсировано новое событие
-        link:        Прочитать
+        photo_album: Добавлен новый фотоальбом
+        link:        Перейти
         unsubscribe: Отписаться от рассылки
