@@ -130,7 +130,7 @@
                 {% if closestArticles.prev %}
                     <div class="btn right">
                         <a href="{{ path('blog', { 'id': closestArticles.prev.id, 'slug': closestArticles.prev.slug }) }}">
-                            <span>{{ 'blog.article.prev'|trans|lower }}</span>
+                            <span>{{ 'blog.article.next'|trans|lower }}</span>
                         </a>
                     </div>
                 {% endif %}
@@ -138,7 +138,7 @@
                 {% if closestArticles.next %}
                     <div class="btn left">
                         <a href="{{ path('blog', { 'id': closestArticles.next.id, 'slug': closestArticles.next.slug }) }}">
-                            <span>{{ 'blog.article.next'|trans|lower }}</span>
+                            <span>{{ 'blog.article.prev'|trans|lower }}</span>
                         </a>
                     </div>
                 {% endif %}
