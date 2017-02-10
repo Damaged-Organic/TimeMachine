@@ -42,9 +42,9 @@ class ComponentController extends Controller
         $social = $this->getParameter('social');
 
         $social = [
-            'facebook' => $social['facebook'],
-            'twitter'  => $social['twitter'],
-            'youtube'  => $social['youtube'],
+            'facebook'   => $social['facebook'],
+            'vkontakte'  => $social['vkontakte'],
+            'youtube'    => $social['youtube'],
         ];
 
         return $this->render('AppBundle:Component/Header:social.html.twig', [
