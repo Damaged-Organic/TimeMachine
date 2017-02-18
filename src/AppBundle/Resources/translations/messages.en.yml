@@ -4,6 +4,7 @@ common:
     footer: © Time Machine, %timeline%. Web Production by %link%
 
     subscription: subscription
+    rider: rider
 
     landscape:
         title: To get the full joy

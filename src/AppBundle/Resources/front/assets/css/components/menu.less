@@ -79,13 +79,13 @@
             text-align: center;
         }
     }
-    .subscribe-button{
+    .subscribe-button,
+    .rider-button{
         display: inline-block;
         width: auto;
         height: 160px;
         position: absolute;
         top: 0;
-        left: 200px;
         background: transparent;
         a{
             display: inline-block;
@@ -105,6 +105,12 @@
                 content: "";
             }
         }
+    }
+    .subscribe-button{
+        left: 200px;
+    }
+    .rider-button{
+        left: 400px;
     }
     .menu{
         width: 100%;
@@ -354,7 +360,10 @@
             left: 80px;
             & > a{ line-height: 80px; }
         }
-        .subscribe-button{ display: none; }
+        .subscribe-button,
+        .rider-button{
+            display: none;
+        }
         .menu{
             .entitled{ padding-left: 80px; }
             & > nav{
