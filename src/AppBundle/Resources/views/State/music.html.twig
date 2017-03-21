@@ -41,6 +41,21 @@
                                     <img src="{{ vich_uploader_asset(album, 'coverFile')|imagine_filter('album_cover_thumb') }}" alt="{{ album.title }}">
                                 </figure>
                             </a>
+                            <ul class="links-holder">
+
+                                {% if album.iTunesLink %}
+                                    <li><a href="{{ album.iTunesLink }}" target="_blank">iTunes</a></li>
+                                {% endif %}
+
+                                {% if album.googlePlayLink %}
+                                    <li><a href="{{ album.googlePlayLink }}" target="_blank">Google Play</a></li>
+                                {% endif %}
+
+                                {% if album.ozonLink %}
+                                    <li><a href="{{ album.ozonLink }}" target="_blank">OZON</a></li>
+                                {% endif %}
+
+                            </ul>
                         </div>
                         <div class="stamp-holder">
                             <span class="upper-title">{{ album.yearOfRelease }}</span>

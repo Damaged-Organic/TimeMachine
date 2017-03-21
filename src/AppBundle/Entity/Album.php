@@ -76,6 +76,11 @@ class Album implements Translatable, AlbumConstantsInterface
     protected $googlePlayLink;
 
     /**
+     * @ORM\Column(type="string", length=1000, nullable=true)
+     */
+    protected $ozonLink;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     protected $isActive = TRUE;
@@ -210,6 +215,29 @@ class Album implements Translatable, AlbumConstantsInterface
     public function getGooglePlayLink()
     {
         return $this->googlePlayLink;
+    }
+
+    /**
+     * Set ozonLink
+     *
+     * @param string $ozonLink
+     * @return Album
+     */
+    public function setOzonLink($ozonLink)
+    {
+        $this->ozonLink = $ozonLink;
+
+        return $this;
+    }
+
+    /**
+     * Get ozonLink
+     *
+     * @return string
+     */
+    public function getOzonLink()
+    {
+        return $this->ozonLink;
     }
 
     /**

@@ -58,6 +58,20 @@
                 </div>
 
                 {{ render(controller(
+                    'AppBundle:Component:social'
+                )) }}
+
+                <ul class="links-holder">
+
+                    {% for rider in riders %}
+                        <li>
+                            <a href="{{ rider.link }}" target="_blank">{{ rider.name }}</a>
+                        </li>
+                    {% endfor %}
+
+                </ul>
+
+                {{ render(controller(
                     'AppBundle:Form:feedbackForm'
                 )) }}
 

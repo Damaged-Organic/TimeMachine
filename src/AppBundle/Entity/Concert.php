@@ -86,6 +86,16 @@ class Concert implements Translatable, ConcertConstantsInterface
     protected $ticketsLink;
 
     /**
+     * @ORM\Column(type="string", length=1000, nullable=true)
+     */
+    protected $facebookLink;
+
+    /**
+     * @ORM\Column(type="string", length=1000, nullable=true)
+     */
+    protected $vkontakteLink;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     protected $isActive = TRUE;
@@ -272,6 +282,52 @@ class Concert implements Translatable, ConcertConstantsInterface
     public function getTicketsLink()
     {
         return $this->ticketsLink;
+    }
+
+    /**
+     * Set facebookLink
+     *
+     * @param string $facebookLink
+     * @return Concert
+     */
+    public function setFacebookLink($facebookLink)
+    {
+        $this->facebookLink = $facebookLink;
+
+        return $this;
+    }
+
+    /**
+     * Get facebookLink
+     *
+     * @return string
+     */
+    public function getFacebookLink()
+    {
+        return $this->facebookLink;
+    }
+
+    /**
+     * Set vkontakteLink
+     *
+     * @param string $vkontakteLink
+     * @return Concert
+     */
+    public function setVkontakteLink($vkontakteLink)
+    {
+        $this->vkontakteLink = $vkontakteLink;
+
+        return $this;
+    }
+
+    /**
+     * Get vkontakteLink
+     *
+     * @return string
+     */
+    public function getVkontakteLink()
+    {
+        return $this->vkontakteLink;
     }
 
     /**

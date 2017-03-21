@@ -2,11 +2,12 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block title %}
-    {{ 'common.title'|trans }}
+    {{ metadata.title }} | {{ 'common.title'|trans }}
 {% endblock %}
 
 {% block metadata %}
     {{ parent() }}
+    <meta name="keywords" content="машина времени, группа машина времени, андрей макаревич, александр кутиков, валерий ефремов, андрей державин">
     <meta name="description" content="{{ metadata.description }}">
     <meta name="robots" content="{{ metadata.robots }}">
     {# Open Graph #}

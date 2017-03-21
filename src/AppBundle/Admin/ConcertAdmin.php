@@ -164,6 +164,14 @@ class ConcertAdmin extends Admin
                     'required' => FALSE,
                     'label'    => "Ссылка на покупку билетов",
                 ])
+                ->add('facebookLink', 'text', [
+                    'required' => FALSE,
+                    'label'    => "Ссылка на событие Facebook",
+                ])
+                ->add('vkontakteLink', 'text', [
+                    'required' => FALSE,
+                    'label'    => "Ссылка на событие VKontakte",
+                ])
                 ->add('isActive', 'checkbox', [
                     'required' => FALSE,
                     'label'    => "Отображается",

@@ -41,6 +41,17 @@
                                     <img src="{{ vich_uploader_asset(concert, 'posterFile')|imagine_filter('affiche_poster_thumb') }}" alt="{{ concert.city }}">
                                 </figure>
                             </div>
+                            <ul class="links-holder">
+
+                                {% if concert.facebookLink %}
+                                    <li><a href="{{ concert.facebookLink }}" target="_blank">Facebook</a></li>
+                                {% endif %}
+
+                                {% if concert.vkontakteLink %}
+                                    <li><a href="{{ concert.vkontakteLink }}" target="_blank">VKontakte</a></li>
+                                {% endif %}
+
+                            </ul>
                         </div>
                         <div class="stamp-holder">
                             <span class="upper-title">{{ concert.country }}, {{ concert.city }}</span>

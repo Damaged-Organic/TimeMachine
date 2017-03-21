@@ -195,6 +195,17 @@ services:
         calls:
             - [ setTranslationDomain, [AppBundle] ]
 
+    sonata.admin.rider:
+        class: AppBundle\Admin\RiderAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Группа", label: "Райдер" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Rider
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]
+
     sonata.admin.album:
         class: AppBundle\Admin\AlbumAdmin
         tags:

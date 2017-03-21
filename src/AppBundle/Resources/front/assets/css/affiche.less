@@ -17,6 +17,40 @@
 .affiche-holder{
     .grid{
         .item{
+            .photo-holder{
+                .links-holder{
+                    display: inline-block;
+                    position: absolute;
+                    left: 120px;
+                    bottom: 40px;
+                    z-index: 20;
+                    overflow: hidden;
+                    li{
+                        display: block;
+                        width: 100%;
+                        height: auto;
+                        overflow: hidden;
+                        & + li{ margin-top: 10px; }
+                        a{
+                            display: inline-block;
+                            font-family: @djs;
+                            font-size: .875em;
+                            color: @white;
+                            overflow: hidden;
+                            &:before{
+                                display: inline-block;
+                                vertical-align: middle;
+                                width: 20px;
+                                height: 1px;
+                                content: "";
+                                margin-right: 20px;
+                                background: @white;
+                                overflow: hidden;
+                            }
+                        }
+                    }
+                }
+            }
             .stamp-holder{
                 width: 50%;
                 left: auto;
@@ -27,6 +61,13 @@
                 .stamp-holder{
                     left: 0;
                     right: auto;
+                }
+                .photo-holder{
+                    .links-holder{
+                        left: auto;
+                        right: 40px;
+                        bottom: 40px;
+                    }
                 }
             }
         }
@@ -43,13 +84,58 @@
     .affiche-holder{
         .grid{
             .item{
+                .photo-holder{
+                    .links-holder{
+                        top: 40px;
+                        left: 80px;
+                        bottom: auto;
+                    }
+                }
                 .stamp-holder{
                     width: 100%;
+                    padding-left: 35%;
+                    box-sizing: border-box;
+                    overflow: hidden;
                 }
                 &:nth-child(even){
                     .stamp-holder{
                         left: auto;
                         right: 0;
+                    }
+                    .photo-holder{
+                        .links-holder{
+                            left: 80px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and @mobileL{
+    .affiche-holder{
+        .grid{
+            .item{
+                .photo-holder{
+                    .links-holder{
+                        display: none;
+                    }
+                }
+                .stamp-holder{
+                    width: 100%;
+                    padding-left: 35%;
+                    box-sizing: border-box;
+                }
+                &:nth-child(even){
+                    .stamp-holder{
+                        left: auto;
+                        right: 0;
+                    }
+                    .photo-holder{
+                        .links-holder{
+                            display: none;
+                        }
                     }
                 }
             }

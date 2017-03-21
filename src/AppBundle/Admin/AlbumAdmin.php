@@ -133,6 +133,10 @@ class AlbumAdmin extends Admin
                         'required' => FALSE,
                         'label'    => "Ссылка на Google Play",
                     ])
+                    ->add('ozonLink', 'text', [
+                        'required' => FALSE,
+                        'label'    => "Ссылка на OZON",
+                    ])
                     ->add('isActive', 'checkbox', [
                         'required' => FALSE,
                         'label'    => "Отображается",

@@ -2,46 +2,81 @@
 /*  toggle menu                               */
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 #toggle-menu{
-    width: 40px;
-    height: 22px;
+    display: inline-block;
     position: fixed;
     top: 80px;
     right: 80px;
     z-index: 30;
     cursor: pointer;
     transition: all .5s @easing 1s;
-    & > .line{
-        display: block;
-        width: 100%;
-        height: 2px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: @white;
+    overflow: hidden;
+    & > .circle{
+        display: inline-block;
+        vertical-align: middle;
+        width: 60px;
+        height: 60px;
+        position: relative;
+        border-radius: 50%;
+        background: @grey;
+        overflow: hidden;
+        .line{
+            display: block;
+            width: 30px;
+            height: 1px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -15px;
+            background: @white;
+            opacity: 1;
+            transform-origin: 50% 0%;
+            transition: all .5s @easing 0s;
+            &:nth-child(1){
+                transform: translateY(-9px);
+            }
+            &:nth-child(2){
+                transform: translateY(0);
+            }
+            &:nth-child(3){
+                transform: translateY(9px);
+            }
+        }
+    }
+    & > .menu-title{
+        display: inline-block;
+        vertical-align: middle;
+        font-family: @djsl;
+        font-size: .875em;
+        color: @white;
+        text-transform: uppercase;
+        transition: all .5s @easing;
         opacity: 1;
-        transition: all .5s @easing 0s;
-        &:nth-child(1){
-            transform: translateY(0);
-        }
-        &:nth-child(2){
-            transform: translateY(10px);
-        }
-        &:nth-child(3){
-            transform: translateY(20px);
+        visibility: visible;
+        &:after{
+            display: inline-block;
+            vertical-align: middle;
+            width: 40px;
+            height: 1px;
+            background: @grey;
+            content: "";
+            margin: 0 20px;
+            overflow: hidden;
         }
     }
     &:hover{
-        & > .line{ transform: translateY(10px); }
+        & > .circle .line{ transform: translateY(0); }
     }
     &.active{
-        & > .line{
-            &:nth-child(1){ transform: translateY(10px) rotate(45deg); }
-            &:nth-child(2){
-                transition: none;
-                opacity: 0;
-                transform: translateY(0px);
+        & > .circle{
+            .line{
+                &:nth-child(1){ transform: rotate(45deg) translateY(0px); }
+                &:nth-child(2){ display: none; }
+                &:nth-child(3){ transform: rotate(-45deg) translateY(0px); }
             }
-            &:nth-child(3){ transform: translateY(10px) rotate(-45deg); }
+        }
+        & > .menu-title{
+            opacity: 0;
+            visibility: hidden;
         }
     }
 }
@@ -79,13 +114,13 @@
             text-align: center;
         }
     }
-    .subscribe-button,
-    .rider-button{
+    .subscribe-button{
         display: inline-block;
         width: auto;
         height: 160px;
         position: absolute;
         top: 0;
+        left: 200px;
         background: transparent;
         a{
             display: inline-block;
@@ -105,12 +140,6 @@
                 content: "";
             }
         }
-    }
-    .subscribe-button{
-        left: 200px;
-    }
-    .rider-button{
-        left: 400px;
     }
     .menu{
         width: 100%;
@@ -208,27 +237,24 @@
         position: absolute;
         left: 0;
         bottom: 80px;
-        padding-left: 12.5%;
+        padding-left: 6.25%;
         box-sizing: border-box;
         overflow: hidden;
         li{
             display: inline-block;
-            width: auto;
-            line-height: 40px;
+            width: 45px;
+            height: 45px;
+            & + li{ margin-left: 15px; }
             a{
-                display: inline-block;
-                font-family: @djsl;
-                font-size: .875em;
+                display: block;
+                width: 100%;
+                height: 100%;
+                font-size: 2em;
                 color: @white;
-                margin-right: 40px;
+                text-align: center;
                 &:before{
                     display: inline-block;
                     vertical-align: middle;
-                    width: 40px;
-                    height: 2px;
-                    margin-right: 20px;
-                    background: @white;
-                    content: "";
                 }
             }
         }
@@ -381,11 +407,30 @@
 
 @media only screen and @mobileL{
 
+
     #toggle-menu{
-        width: 30px;
-        height: 22px;
         top: 40px;
         right: 40px;
+        & > .circle{
+            width: 40px;
+            height: 40px;
+            .line{
+                width: 20px;
+                margin-left: -10px;
+                &:nth-child(1){
+                    transform: translateY(-6px);
+                }
+                &:nth-child(2){
+                    transform: translateY(0);
+                }
+                &:nth-child(3){
+                    transform: translateY(6px);
+                }
+            }
+        }
+        & > .menu-title{
+            display: none;
+        }
     }
 
     #menu-holder{

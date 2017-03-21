@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "time-machine";
+  src:url("../fonts/time-machine.eot");
+  src:url("../fonts/time-machine.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/time-machine.woff") format("woff"),
+    url("../fonts/time-machine.ttf") format("truetype"),
+    url("../fonts/time-machine.svg#time-machine") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "time-machine" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "time-machine" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-odnoklassniki:before {
+  content: "\e001";
+}
+.icon-instagram:before {
+  content: "\e002";
+}
+.icon-facebook:before {
+  content: "\e003";
+}
+.icon-vk:before {
+  content: "\e004";
+}
+.icon-youtube:before {
+  content: "\e005";
+}
+.icon-itunes:before {
+  content: "\e000";
+}

@@ -326,9 +326,16 @@ class StateController extends AppController implements PageInitInterface
             ->findAll()
         ;
 
+        $riders = $_manager->getRepository('AppBundle:Rider')
+            ->findAll()
+        ;
+
         $response = [
             'view' => 'AppBundle:State:contacts.html.twig',
-            'data' => ['contacts' => $contacts],
+            'data' => [
+                'contacts' => $contacts,
+                'riders'   => $riders
+            ],
         ];
 
         return $this->render($response['view'], $response['data']);
