@@ -1,5 +1,5 @@
 {{#each albums}}
-    
+
     <article class="item lift-item">
         <div class="photo-holder">
             <a href="{{ link }}" class="photo">
@@ -7,6 +7,19 @@
                     <img src="{{ cover }}" alt="{{ title }}">
                 </figure>
             </a>
+            <ul class="links-holder">
+                {{#if iTunesLink}}
+                    <li><a href="{{ iTunesLink }}" target="_blank">iTunes</a></li>
+                {{/if}}
+
+                {{#if googlePlayLink}}
+                    <li><a href="{{ googlePlayLink }}" target="_blank">Google Play</a></li>
+                {{/if}}
+
+                {{#if ozonLink}}
+                    <li><a href="{{ ozonLink }}" target="_blank">OZON</a></li>
+                {{/if}}
+            </ul>
         </div>
         <div class="stamp-holder">
             <span class="upper-title">{{ year }}</span>

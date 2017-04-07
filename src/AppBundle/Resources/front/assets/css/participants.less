@@ -12,6 +12,24 @@
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /*  participants start                        */
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.participants-holder{
+    .grid{
+        .item{
+            .info-holder{
+                p{
+                    & > a{
+                        display: inline-block;
+                        float: none;
+                        margin: 0;
+                        padding: 0;
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+}
+
 .questionary-holder{
     margin-bottom: 80px;
     padding-left: 80px;
@@ -80,6 +98,12 @@
                 text-align: left;
                 color: @white;
                 padding: 20px 0 0 20px;
+                & > a{
+                    display: inline-block;
+                    margin: 0;
+                    padding: 0;
+                    text-decoration: underline;
+                }
             }
         }
     }
@@ -109,7 +133,7 @@
 }
 
 @media only screen and @mobileM{
-    
+
     .questionary-holder{
         padding-left: 0;
         margin-bottom: 40px;
@@ -137,7 +161,7 @@
 }
 
 @media only screen and @mobileS{
-    
+
     .questionary-holder{
         .questionary-item{
             .info-holder{

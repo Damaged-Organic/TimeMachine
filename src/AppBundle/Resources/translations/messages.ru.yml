@@ -3,6 +3,7 @@ common:
     title:  Машина Времени
     footer: © Машина Времени, %timeline%. Web Production by %link%
 
+    menu: меню
     subscription: подписка
 
     landscape:
@@ -62,6 +63,8 @@ index:
         back_band: назад на главную
 
 affiche:
+    meeting: Встреча
+
     tickets:
         available:     билеты
         not_available: билетов нет

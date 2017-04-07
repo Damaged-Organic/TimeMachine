@@ -7,6 +7,17 @@
                     <img src="{{ photo }}" alt="{{ photoTitle }}">
                 </figure>
             </div>
+            <ul class="links-holder">
+
+                {{#if facebookLink}}
+                    <li><a href="{{ facebookLink }}" class="icon icon-facebook" target="_blank">{{ linkMeeting }}</a></li>
+                {{/if}}
+
+                {{#if vkontakteLink}}
+                    <li><a href="{{ vkontakteLink }}" class="icon icon-vk" target="_blank">{{ linkMeeting }}</a></li>
+                {{/if}}
+
+            </ul>
         </div>
         <div class="stamp-holder">
             <span class="upper-title">{{ location }}</span>

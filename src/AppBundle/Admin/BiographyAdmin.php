@@ -87,7 +87,7 @@ class BiographyAdmin extends Admin
                                 'required'    => TRUE,
                                 'label'       => "Текст блока",
                                 'field_type'  => 'ckeditor',
-                                'config_name' => 'minimal_config',
+                                'config_name' => 'base_config',
                                 'constraints' => [
                                     new Assert\NotBlank,
                                     new Assert\Length(['max' => 2000]),
@@ -97,7 +97,7 @@ class BiographyAdmin extends Admin
                                 'required'    => FALSE,
                                 'label'       => "Block text",
                                 'field_type'  => 'ckeditor',
-                                'config_name' => 'minimal_config',
+                                'config_name' => 'base_config',
                                 'constraints' => [
                                     new Assert\Length(['max' => 2000]),
                                 ],

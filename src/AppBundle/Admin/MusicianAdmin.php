@@ -226,7 +226,7 @@ class MusicianAdmin extends Admin
         foreach( $musician->getBiographies() as $biography )
         {
             $biography->setText(
-                strip_tags($biography->getText(), '<p><strong><em><u>')
+                strip_tags($biography->getText(), '<p><strong><em><u><a>')
             );
         }
     }

@@ -2,34 +2,31 @@
 /*  toggle menu                               */
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 #toggle-menu{
-    display: inline-block;
+    display: block;
+    width: 60px;
+    height: auto;
     position: fixed;
     top: 80px;
     right: 80px;
     z-index: 30;
     cursor: pointer;
     transition: all .5s @easing 1s;
-    overflow: hidden;
-    & > .circle{
-        display: inline-block;
-        vertical-align: middle;
+    & > .lines-holder{
+        display: block;
         width: 60px;
-        height: 60px;
+        height: 20px;
         position: relative;
-        border-radius: 50%;
-        background: @grey;
-        overflow: hidden;
         .line{
             display: block;
-            width: 30px;
+            width: 40px;
             height: 1px;
             position: absolute;
             top: 50%;
             left: 50%;
-            margin-left: -15px;
+            margin-left: -20px;
             background: @white;
             opacity: 1;
-            transform-origin: 50% 0%;
+            transform-origin: 50% 50%;
             transition: all .5s @easing 0s;
             &:nth-child(1){
                 transform: translateY(-9px);
@@ -43,35 +40,29 @@
         }
     }
     & > .menu-title{
-        display: inline-block;
-        vertical-align: middle;
+        display: block;
+        width: 100%;
+        height: auto;
         font-family: @djsl;
-        font-size: .875em;
+        font-size: .75em;
         color: @white;
+        margin-top: 6px;
+        text-align: center;
         text-transform: uppercase;
         transition: all .5s @easing;
         opacity: 1;
         visibility: visible;
-        &:after{
-            display: inline-block;
-            vertical-align: middle;
-            width: 40px;
-            height: 1px;
-            background: @grey;
-            content: "";
-            margin: 0 20px;
-            overflow: hidden;
-        }
-    }
-    &:hover{
-        & > .circle .line{ transform: translateY(0); }
     }
     &.active{
-        & > .circle{
+        & > .lines-holder{
             .line{
-                &:nth-child(1){ transform: rotate(45deg) translateY(0px); }
+                &:nth-child(1){
+                    transform: rotate(45deg) translateY(0px);
+                }
                 &:nth-child(2){ display: none; }
-                &:nth-child(3){ transform: rotate(-45deg) translateY(0px); }
+                &:nth-child(3){
+                    transform: rotate(-45deg) translateY(0px);
+                }
             }
         }
         & > .menu-title{
@@ -201,7 +192,7 @@
                 }
                 a{
                     display: block;
-                    width: 180px;
+                    width: 195px;
                     height: 20px;
                     position: relative;
                     z-index: 10;
@@ -356,26 +347,6 @@
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 @media only screen and @tablet{
 
-    #toggle-menu{
-        &:hover{
-            & > .line{
-                &:nth-child(1){ transform: translateY(0px); }
-                &:nth-child(2){ transform: translateY(10px); }
-                &:nth-child(3){ transform: translateY(20px); }
-            }
-        }
-        &.active{
-            & > .line{
-                &:nth-child(1){ transform: translateY(10px) rotate(45deg); }
-                &:nth-child(2){
-                    transition: none;
-                    opacity: 0;
-                    transform: translateY(10px);
-                }
-                &:nth-child(3){ transform: translateY(10px) rotate(-45deg); }
-            }
-        }
-    }
 
     #menu-holder{
         .lang{
@@ -409,14 +380,13 @@
 
 
     #toggle-menu{
+        display: block;
         top: 40px;
         right: 40px;
-        & > .circle{
-            width: 40px;
-            height: 40px;
+        & > .lines-holder{
             .line{
-                width: 20px;
-                margin-left: -10px;
+                width: 30px;
+                margin-left: -15px;
                 &:nth-child(1){
                     transform: translateY(-6px);
                 }
@@ -437,6 +407,22 @@
         .lang{
             top: 20px;
             left: 20px;
+        }
+        .social-holder{
+            padding: 0 20px;
+            bottom: 20px;
+            box-sizing: border-box;
+            li{
+                display: block;
+                width: 30px;
+                height: 30px;
+                float: left;
+                overflow: hidden;
+                & + li{ margin-left: 5px; }
+                a{
+                    font-size: 1.5em;
+                }
+            }
         }
     }
 
@@ -471,7 +457,7 @@
                     padding-left: 40px;
                     margin-bottom: 10px;
                     a{
-                        width: 130px;
+                        width: 140px;
                         font-size: 1em;
                         span{
                             font-size: 1.125em;
@@ -480,24 +466,6 @@
                                 font-size: .75em;
                             }
                         }
-                    }
-                }
-            }
-        }
-        .social-holder{
-            height: auto;
-            bottom: 40px;
-            padding-left: 20px;
-            li{
-                display: inline-block;
-                width: auto;
-                line-height: 20px;
-                a{
-                    display: inline-block;
-                    width: auto;
-                    margin-right: 10px;
-                    &:before{
-                        display: none;
                     }
                 }
             }

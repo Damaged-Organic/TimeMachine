@@ -2,7 +2,7 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block title %}
-    {{ musician.title }} - {{ metadata.title }} | {{ 'common.title'|trans }}
+    {{ musician.title }} | {{ metadata.title }}
 {% endblock %}
 
 {% block metadata %}
@@ -93,7 +93,7 @@
                         <div class="info-holder">
                             <span class="underline"></span>
                             <h2>{{ biography.title }}</h2>
-                            <p>{{ biography.text|striptags('<p><strong><em><u>')|raw }}</p>
+                            <p>{{ biography.text|striptags('<p><strong><em><u><a>')|raw }}</p>
                         </div>
                     </article>
                 {% endfor %}

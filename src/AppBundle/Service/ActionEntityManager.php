@@ -131,13 +131,16 @@ class ActionEntityManager
             $link        = $this->getLink($album, 'music');
 
             $output[] = [
-                'cover'       => $cover,
-                'year'        => $album->getYearOfRelease(),
-                'title'       => $album->getTitle(),
-                'description' => $description,
-                'songCount'   => $songCount,
-                'linkTitle'   => $linkTitle,
-                'link'        => $link,
+                'cover'          => $cover,
+                'year'           => $album->getYearOfRelease(),
+                'title'          => $album->getTitle(),
+                'description'    => $description,
+                'songCount'      => $songCount,
+                'linkTitle'      => $linkTitle,
+                'link'           => $link,
+                'iTunesLink'     => $album->getITunesLink(),
+                'googlePlayLink' => $album->getGooglePlayLink(),
+                'ozonLink'       => $album->getOzonLink(),
             ];
         }
 
@@ -156,18 +159,22 @@ class ActionEntityManager
                 ? $this->translate('affiche.tickets.available')
                 : $this->translate('affiche.tickets.not_available')
             ;
+            $linkMeeting = $this->translate('affiche.meeting');
 
             $output[] = [
-                "photo"       => $photo,
-                "photoTitle"  => $concert->getCity(),
-                "location"    => $concert->getCountry() . ", " . $concert->getCity(),
-                "street"      => $concert->getPlace(),
-                "machineDate" => $concert->getDoorsOpenAt()->format('Y-m-d'),
-                "humanDate"   => $concert->getHumanDate($this->getLocale()),
-                "title"       => $concert->getTitle(),
-                "description" => $concert->getDescription(),
-                "linkTitle"   => $linkTitle,
-                "link"        => $concert->getTicketsLink(),
+                "photo"         => $photo,
+                "photoTitle"    => $concert->getCity(),
+                "location"      => $concert->getCountry() . ", " . $concert->getCity(),
+                "street"        => $concert->getPlace(),
+                "machineDate"   => $concert->getDoorsOpenAt()->format('Y-m-d'),
+                "humanDate"     => $concert->getHumanDate($this->getLocale()),
+                "title"         => $concert->getTitle(),
+                "description"   => $concert->getDescription(),
+                "linkTitle"     => $linkTitle,
+                "linkMeeting"   => $linkMeeting,
+                "link"          => $concert->getTicketsLink(),
+                "facebookLink"  => $concert->getFacebookLink(),
+                "vkontakteLink" => $concert->getVkontakteLink(),
             ];
         }
 

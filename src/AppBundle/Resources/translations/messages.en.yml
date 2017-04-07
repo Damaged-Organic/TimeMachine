@@ -3,6 +3,7 @@ common:
     title:  Time Machine
     footer: © Time Machine, %timeline%. Web Production by %link%
 
+    menu: menu
     subscription: subscription
 
     landscape:
@@ -62,6 +63,8 @@ index:
         back_band: back to homepage
 
 affiche:
+    meeting: Meeting
+    
     tickets:
         available:     tickets
         not_available: no tickets available

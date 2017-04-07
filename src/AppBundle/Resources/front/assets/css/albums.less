@@ -19,18 +19,17 @@
         .item{
             .photo-holder{
                 .links-holder{
-                    display: inline-block;
-                    position: absolute;
-                    left: 120px;
-                    bottom: 40px;
-                    z-index: 20;
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    position: relative;
+                    margin-top: 20px;
+                    box-sizing: border-box;
                     overflow: hidden;
                     li{
-                        display: block;
-                        width: 100%;
-                        height: auto;
+                        display: inline-block;
                         overflow: hidden;
-                        & + li{ margin-top: 10px; }
+                        & + li{ margin-left: 20px; }
                         a{
                             display: inline-block;
                             font-family: @djs;
@@ -47,15 +46,6 @@
                                 overflow: hidden;
                             }
                         }
-                    }
-                }
-            }
-            &:nth-child(even){
-                .photo-holder{
-                    .links-holder{
-                        left: auto;
-                        right: 40px;
-                        bottom: 40px;
                     }
                 }
             }
@@ -77,23 +67,9 @@
             .item:nth-child(even){
                 .photo-holder{
                     .links-holder{
-                        top: 40px;
-                        left: 80px;
+                        display: none;
                     }
                 }
-            }
-        }
-    }
-
-}
-
-@media only screen and @mobileL{
-
-    .albums-holder{
-        .grid{
-            .item,
-            .item:nth-child(even){
-                .photo-holder .links-holder{ display: none; }
             }
         }
     }
