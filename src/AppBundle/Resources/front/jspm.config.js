@@ -23,6 +23,7 @@ System.config({
     "hbs": "github:davis/plugin-hbs@1.2.1",
     "jquery": "npm:jquery@2.2.4",
     "jquery-validation": "github:jzaefferer/jquery-validation@1.15.0",
+    "less": "npm:systemjs-less-plugin@2.2.3",
     "mediaelement": "npm:mediaelement@2.21.2",
     "social-likes": "npm:social-likes@3.1.0",
     "github:davis/plugin-hbs@1.2.1": {

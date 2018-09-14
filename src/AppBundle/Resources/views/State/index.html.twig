@@ -7,7 +7,7 @@
 
 {% block metadata %}
     {{ parent() }}
-    <meta name="keywords" content="машина времени, группа машина времени, андрей макаревич, александр кутиков, валерий ефремов, андрей державин">
+    <meta name="keywords" content="машина времени, группа машина времени, андрей макаревич, александр кутиков, валерий ефремов">
     <meta name="description" content="{{ metadata.description }}">
     <meta name="robots" content="{{ metadata.robots }}">
     {# Open Graph #}
@@ -51,12 +51,14 @@
                     </div>
                     <div class="participant-photo"></div>
                 </li>
-                <li>
-                    <div class="btn btn-small switcher-cntrl" data-position="br">
-                        <a href="#"><span>{{ musicians.derzhavin.title }}</span></a>
-                    </div>
-                    <div class="participant-photo"></div>
-                </li>
+                {#
+                    <li>
+                        <div class="btn btn-small switcher-cntrl" data-position="br">
+                            <a href="#"><span>{{ musicians.derzhavin.title }}</span></a>
+                        </div>
+                        <div class="participant-photo"></div>
+                    </li>
+                #}
             </ul>
             <div class="inner info-holder">
                 <span class="upper-title">{{ 'index.topline'|trans }}</span>
@@ -133,26 +135,28 @@
                 <span class="initials-letter e">e</span>
             </div>
         </section>
-        <section class="outer part-holder right-side bottom-right">
-            <div class="photo-holder"></div>
-            <div class="outer right-content-holder">
-                <div class="inner info-holder">
-                    <span class="background-date-holder">{{ musicians.derzhavin.dateOfBirth|date('Y') }}</span>
-                    <div class="info">
-                        <span class="upper-title">{{ musicians.derzhavin.skill }}</span>
-                        <span class="underline"></span>
-                        <h2>{{ musicians.derzhavin.title }}</h2>
-                        <p>{{ musicians.derzhavin.story }}</p>
-                        <a href="{{ path('band', { 'id': musicians.derzhavin.id, 'slug': musicians.derzhavin.slug }) }}">
-                            {{ 'index.musician.read_more'|trans }}
-                            <span class="arrow"></span>
-                        </a>
+        {#
+            <section class="outer part-holder right-side bottom-right">
+                <div class="photo-holder"></div>
+                <div class="outer right-content-holder">
+                    <div class="inner info-holder">
+                        <span class="background-date-holder">{{ musicians.derzhavin.dateOfBirth|date('Y') }}</span>
+                        <div class="info">
+                            <span class="upper-title">{{ musicians.derzhavin.skill }}</span>
+                            <span class="underline"></span>
+                            <h2>{{ musicians.derzhavin.title }}</h2>
+                            <p>{{ musicians.derzhavin.story }}</p>
+                            <a href="{{ path('band', { 'id': musicians.derzhavin.id, 'slug': musicians.derzhavin.slug }) }}">
+                                {{ 'index.musician.read_more'|trans }}
+                                <span class="arrow"></span>
+                            </a>
+                        </div>
                     </div>
+                    <span class="initials-letter a">a</span>
+                    <span class="initials-letter d">d</span>
                 </div>
-                <span class="initials-letter a">a</span>
-                <span class="initials-letter d">d</span>
-            </div>
-        </section>
+            </section>
+        #}
         <span id="close-part">{{ 'index.musician.back_band'|trans }}</span>
         <div id="bg-circle-holder"></div>
     </main>

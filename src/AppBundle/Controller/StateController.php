@@ -263,7 +263,7 @@ class StateController extends AppController implements PageInitInterface
     {
         $_manager = $this->getDoctrine()->getManager();
 
-        if( $id ) {
+		if( $id ) {
             $photoAlbum = $_manager->getRepository('AppBundle:PhotoAlbum')
                 ->findSingle($id)
             ;

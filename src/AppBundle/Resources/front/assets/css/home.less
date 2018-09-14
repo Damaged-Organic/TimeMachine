@@ -315,7 +315,7 @@
         overflow: hidden;
         & > li{
             display: block;
-            width: 25%;
+            width: 33%;
             height: 100%;
             float: left;
             position: relative;
@@ -466,7 +466,7 @@
 .part-holder.top-right{
     .photo-holder{
         background: url("@{images}kytikov-part.jpg") no-repeat 50% 0%;
-        background-size: cover;
+        background-size: cover;    
     }
     .right-content-holder{
         .initials-letter{
@@ -560,7 +560,7 @@
 }
 
 @media only screen and @tablet{
-
+    
     #content{ overflow: visible; }
 
     .part-holder{
@@ -649,9 +649,32 @@
 }
 
 @media only screen and @mobileL{
-
+    
     .part-holder{
+        background-color: #000;
+        margin-bottom: -1px;
+        &:not(:first-child) {
+            height: auto;
+            padding-bottom: 20px;
+            .photo-holder {
+                height: 70vh;
+                position: static;
+                &:after {
+                    content: none;
+                }
+            }
+            .right-content-holder{
+                position: relative;
+                height: auto;
+            }
+            .info-holder {
+                position: static;
+                padding: 20px 40px;
+            }
+        }
+
         .info-holder{
+            position: relative;
             padding: 0 40px;
             .upper-title{ padding: 0 20px 20px; }
             .underline{ width: 40px; }
@@ -737,7 +760,7 @@
 
     .part-holder{
         .info-holder{
-            padding: 0 20px;
+            padding: 20px 20px;
             .upper-title{ display: none; }
             .underline{ width: 40px; }
             h2{ padding: 20px 0 0; }

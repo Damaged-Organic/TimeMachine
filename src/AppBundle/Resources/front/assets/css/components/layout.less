@@ -82,7 +82,7 @@ h1.entitled-holder{
                 &:before{
                     z-index: 5;
                     content: "";
-                    background: fade(@grey, 30%);
+                    background: fade(@grey, 60%);
                 }
             }
         }
@@ -201,7 +201,6 @@ h1.entitled-holder{
                 padding-left: 40px;
                 box-sizing: border-box;
                 & > .upper-title{
-                    color: @white;
                     font-size: 2.5em;
                     padding: 0 40px;
                     box-sizing: border-box;
@@ -248,7 +247,7 @@ h1.entitled-holder{
 @media only screen and @mobileL{
 
     #content .outer{ padding: 160px 0 0 16.66666666666667%; }
-
+    
     h1.entitled-holder{
         &:before{
             width: 40px;
@@ -262,11 +261,16 @@ h1.entitled-holder{
             margin-bottom: 40px;
             .photo-holder{
                 padding-left: 20px;
+                .photo:before {
+                    content: none;
+                }
             }
             .stamp-holder{
-                top: 20px;
+                position: static;
+                margin-top: 20px;
                 & > .upper-title{
                     padding: 0 20px;
+                    color: #fff;
                 }
                 & > .sub-title{
                     padding: 0 20px;
@@ -274,8 +278,9 @@ h1.entitled-holder{
                 }
             }
             .info-holder{
+                position: static;
+                margin-top: 20px;
                 padding: 0;
-                margin-top: -100px;
                 .upper-title{
                     padding: 0 40px 10px;
                     font-size: .875em;
@@ -314,7 +319,7 @@ h1.entitled-holder{
                 & > .upper-title{ font-size: 2em; }
                 & > .sub-title{ font-size: .75em; }
             }
-            .info-holder{ margin-top: -120px; }
+            .info-holder{ margin-top: 20px; }
         }
     }
 
@@ -330,12 +335,13 @@ h1.entitled-holder{
             margin-bottom: 40px;
             .photo-holder{ padding-left: 0; }
             .stamp-holder{
-                padding: 0;
+                position: static;
+                margin-top: 10px;
                 & > .upper-title{ font-size: 1.5em; }
             }
             .info-holder{
                 padding: 0;
-                margin-top: -160px;
+                margin-top: 10px;
                 .upper-title{ padding: 0 10px 10px 20px; }
                 h2{ padding: 20px 10px 0 20px; }
                 p{ padding: 10px 10px 0 20px; }

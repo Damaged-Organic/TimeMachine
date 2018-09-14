@@ -43,6 +43,36 @@
                     </mj-text>
                 </mj-column>
             </mj-section>
+            <mj-section>
+                <mj-column>
+                    <mj-text font-family="Ubuntu, Helvetica, Arial, sans-serif" color="#fff" font-size="13px" align="left" padding="0 20px">
+                        <p style="font-weight: bold; font-size: 16px; text-transform: uppercase;">Blog</p>
+                    </mj-text>
+                    <mj-divider border-width="1px" border-style="solid" border-color="#141414" />
+                    <mj-text font-family="Ubuntu, Helvetica, Arial, sans-serif" color="#fff" font-size="13px" align="left" padding="0 20px">
+                        <p style="font-weight: normal; font-size: 16px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                    </mj-text>
+                    <mj-text font-family="Ubuntu, Helvetica, Arial, sans-serif" font-size="13px" align="right">
+                        <a href="#" style="text-decoration: none; text-transform: uppercase; font-weight: 300; color: #fff;">[[link to]]</a>
+                    </mj-text>
+                </mj-column>
+            </mj-section>
+            <mj-section>
+                <mj-column>
+                    <mj-text font-family="Ubuntu, Helvetica, Arial, sans-serif" color="#fff" font-size="13px" align="left" padding="0 20px">
+                        <p style="font-weight: bold; font-size: 16px; text-transform: uppercase;">Music</p>
+                    </mj-text>
+                    <mj-divider border-width="1px" border-style="solid" border-color="#141414" />
+                    <mj-text font-family="Ubuntu, Helvetica, Arial, sans-serif" color="#fff" font-size="13px" align="left" padding="0 20px">
+                        <p style="font-weight: normal; font-size: 16px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                    </mj-text>
+                    <mj-text font-family="Ubuntu, Helvetica, Arial, sans-serif" font-size="13px" align="right">
+                        <a href="#" style="text-decoration: none; text-transform: uppercase; font-weight: 300; color: #fff;">[[link to]]</a>
+                    </mj-text>
+                </mj-column>
+            </mj-section>
             <!--footer-->
             <mj-section>
                 <mj-group>

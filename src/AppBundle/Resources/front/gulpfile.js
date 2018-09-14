@@ -5,7 +5,7 @@ var gulp = require("gulp"),
     exec = require("child_process").exec,
 
     imagemin = require("gulp-imagemin"),
-    pngquant = require("imagemin-pngquant");
+    pngquant = require("imagemin-pngquant"),
 
     mjml = require("gulp-mjml");
 
@@ -18,33 +18,39 @@ gulp.task("js", function(){
     fileList.map(function(entry){
 
         fileName = /\w+(?=\.js)/gi.exec(entry)[0];
-        bundle = exec('jspm bundle-sfx '+ entry +' '+ cfg.build + '/js/'+ fileName +'.bundle.min.js --minify --skip-source-maps');
-
+        bundle = exec('jspm bundle-sfx '+ entry +' '+ cfg.build + '/js/'+ fileName +'.bundle.min.js --minify --skip-source-maps')
+        
         return bundle;
-    });
+    })
 
 });
 
 gulp.task("css", function(){
-
+    
     var fileList = glob.sync(cfg.css + "/*.less"),
         fileName, bundle;
 
     fileList.map(function(entry){
         fileName = /\w+(?=\.less)/gi.exec(entry)[0];
-        bundle = exec('lessc --clean-css '+ entry +' --autoprefix="last 2 versions" '+ cfg.build +'/css/'+ fileName +'.bundle.min.css');
+        bundle = exec('lessc --clean-css '+ entry +' '+ cfg.build +'/css/'+ fileName +'.bundle.min.css');
     });
 
 });
 
 gulp.task("fonts", function(){
-
+    
     gulp.src(cfg.fonts +"/**/*.*")
         .pipe(gulp.dest(cfg.build +"/fonts/"));
 });
 
-gulp.task("images", function(){
+gulp.task("templates", function(){
+    
+    gulp.src(cfg.templates +"/**/*.hbs")
+        .pipe(gulp.dest(cfg.build +"/js/templates/"));
+});
 
+gulp.task("images", function(){
+    
     gulp.src(cfg.images +"/**/*.*")
         .pipe(imagemin({
             optimizationLevel: 4,
@@ -55,27 +61,22 @@ gulp.task("images", function(){
         .pipe(gulp.dest(cfg.build +"/images/"));
 });
 
-gulp.task("templates", function(){
-
-    gulp.src(cfg.templates +"/**/*.hbs")
-        .pipe(gulp.dest(cfg.build +"/js/templates/"));
-});
-
 gulp.task("letters", function(){
 
     gulp.src(cfg.letters +"/*.mjml")
         .pipe(mjml())
-        .pipe(gulp.dest(cfg.build +"/letters/"));
+        .pipe(gulp.dest(cfg.build +"/letters/"))
 });
 
 gulp.task("watcher", function(){
-
-    //gulp.watch(cfg.js +"/**/*.js", ["js"]);
+    
+    gulp.watch(cfg.js +"/**/*.js", ["js"]);
     gulp.watch(cfg.css +"/**/*.less", ["css"]);
     gulp.watch(cfg.fonts +"/**/*.*", ["fonts"]);
     gulp.watch(cfg.templates +"/**/*.hbs", ["templates"]);
     gulp.watch(cfg.images +"/**/*.*", ["images"]);
+    gulp.watch(cfg.letters +"/*.mjml", ["letters"]);
 
 });
 
-gulp.task("default", ["js", "css", "fonts", "images", "templates", "letters"]);
+gulp.task("default", ["js", "css", "fonts", "templates", "images", "letters"]);
