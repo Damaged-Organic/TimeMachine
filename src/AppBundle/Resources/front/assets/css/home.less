@@ -398,6 +398,27 @@
             text-align: left;
         }
 
+        .logo {
+
+            position: relative;
+
+            &:before {
+                content: "";
+                background-image: url("@{images}50.png");
+                background-repeat: no-repeat;
+
+                display: block;
+                width: 85px;
+                height: 85px;
+                background-size: 85px 85px;
+                -webkit-transform: rotate(30deg);
+                transform: rotate(10deg);
+                position: absolute;
+                left: 4px;
+                z-index: -1;
+            }
+        }
+
         .band-title {
 
             display: inline-block;
